@@ -1,0 +1,18 @@
+#数据源
+spring:
+  datasource:
+    username: root
+    password: 13762539019whxA
+    url: jdbc:mysql://localhost:3306/onlinemallcake?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 10
+        queue-capacity: 20
+        keep-alive: 120s
+      thread-name-prefix: omc-user-service-
+
