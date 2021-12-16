@@ -6,9 +6,9 @@
     </el-header>
     <!-- 主要内容 -->
     <el-main>
-      Main
       <router-view></router-view>
     </el-main>
+
   </el-container>
 </template>
 
