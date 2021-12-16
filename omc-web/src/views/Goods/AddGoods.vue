@@ -1,16 +1,16 @@
 <template>
   <div class="add-goods">
-    <h2>用于添加蛋糕界面</h2>
+    <h2>填入待添加蛋糕的参数</h2>
     <div class="main">
       <ul>
         <li>
-          <label for="name">名称:</label><input type="text" id="name">
+          <label for="name">名称:</label><input v-model="name" type="text" id="name">
         </li>
         <li>
-          <label for="price">价格:</label><input type="text" id="price">
+          <label for="price">价格:</label><input v-model="price" type="text" id="price">
         </li>
         <li>
-          <label for="stock">库存:</label><input type="text" id="stock">
+          <label for="stock">库存:</label><input v-model="stock" type="text" id="stock">
         </li>
         <li>
           <label for="img1">封面图片:</label><input type="file" id="img1">
@@ -23,7 +23,7 @@
         </li>
         <li>
           <label for="category">种类:</label>
-          <select id="category">
+          <select id="category" v-model="category">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="opel">Opel</option>
@@ -39,10 +39,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, toRefs, reactive } from "vue";
 export default defineComponent({
   setup() {
-    return {};
+    const addObj = reactive({
+      name: "",
+      price: 0,
+      stock: 0,
+      img1: "",
+      img2: "",
+      img3: "",
+      category: "volvo",
+    });
+
+    return {
+      ...toRefs(addObj),
+    };
   },
 });
 </script>
@@ -50,6 +62,10 @@ export default defineComponent({
 <style scoped lang="less">
 .add-goods {
   text-align: center;
+  h2 {
+    margin: 20px;
+    color: @fontColor;
+  }
   .main {
     width: 800px;
     margin: 0 auto;
@@ -66,6 +82,18 @@ export default defineComponent({
       select {
         width: 200px;
       }
+    }
+    .submit {
+      width: 180px;
+      height: 40px;
+      margin: 0 auto;
+      background-color: @fontColor;
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .submit:hover {
+      color: @hoverColor;
     }
   }
 }
