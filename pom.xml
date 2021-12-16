@@ -7,6 +7,7 @@
         <module>omc-common</module>
         <module>omc-user</module>
         <module>omc-auth</module>
+        <module>omc-goods</module>
     </modules>.gitignore
     <parent>
         <groupId>org.springframework.boot</groupId>
