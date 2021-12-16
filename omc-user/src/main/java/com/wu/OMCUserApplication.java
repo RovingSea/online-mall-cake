@@ -4,7 +4,7 @@ package com.wu;
  * Hello world!
  *
  */
-public class App 
+public class OMCUserApplication
 {
     public static void main( String[] args )
     {
