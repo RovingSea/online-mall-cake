@@ -6,7 +6,7 @@ package com.wu.common.base;
  * @time 19:59
  * @since 1.0
  */
-public class BaseServiceImpl<T> implements BaseService<T>{
+public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
     private final BaseMapper<T> baseMapper;
 

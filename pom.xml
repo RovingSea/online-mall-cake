@@ -2,46 +2,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wu.onlinemallcake</groupId>
+    <artifactId>online-mall-cake</artifactId>
+    <version>0.0.1</version>
+
     <packaging>pom</packaging>
     <modules>
         <module>omc-common</module>
         <module>omc-user</module>
         <module>omc-auth</module>
         <module>omc-goods</module>
-    </modules>.gitignore
+    </modules>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
-    <groupId>com.wu</groupId>
-    <artifactId>online-mall-cake</artifactId>
-    <version>0.0.1</version>
+
+
     <name>online-mall-cake</name>
     <description>大三上学期JavaWeb课程设计作业</description>
+
     <properties>
         <java.version>1.8</java.version>
+        <onlinemallcake.version>0.0.1</onlinemallcake.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
+        <maven.resources.plugin.version>3.2.0</maven.resources.plugin.version>
+        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+        <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+        <dubbo.version>3.0.4</dubbo.version>
     </properties>
-    <dependencies>
 
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <!--统一管理依赖的版本号-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.wu.onlinemallcake</groupId>
+                <artifactId>omc-common</artifactId>
+                <version>${onlinemallcake.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
