@@ -8,7 +8,20 @@ const routes = [
       {
         path: 'goods',
         name: 'goods',
-        component: () => import('../views/Back/GoodsManage.vue')
+        component: () => import('../views/Goods/GoodsManage.vue'),
+        redirect: { name: 'goodsshow' },
+        children: [
+          {
+            path: 'addgoods',
+            name: 'addgoods',
+            component: () => import('../views/Goods/AddGoods.vue')
+          },
+          {
+            path: 'goodsshow',
+            name: 'goodsshow',
+            component: () => import('../views/Goods/GoodsShow.vue')
+          }
+        ]
       },
       {
         path: 'customer',

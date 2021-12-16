@@ -26,4 +26,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+.el-header {
+  padding-left: 0;
+}
 </style>
