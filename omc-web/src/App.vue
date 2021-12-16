@@ -1,19 +1,18 @@
-<script>
-</script>
-
 <template>
   <div>
-    <el-container>
-      <el-header>Header</el-header>
-      <el-main>
-        Main
-        <router-view></router-view>
-      </el-main>
-    </el-container>
-
+    <router-view></router-view>
   </div>
-
 </template>
 
-<style>
+<script >
+import Back from "./views/Back/index.vue";
+import { defineComponent } from "vue";
+export default defineComponent({
+  components: {
+    Back,
+  },
+});
+</script>
+
+<style scoped lang="less">
 </style>
