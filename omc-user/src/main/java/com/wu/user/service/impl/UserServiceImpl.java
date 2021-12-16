@@ -1,4 +1,4 @@
-package com.wu.service.impl;
+package com.wu.user.service.impl;
 
 /**
  * @author Haixin Wu
