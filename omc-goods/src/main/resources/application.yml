@@ -17,8 +17,11 @@ spring:
       thread-name-prefix: omc-goods-service-
 # mybatis
 mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.wu.common.domain
+
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
