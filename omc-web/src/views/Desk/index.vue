@@ -23,7 +23,18 @@
             <path d="M701.0681 894.490368m-62.930261 0a61.497 61.497 0 1 0 125.860523 0 61.497 61.497 0 1 0-125.860523 0Z" p-id="5701" fill="#684029"></path>
           </svg>
         </div>
+        <div class="manager">
+          <router-link :to="{name:'back'}">
+            <svg t="1639729868714" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7343" width="200" height="200">
+              <path d="M146.162688 662.038528l183.54688-87.602176a56.889344 56.889344 0 0 1 24.50432-5.547008h315.573248c8.47872 0 16.850944 1.8944 24.50432 5.547008l183.545856 87.602176a56.889344 56.889344 0 0 1 32.385024 51.341312v196.842496c0 31.418368-25.469952 56.88832-56.889344 56.88832H170.667008c-31.419392 0-56.889344-25.469952-56.889344-56.88832v-196.84352a56.889344 56.889344 0 0 1 32.385024-51.340288zM568.889344 768c0 15.709184 12.734464 28.444672 28.443648 28.444672h113.777664c15.710208 0 28.444672-12.735488 28.444672-28.444672s-12.734464-28.444672-28.444672-28.444672h-113.77664c-15.710208 0-28.444672 12.735488-28.444672 28.444672zM512 512c-125.67552 0-227.555328-101.879808-227.555328-227.555328S386.32448 56.889344 512 56.889344s227.555328 101.879808 227.555328 227.555328S637.67552 512 512 512z" fill="#684029" p-id="7344"></path>
+            </svg>后台管理
+            Vujson + Master
+          </router-link>
+        </div>
       </div>
+    </div>
+    <div class="main">
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -46,13 +57,14 @@ export default defineComponent({
   line-height: 80px;
   text-align: center;
   background-color: #fff;
+  margin-bottom: 80px;
+  color: @fontColor !important;
   box-shadow: 2px 0px 4px 0px #684029;
   .left {
     flex: 5;
     display: flex;
     li {
       flex: 1;
-      color: @fontColor;
       cursor: pointer;
     }
   }
@@ -91,6 +103,30 @@ export default defineComponent({
         vertical-align: middle;
       }
     }
+    .manager {
+      a {
+        display: block;
+        cursor: pointer;
+        height: 40px;
+        width: 150px;
+        line-height: 50px;
+        font-size: 18px;
+        font-weight: 600;
+        color: @fontColor;
+        svg {
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
+      }
+    }
+    .manager:hover {
+      color: @hoverColor;
+    }
   }
+}
+.main {
+  padding-top: 80px;
 }
 </style>
