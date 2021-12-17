@@ -14,6 +14,6 @@ public interface UserService {
 
     boolean login();
 
-    User selectByUsername(String username);
+    User getByUsername(String username);
 }
 

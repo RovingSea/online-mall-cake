@@ -36,7 +36,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public User selectByUsername(String username) {
+    public User getByUsername(String username) {
         return userMapper.selectByUsername(username);
     }
 }

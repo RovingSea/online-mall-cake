@@ -41,7 +41,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
         Object object = authentication.getPrincipal();
         if (object != null){
             User springUser = (User) object;
-            com.wu.common.domain.User user = userService.selectByUsername(springUser.getUsername());
+            com.wu.common.domain.User user = userService.getByUsername(springUser.getUsername());
             if (user != null){
                 String token = TokenUtil.createToken(springUser.getUsername());
                 MAP.put("token", token);
