@@ -19,7 +19,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Override
     @Insert("insert into onlinemallcake.user(username, password, name, email, phone, address, is_admin, is_validate) " +
-            "VALUES(#{username}, #{passwod}, #{name}, #{email}, #{phone}, #{address}, #{isAdmin}, #{isValidate}) ")
+            "VALUES(#{username}, #{password}, #{name}, #{email}, #{phone}, #{address}, #{isAdmin}, #{isValidate}) ")
     boolean insert(User record);
 
     @Override
