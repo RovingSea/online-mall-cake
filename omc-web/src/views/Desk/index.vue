@@ -51,6 +51,7 @@ export default defineComponent({
 <style scoped lang="less">
 .header {
   position: fixed;
+  z-index: 1000;
   display: flex;
   width: 100%;
   height: 80px;

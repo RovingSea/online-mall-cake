@@ -7,6 +7,12 @@
         </el-carousel-item>
       </el-carousel>
     </div>
+    <div class="main">
+      <video autoplay muted loop preload poster="../../assets/images/video.jpg">
+        <source src="../../assets/images/video.jpg" />
+      </video>
+      <p>ONLINE CAKE </p>
+    </div>
   </div>
 </template>
 
@@ -33,9 +39,6 @@ export default defineComponent({
       }
       ]
     })
-    onMounted(() => {
-      const { bannerList } = HomeInfo
-    })
     return {
       ...toRefs(HomeInfo)
     };
@@ -44,6 +47,14 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+@font-face {
+  font-family: "webfont";
+  src: url("//at.alicdn.com/t/webfont_9fm5seiutdt.eot?#iefix")
+      format("embedded-opentype"),
+    url("//at.alicdn.com/t/webfont_9fm5seiutdt.svg#杨任东竹石体-Bold")
+      format("svg");
+}
+
 .list-container block {
   height: 502px;
 }
@@ -58,5 +69,29 @@ export default defineComponent({
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+.main {
+  margin-top: 20px;
+  .box {
+    width: 700px;
+    height: 500px;
+    position: relative;
+  }
+  video,
+  p {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 600px;
+    left: 0;
+    z-index: 10;
+  }
+  p {
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+    background: white;
+    mix-blend-mode: screen;
+  }
 }
 </style>
