@@ -17,7 +17,7 @@ import java.util.Map;
 @Getter
 public enum RoleEnum {
 
-    CUSTOMER(false, "消费者"),
+    USER(false, "用户"),
     ADMIN( true, "管理员");
 
     private final boolean isAdmin;

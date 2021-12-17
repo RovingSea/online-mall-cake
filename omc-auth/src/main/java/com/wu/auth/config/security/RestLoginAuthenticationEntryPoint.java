@@ -21,7 +21,7 @@ import java.io.IOException;
 @Component
 public class RestLoginAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
 
-    public RestLoginAuthenticationEntryPoint(String loginFormUrl) {
+    public RestLoginAuthenticationEntryPoint() {
         super("/omc/api/user/login");
     }
 

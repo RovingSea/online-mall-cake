@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 权限设置
                 // 只有学生身份可以访问学生接口
-                .antMatchers("/omc/api/customer/**").hasRole(RoleEnum.CUSTOMER.getName())
+                .antMatchers("/omc/api/user/**").hasRole(RoleEnum.USER.getName())
                 // 只有管理员身份可以访问管理员接口
                 .antMatchers("/omc/api/admin/**").hasRole(RoleEnum.ADMIN.getName())
                 // 所有人都可以访问
