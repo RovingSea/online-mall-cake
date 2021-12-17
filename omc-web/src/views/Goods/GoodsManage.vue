@@ -20,7 +20,6 @@ export default defineComponent({
     function addGoods() {
       router.push({ name: "addgoods" });
     }
-    console.log(route);
     return {
       addGoods,
       route,
