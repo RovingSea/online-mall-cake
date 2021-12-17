@@ -44,6 +44,13 @@
         </tr>
       </tbody>
     </table>
+    <Pagination
+      :total="50"
+      :pageSize="4"
+      :pageNo="1"
+      :continues="5"
+      class="pagination"
+    />
   </div>
 </template>
 
@@ -115,5 +122,8 @@ table {
       }
     }
   }
+}
+.pagination {
+  margin-top: 20px;
 }
 </style>
