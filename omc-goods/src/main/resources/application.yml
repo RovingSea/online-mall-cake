@@ -1,0 +1,27 @@
+spring:
+  # 数据源
+  datasource:
+    username: root
+    password: 13762539019whxA
+    url: jdbc:mysql://localhost:3306/onlinemallcake?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  # 连接池
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 10
+        queue-capacity: 20
+        keep-alive: 120s
+      thread-name-prefix: omc-goods-service-
+# mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wu.common.domain
+
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
