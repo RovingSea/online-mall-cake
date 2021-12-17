@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="add-cur">添加客户</div>
+    <div class="add-cur" @click="addCustomer">添加客户</div>
     <div class="main">
       <router-view></router-view>
     </div>
@@ -9,9 +9,16 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   setup() {
-    return {}
+    const router = useRouter()
+    function addCustomer() {
+      router.push({ name: 'addcustomer' })
+    }
+    return {
+      addCustomer
+    }
   },
 })
 </script>

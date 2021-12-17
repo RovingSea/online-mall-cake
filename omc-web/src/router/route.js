@@ -33,7 +33,12 @@ const routes = [
             path: 'customershow',
             name: 'customershow',
             component: () => import('../views/Customer/CustomerShow.vue')
-          }
+          },
+          {
+            path: 'addcustomer',
+            name: 'addcustomer',
+            component: () => import('../views/Customer/AddCustomer.vue')
+          },
         ]
       },
       {
@@ -48,6 +53,6 @@ const routes = [
       },
     ]
   },
-  { path: '/desk', component: Desk },
+  { path: '/desk', name: 'desk', component: Desk },
 ]
 export default routes
