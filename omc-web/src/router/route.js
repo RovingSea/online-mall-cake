@@ -1,7 +1,7 @@
 import Back from '../views/Back/index.vue'
 import Desk from '../views/Desk/index.vue'
 const routes = [
-  { path: '/', redirect: '/back' },
+  { path: '/', name: 'back', redirect: '/back' },
   {
     path: '/back', component: Back,
     children: [
@@ -26,7 +26,20 @@ const routes = [
       {
         path: 'customer',
         name: 'customer',
-        component: () => import('../views/Back/CustomerManage.vue')
+        component: () => import('../views/Customer/CustomerManage.vue'),
+        redirect: { name: 'customershow' },
+        children: [
+          {
+            path: 'customershow',
+            name: 'customershow',
+            component: () => import('../views/Customer/CustomerShow.vue')
+          },
+          {
+            path: 'addcustomer',
+            name: 'addcustomer',
+            component: () => import('../views/Customer/AddCustomer.vue')
+          },
+        ]
       },
       {
         path: 'order',
@@ -40,6 +53,18 @@ const routes = [
       },
     ]
   },
-  { path: '/desk', component: Desk },
+  {
+    path: '/desk', name: 'desk',
+    component: Desk,
+    redirect: { name: 'home' },
+    children: [
+
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('../views/Desk/Home.vue')
+      }
+    ]
+  },
 ]
 export default routes

@@ -1,26 +1,24 @@
 <template>
   <div class="Header">
     <div class="title flex-item">
-      <img src="../../assets/logo.png" alt="">
+      <img src="../../assets/logo.png" alt="" />
       蛋糕店后台
     </div>
-    <router-link :to="{name:'order'}">订单管理</router-link>
-    <router-link :to="{name:'customer'}">客户管理</router-link>
-    <router-link :to="{name:'goods'}">商品管理</router-link>
-    <router-link :to="{name:'category'}">类目管理</router-link>
-    <a>退出</a>
+    <router-link :to="{ name: 'order' }">订单管理</router-link>
+    <router-link :to="{ name: 'customer' }">客户管理</router-link>
+    <router-link :to="{ name: 'goods' }">商品管理</router-link>
+    <router-link :to="{ name: 'category' }">类目管理</router-link>
+    <router-link :to="{ name: 'desk' }">退出</router-link>
   </div>
 </template>
 
 <script lang="ts">
-
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 export default defineComponent({
-
   setup() {
-    return {};
+    return {}
   },
-});
+})
 </script>
 
 <style scoped lang="less">

@@ -7,7 +7,6 @@
         <li> <img src="../../assets/images/cake3.png" alt=""> 热销推荐</li>
         <li> <img src="../../assets/images/cake4.png" alt=""> 新品推荐</li>
       </ul>
-
     </div>
     <table>
       <thead>
