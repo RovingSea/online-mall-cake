@@ -1,13 +1,18 @@
 package com.wu;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
- * Hello world!
- *
+ * 权限认证服务
+ * @author Haixin Wu
+ * @date 2021/12/16
+ * @time 19:11
+ * @since 1.0
  */
-public class OMCAuthApplication
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+@SpringBootApplication
+public class OMCAuthApplication {
+    public static void main( String[] args ) {
+        SpringApplication.run(OMCAuthApplication.class, args);
     }
 }

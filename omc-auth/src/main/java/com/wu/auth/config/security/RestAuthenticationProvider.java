@@ -2,6 +2,7 @@ package com.wu.auth.config.security;
 
 import com.wu.common.domain.enums.RoleEnum;
 import com.wu.common.service.user.UserService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,11 +26,15 @@ import java.util.ArrayList;
 @Component
 public class RestAuthenticationProvider implements AuthenticationProvider {
 
-    private final UserService userService;
+
+    private final PasswordEncoder pw;
+
+    @DubboReference
+    private UserService userService;
 
     @Autowired
-    public RestAuthenticationProvider(UserService userService) {
-        this.userService = userService;
+    public RestAuthenticationProvider(PasswordEncoder pw) {
+        this.pw = pw;
     }
 
     @Override
@@ -49,7 +55,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.getName(user.isAdmin())));
 
         User springUser = new User(user.getUsername(), user.getPassword(), grantedAuthorities);
-        return new UsernamePasswordAuthenticationToken(springUser, springUser.getPassword(), springUser.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(springUser, pw.encode(springUser.getPassword()), springUser.getAuthorities());
     }
 
     @Override
