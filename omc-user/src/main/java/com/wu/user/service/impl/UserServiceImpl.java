@@ -3,6 +3,7 @@ package com.wu.user.service.impl;
 import com.wu.common.base.BaseMapper;
 import com.wu.common.base.BaseServiceImpl;
 import com.wu.common.domain.User;
+import com.wu.common.service.user.UserService;
 import com.wu.user.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 1.0
  */
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User> {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     private final UserMapper userMapper;
 
@@ -24,8 +25,19 @@ public class UserServiceImpl extends BaseServiceImpl<User> {
         this.userMapper = userMapper;
     }
 
-    public boolean register(User user){
-        return super.insert(user);
+    @Override
+    public boolean register(User record) {
+        return super.insert(record);
+    }
+
+    @Override
+    public boolean login() {
+        return false;
+    }
+
+    @Override
+    public User selectByUsername(String username) {
+        return userMapper.selectByUsername(username);
     }
 }
 

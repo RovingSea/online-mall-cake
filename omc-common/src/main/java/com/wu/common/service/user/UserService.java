@@ -1,5 +1,7 @@
 package com.wu.common.service.user;
 
+import com.wu.common.domain.User;
+
 /**
  * 用户相关的接口
  * @author Haixin Wu
@@ -8,7 +10,10 @@ package com.wu.common.service.user;
  * @since 1.0
  */
 public interface UserService {
-    boolean register();
+    boolean register(User record);
+
     boolean login();
+
+    User selectByUsername(String username);
 }
 
