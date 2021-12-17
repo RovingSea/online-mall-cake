@@ -2,7 +2,12 @@ import request from './request.js'
 import mockRequest from './mockRequest.js'
 
 
-// 请求首页轮播图
-export const reqBannerList = () => mockRequest({ url: '/banner', method: 'get' })
 
 
+export const reqBanners = () => mockRequest.get('/banner')
+
+
+
+reqBanners().then(resolve => {
+  console.log(resolve)
+})

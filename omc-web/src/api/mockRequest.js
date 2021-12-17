@@ -2,7 +2,6 @@ import axios from 'axios'
 // 引入进度条
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
-
 const request = axios.create({
   baseURL: '/mock',
   timeout: 5000

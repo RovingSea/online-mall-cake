@@ -7,9 +7,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^1.2.0-beta.6",
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
-    "element-plus": "^1.2.0-beta.6",
+    "mockjs": "^1.1.0",
+    "vite-plugin-mock": "^2.9.6",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
