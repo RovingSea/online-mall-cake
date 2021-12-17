@@ -17,15 +17,15 @@
         </li>
         <li>
           <label for="img1">封面图片:</label
-          ><input type="file" id="img1" ref="img1" />
+          ><input type="file" id="img1" :ref="images[0]" />
         </li>
         <li>
-          <label for="img2">详情图片1:</label
-          ><input type="file" id="img2" ref="img2" />
+          <label for="img1">详情图片1:</label
+          ><input type="file" id="img1" :ref="images[1]" />
         </li>
         <li>
-          <label for="img3">详情图片2:</label
-          ><input type="file" id="img3" ref="img3" />
+          <label for="img2">详情图片2:</label
+          ><input type="file" id="img1" :ref="images[2]" />
         </li>
         <li>
           <label for="category">种类:</label>
@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, ref, onMounted, watch } from 'vue'
+import { defineComponent, toRefs, reactive, ref, watchEffect } from 'vue'
 export default defineComponent({
   setup() {
     const addObj = reactive({
@@ -54,16 +54,12 @@ export default defineComponent({
       stock: 0,
       category: 'volvo',
     })
+
+    let images = [ref(null), ref(null), ref(null)]
+
     return {
       ...toRefs(addObj),
-    }
-  },
-  // 这里因为在vue3中监听file获取太困难,所以采用了vue2的写法
-  data() {
-    return {
-      imgBase1: '',
-      imgBase2: '',
-      imgBase3: '',
+      images,
     }
   },
   mounted() {
