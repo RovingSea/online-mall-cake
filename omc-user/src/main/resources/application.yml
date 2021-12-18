@@ -27,7 +27,7 @@ mybatis:
 dubbo:
   #应用名称
   application:
-    name: 4DAS-user
+    name: omc-user
   #配置注册中心
   registry:
     address: zookeeper://180.76.136.123:2181?backup=110.42.224.33:2181,39.96.61.59:2181
@@ -45,3 +45,6 @@ dubbo:
   consumer:
     timeout: 10000
     check: true
+#端口
+server:
+  port: 13402
