@@ -11,6 +11,11 @@ export default defineComponent({
   components: {
     Back,
   },
+  setup() {
+    return {
+
+    }
+  }
 });
 </script>
 

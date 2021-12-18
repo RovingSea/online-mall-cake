@@ -58,12 +58,36 @@ const routes = [
     component: Desk,
     redirect: { name: 'home' },
     children: [
-
       {
         path: 'home',
         name: 'home',
         component: () => import('../views/Desk/Home.vue')
-      }
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('../views/Desk/Login.vue')
+      },
+      {
+        path: 'hot',
+        name: 'hot',
+        component: () => import('../views/Desk/Hot.vue')
+      },
+      {
+        path: 'new',
+        name: 'new',
+        component: () => import('../views/Desk/New.vue')
+      },
+      {
+        path: 'shopcart',
+        name: 'shopcart',
+        component: () => import('../views/ShopCart/index.vue')
+      },
+      {
+        path: 'pay',
+        name: 'pay',
+        component: () => import('../views/ShopCart/Pay.vue')
+      },
     ]
   },
 ]
