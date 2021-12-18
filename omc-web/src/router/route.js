@@ -83,6 +83,11 @@ const routes = [
         name: 'shopcart',
         component: () => import('../views/ShopCart/index.vue')
       },
+      {
+        path: 'pay',
+        name: 'pay',
+        component: () => import('../views/ShopCart/Pay.vue')
+      },
     ]
   },
 ]

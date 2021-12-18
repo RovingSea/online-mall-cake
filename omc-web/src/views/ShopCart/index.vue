@@ -54,7 +54,7 @@
 
     <!-- 结算 -->
     <div class="cart-submit cart-area">
-      <a href="#" class="cart-submit-empty user-behavior-tj-analysis" data-action="empty_cart"><i></i>全部清空</a>
+      <!-- <a href="#" class="cart-submit-empty user-behavior-tj-analysis" data-action="empty_cart"><i></i>全部清空</a> -->
       <ul class="cart-total-detail">
         <li>商品金额：¥ 48.00</li>
         <!--- <li>配送费：¥ 12.00</li> --->
@@ -63,7 +63,9 @@
       <div class="cart-total"><span>合计：¥<span>48.00</span></span></div>
       <span class="cart-balance" id="cost-freight-tip"></span>
       <div class="cart-notice-ac"><span></span></div>
-      <div class="cart-submit-button"><a href="javascript:void(0);" name="action-submit-btn" id="action-submit-btn">去结算</a></div>
+      <div class="cart-submit-button">
+        <router-link :to="{name:'pay'}">去结算</router-link>
+      </div>
     </div>
   </div>
 </template>
