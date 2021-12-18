@@ -72,7 +72,7 @@ export default defineComponent({
   top: 2px;
   justify-content: center;
   align-items: center;
-  height: 88vh;
+  height: 90vh;
   background-color: #f6f5f7;
 }
 h2 {
