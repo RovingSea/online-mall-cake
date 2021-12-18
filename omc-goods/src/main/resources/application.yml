@@ -22,6 +22,3 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.wu.common.domain
 
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-

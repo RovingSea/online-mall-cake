@@ -26,11 +26,11 @@
             <version>${onlinemallcake.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.dubbo</groupId>-->
-<!--            <artifactId>dubbo-spring-boot-starter</artifactId>-->
-<!--            <version>${dubbo.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
 
         <!--druid连接池-->
         <dependency>
