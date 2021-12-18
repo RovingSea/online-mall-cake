@@ -17,7 +17,7 @@ import java.util.List;
  * @since 1.0
  */
 @RestController
-@RequestMapping("moc/api/goods")
+@RequestMapping("omc/api/goods")
 @CrossOrigin
 public class GoodsController {
     @DubboReference

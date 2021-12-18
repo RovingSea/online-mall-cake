@@ -1,4 +1,4 @@
-package com.wu.auth.controller.user;
+package com.wu.auth.controller.common;
 
 import com.wu.common.domain.User;
 import com.wu.common.service.user.UserService;
@@ -15,18 +15,30 @@ import org.springframework.web.bind.annotation.*;
  * @since 1.0
  */
 @RestController
-@RequestMapping("omc/api/user")
+@RequestMapping("omc/api/common")
 @CrossOrigin
-public class UserController {
+public class CommonController {
     @DubboReference
     private UserService userService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
     @Autowired
-    public UserController(ThreadPoolTaskExecutor authApplicationExecutor) {
+    public CommonController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
+    @PostMapping("/register")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<String> register(@RequestBody User user){
+        if (userService.getByUsername(user.getUsername()) != null){
+            return RestResponse.failure("该用户名已被注册");
+        }
+        if (userService.getByEmail(user.getEmail()) != null){
+            return RestResponse.failure("该邮箱已被注册");
+        }
+        userService.register(user);
+        return RestResponse.ok("注册成功");
+    }
 }
 

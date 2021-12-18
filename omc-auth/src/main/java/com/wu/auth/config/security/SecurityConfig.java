@@ -39,14 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 关闭csrf
         http.cors().and().csrf().disable()
                 .logout()
-                .logoutUrl("/moc/api/user/logout")
+                .logoutUrl("/moc/api/common/logout")
                 .and()
                 // 未登录访问处理
                 .httpBasic().authenticationEntryPoint(restLoginAuthenticationEntryPoint)
                 .and()
                 .formLogin()
                 // 用户登录调用的接口
-                .loginProcessingUrl("/omc/api/user/login")
+                .loginProcessingUrl("/omc/api/common/login")
                 // 登录成功处理
                 .successHandler(restAuthenticationSuccessHandler)
                 // 登录失败处理
@@ -61,13 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 权限设置
-                // 只有学生身份可以访问学生接口
+                // 只有用户身份可以访问学生接口
                 .antMatchers("/omc/api/user/**").hasRole(RoleEnum.USER.getName())
                 // 只有管理员身份可以访问管理员接口
                 .antMatchers("/omc/api/admin/**").hasRole(RoleEnum.ADMIN.getName())
                 // 所有人都可以访问
-                .antMatchers("/omc/api/user/login").permitAll()
-                .antMatchers("/omc/api/user/register").permitAll()
+                .antMatchers("/omc/api/common/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // 自定义jwt验证过滤器
