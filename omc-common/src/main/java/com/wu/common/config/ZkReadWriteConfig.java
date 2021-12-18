@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Zookeeper读写锁配置
  * @author Haixin Wu
- * @date 2021/12/18
- * @time 15:08
+ * @date 2021/12/18 15:08
  * @since 1.0
  */
 @Configuration

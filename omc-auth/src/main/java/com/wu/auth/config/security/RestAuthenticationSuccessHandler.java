@@ -20,8 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 用户登陆成功
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 12:54
+ * @date 2021/12/17 12:54
  * @since 1.0
  */
 @Component

@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * 分布式写锁
  * @author Haixin Wu
- * @date 2021/12/18
- * @time: 15:22
+ * @date 2021/12/18: 15:22
  * @since 1.0
  */
 @Aspect

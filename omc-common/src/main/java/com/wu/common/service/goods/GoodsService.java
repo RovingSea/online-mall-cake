@@ -5,8 +5,7 @@ import com.wu.common.domain.Goods;
 
 /**
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 19:32
+ * @date 2021/12/16 19:32
  * @since 1.0
  */
 public interface GoodsService extends BaseService<Goods> {

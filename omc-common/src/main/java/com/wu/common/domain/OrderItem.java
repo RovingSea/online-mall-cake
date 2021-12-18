@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * 订单项实体类
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 0:21
+ * @date 2021/12/16 0:21
  * @since 1.0
  */
 @AllArgsConstructor

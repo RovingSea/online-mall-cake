@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author Haixin Wu
- * @date 2021/12/18
- * @time 14:59
+ * @date 2021/12/18 14:59
  * @since 1.0
  */
 @Configuration

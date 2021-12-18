@@ -4,8 +4,7 @@ package com.wu.common.base;
  * 各模块Mapper的父类<br>
  * 为各个Mapper提供通用方法
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 18:49
+ * @date 2021/12/16 18:49
  * @since 1.0
  */
 public interface BaseMapper<T> {

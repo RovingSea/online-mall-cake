@@ -28,8 +28,7 @@ import java.util.List;
 /**
  * 校验JWT
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 22:12
+ * @date 2021/12/17 22:12
  * @since 1.0
  */
 @Component

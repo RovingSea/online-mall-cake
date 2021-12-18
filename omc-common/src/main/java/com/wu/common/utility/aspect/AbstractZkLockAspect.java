@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
 /**
  * 抽象分布式锁
  * @author Haixin Wu
- * @date 2021/12/18
- * @time 15:19
+ * @date 2021/12/18 15:19
  * @since 1.0
  */
 @Component

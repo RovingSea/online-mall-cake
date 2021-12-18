@@ -13,8 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 /**
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 21:42
+ * @date 2021/12/17 21:42
  * @since 1.0
  */
 @EnableWebSecurity

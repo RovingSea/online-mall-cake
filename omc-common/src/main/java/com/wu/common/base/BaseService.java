@@ -4,8 +4,7 @@ package com.wu.common.base;
  * 各模块Service的父类<br>
  * 为各个Service提供通用方法
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 19:25
+ * @date 2021/12/16 19:25
  * @since 1.0
  */
 public interface BaseService<T> {

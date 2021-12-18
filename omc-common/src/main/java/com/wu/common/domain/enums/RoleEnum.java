@@ -10,8 +10,7 @@ import java.util.Map;
  * <li>0代表消费者
  * <li>1代表管理员
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 17:13
+ * @date 2021/12/17 17:13
  * @since 1.0
  */
 @Getter

@@ -19,8 +19,7 @@ import java.util.ArrayList;
 /**
  * 登录过程
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 21:52
+ * @date 2021/12/17 21:52
  * @since 1.0
  */
 @Component

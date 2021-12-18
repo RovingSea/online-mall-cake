@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 商品服务启动器
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 18:10
+ * @date 2021/12/16 18:10
  * @since 1.0
  */
 @SpringBootApplication

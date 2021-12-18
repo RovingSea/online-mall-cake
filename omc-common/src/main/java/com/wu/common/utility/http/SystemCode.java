@@ -3,8 +3,7 @@ package com.wu.common.utility.http;
 /**
  * 系统内部统一相应码
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 13:05
+ * @date 2021/12/16 13:05
  * @since 1.0
  */
 public enum SystemCode {

@@ -11,8 +11,7 @@ import java.io.IOException;
 /**
  * 通常用在不需要Spring MVC支持时，使用该工具类可以返回{@link com.wu.common.utility.http.RestResponse}格式数据
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 12:55
+ * @date 2021/12/17 12:55
  * @since 1.0
  */
 public class RestUtil {

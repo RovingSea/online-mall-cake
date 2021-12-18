@@ -7,8 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  * 跨域配置
  * @author Haixin Wu
- * @date 2021/12/18
- * @time 15:06
+ * @date 2021/12/18 15:06
  * @since 1.0
  */
 @Configuration
