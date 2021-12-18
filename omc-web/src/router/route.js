@@ -78,6 +78,11 @@ const routes = [
         name: 'new',
         component: () => import('../views/Desk/New.vue')
       },
+      {
+        path: 'shopcart',
+        name: 'shopcart',
+        component: () => import('../views/ShopCart/index.vue')
+      },
     ]
   },
 ]
