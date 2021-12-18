@@ -2,6 +2,7 @@ package com.wu.common.base;
 
 import com.wu.common.utility.annotation.ZkReadLock;
 import com.wu.common.utility.annotation.ZkWriteLock;
+import org.springframework.stereotype.Service;
 
 /**
  * 各模块ServiceImpl的父类<br>
