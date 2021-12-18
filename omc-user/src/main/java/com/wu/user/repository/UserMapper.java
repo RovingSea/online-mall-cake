@@ -31,5 +31,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("select * from onlinemallcake.user where username = #{username}")
     User selectByUsername(String username);
+
+    @Select("select * from onlinemallcake.user where email = #{email}")
+    User selectByEmail(String email);
 }
 

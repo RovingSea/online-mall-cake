@@ -14,5 +14,7 @@ public interface UserService {
     boolean login();
 
     User getByUsername(String username);
+
+    User getByEmail(String email);
 }
 

@@ -4,7 +4,10 @@ import com.wu.common.base.BaseMapper;
 import com.wu.common.base.BaseServiceImpl;
 import com.wu.common.domain.User;
 import com.wu.common.service.user.UserService;
+import com.wu.common.utility.annotation.ZkReadLock;
+import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.user.repository.UserMapper;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @date 2021/12/16 13:27
  * @since 1.0
  */
-@Service
+@DubboService
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     private final UserMapper userMapper;
@@ -25,18 +28,27 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
+    @ZkWriteLock
     public boolean register(User record) {
         return super.insert(record);
     }
 
     @Override
+    @ZkReadLock
     public boolean login() {
         return false;
     }
 
     @Override
+    @ZkReadLock
     public User getByUsername(String username) {
         return userMapper.selectByUsername(username);
+    }
+
+    @Override
+    @ZkReadLock
+    public User getByEmail(String email) {
+        return userMapper.selectByEmail(email);
     }
 }
 
