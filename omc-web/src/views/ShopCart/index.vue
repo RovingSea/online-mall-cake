@@ -1,12 +1,12 @@
 <template>
   <div class="shop-cart">
-    <!-- <div class="no-goods-show">
+    <div class="no-goods-show" v-show="false">
       <img src="../../assets/images/cartempty.png" alt="">
       <span>您的购物车里还没有商品</span>
       <router-link :to="{name:'new'}">去购物 > ></router-link>
     </div>
     <div>
-    </div> -->
+    </div>
     <div class="header">
       <li class="goods-ti">商品</li>
       <li class="birthday-card-ti">生日牌</li>

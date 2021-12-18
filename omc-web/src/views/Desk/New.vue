@@ -4,7 +4,7 @@
       <img src="../../assets/images/newheader.jpg" alt="">
     </div>
     <div class="cake">
-      <img src="../../assets/images/cake.jpg" alt="" class="back">
+      <img src="../../assets/images/cake.jpg" alt="" class="back" @click="goDetail(2)">
       <span class="title">菠萝包</span>
       <span class='price'>￥ 18.0/一份</span>
       <div class="add-cart">
@@ -19,9 +19,21 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
-    return {};
+    const router = useRouter();
+    const goDetail = (id) => {
+      router.push({
+        name: "detail",
+        params: {
+          id,
+        },
+      });
+    };
+    return {
+      goDetail,
+    };
   },
 });
 </script>
@@ -46,7 +58,7 @@ export default defineComponent({
     .back {
       cursor: pointer;
       height: 246px;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .title {
       margin-top: 10px;
