@@ -1,8 +1,8 @@
 <template>
   <div class="list-container">
     <div class="block">
-      <el-carousel height="502px">
-        <el-carousel-item v-for="item in bannerList" :key="item">
+      <el-carousel height="502px" arrow="never" :interval='2000'>
+        <el-carousel-item v-for="item in bannerList" :key="item.id">
           <img :src="item.imgUrl" alt="">
         </el-carousel-item>
       </el-carousel>
@@ -17,44 +17,24 @@
 </template>
 
 <script >
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
+import { reqBanners } from '@/api/index.js'
 export default defineComponent({
   setup() {
     let HomeInfo = reactive({
-      bannerList: [{
-        "id": "1",
-        "imgUrl": "../../../public/images/banner1.jpg"
-      },
-      {
-        "id": "2",
-        "imgUrl": "../../../public/images/banner2.jpg"
-      },
-      {
-        "id": "3",
-        "imgUrl": "../../../public/images/banner3.jpg"
-      },
-      {
-        "id": "4",
-        "imgUrl": "../../../public/images/banner4.jpg"
-      }
-      ]
+      bannerList: [],
+    })
+    reqBanners().then(res => {
+      HomeInfo.bannerList = res
     })
     return {
-      ...toRefs(HomeInfo)
+      ...toRefs(HomeInfo),
     };
   },
 });
 </script>
 
 <style scoped lang="less">
-@font-face {
-  font-family: "webfont";
-  src: url("//at.alicdn.com/t/webfont_9fm5seiutdt.eot?#iefix")
-      format("embedded-opentype"),
-    url("//at.alicdn.com/t/webfont_9fm5seiutdt.svg#杨任东竹石体-Bold")
-      format("svg");
-}
-
 .list-container block {
   height: 502px;
 }
@@ -80,7 +60,7 @@ export default defineComponent({
   video,
   p {
     width: 100%;
-    height: 100px;
+    height: 500px;
     position: absolute;
     top: 600px;
     left: 0;

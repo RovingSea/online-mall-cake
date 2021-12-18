@@ -2,12 +2,11 @@
   <div class="">
     <div class="header">
       <ul class="left">
-        <li>首页</li>
-        <li>商品分类</li>
-        <li>热销</li>
-        <li>新品</li>
-        <li>注册</li>
-        <li>登录</li>
+        <router-link :to="{name:'home'}">首页</router-link>
+        <router-link :to="{name:'home'}">商品分类</router-link>
+        <router-link :to="{name:'hot'}">热销</router-link>
+        <router-link :to="{name:'new'}">新品</router-link>
+        <router-link :to="{name:'login'}">登录 | 注册</router-link>
       </ul>
       <div class="right">
         <div class="search">
@@ -28,7 +27,7 @@
             <svg t="1639729868714" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7343" width="200" height="200">
               <path d="M146.162688 662.038528l183.54688-87.602176a56.889344 56.889344 0 0 1 24.50432-5.547008h315.573248c8.47872 0 16.850944 1.8944 24.50432 5.547008l183.545856 87.602176a56.889344 56.889344 0 0 1 32.385024 51.341312v196.842496c0 31.418368-25.469952 56.88832-56.889344 56.88832H170.667008c-31.419392 0-56.889344-25.469952-56.889344-56.88832v-196.84352a56.889344 56.889344 0 0 1 32.385024-51.340288zM568.889344 768c0 15.709184 12.734464 28.444672 28.443648 28.444672h113.777664c15.710208 0 28.444672-12.735488 28.444672-28.444672s-12.734464-28.444672-28.444672-28.444672h-113.77664c-15.710208 0-28.444672 12.735488-28.444672 28.444672zM512 512c-125.67552 0-227.555328-101.879808-227.555328-227.555328S386.32448 56.889344 512 56.889344s227.555328 101.879808 227.555328 227.555328S637.67552 512 512 512z" fill="#684029" p-id="7344"></path>
             </svg>后台管理
-            <span>Vujson + Master</span>
+            <span>Vujson | Masker</span>
           </router-link>
         </div>
       </div>
@@ -49,6 +48,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+.router-link-exact-active {
+  color: @hoverColor !important;
+  border-bottom: 3px solid @fontColor;
+}
 .header {
   position: fixed;
   z-index: 1000;
@@ -64,9 +67,11 @@ export default defineComponent({
   .left {
     flex: 5;
     display: flex;
-    li {
+    li,
+    a {
       flex: 1;
       cursor: pointer;
+      color: @fontColor;
     }
   }
   .right {
