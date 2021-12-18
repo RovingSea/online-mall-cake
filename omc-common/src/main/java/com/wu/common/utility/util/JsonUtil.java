@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * Json转换工具类
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 2:28 ^_^ 没错嗷，就是凌晨2.28分，此时室友都还没睡觉，无聊打开了Idea玩了玩，顺便把别人的Json工具类CV了过来
+ * @date 2021/12/17 2:28 ^_^ 没错嗷，就是凌晨2.28分，此时室友都还没睡觉，无聊打开了Idea玩了玩，顺便把别人的Json工具类CV了过来
  * @since 1.0
  */
 public class JsonUtil {

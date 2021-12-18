@@ -16,3 +16,32 @@ spring:
         keep-alive: 120s
       thread-name-prefix: omc-user-service-
 
+# mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wu.common.domain
+
+#分布式配置
+dubbo:
+  #应用名称
+  application:
+    name: 4DAS-user
+  #配置注册中心
+  registry:
+    address: zookeeper://180.76.136.123:2181?backup=110.42.224.33:2181,39.96.61.59:2181
+    timeout: 25000
+    dynamic: true
+  # 注册服务采用的协议 端口号
+  protocol:
+    name: dubbo
+    port: 20880
+  config-center:
+    timeout: 25000
+  provider:
+    timeout: 10000
+    dynamic: true
+  consumer:
+    timeout: 10000
+    check: true

@@ -9,8 +9,7 @@ import java.util.Date;
 /**
  * 生成Token的工具类，用于用户登录成功后生成Token进行返回
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 13:01
+ * @date 2021/12/17 13:01
  * @since 1.0
  */
 public class TokenUtil {

@@ -9,8 +9,7 @@ import java.util.Date;
 /**
  * 订单实体类
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 0:16
+ * @date 2021/12/16 0:16
  * @since 1.0
  */
 @AllArgsConstructor

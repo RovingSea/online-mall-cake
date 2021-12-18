@@ -11,8 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 /**
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 20:26
+ * @date 2021/12/16 20:26
  * @since 1.0
  */
 @SpringBootTest

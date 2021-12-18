@@ -6,8 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 /**
  * @author Haixin Wu
- * @date 2021/12/17
- * @time 13:19
+ * @date 2021/12/17 13:19
  * @since 1.0
  */
 @Mapper
@@ -27,7 +26,13 @@ public interface UserMapper extends BaseMapper<User> {
     User selectByPrimaryKey(Integer id);
 
     @Override
-    @Update("update onlinemallcake.user set username = #{username}, password = #{password}, name = #{name}, phone = #{phone}, address = #{address}, is_admin = #{isAdmin}, is_validate = #{isValidate}")
+    @Update("update onlinemallcake.user set username = #{username}, password = #{password}, name = #{name}, phone = #{phone}, address = #{address}, is_admin = #{isAdmin}, is_validate = #{isValidate} where id = #{id}")
     boolean updateByPrimaryKey(User record);
+
+    @Select("select * from onlinemallcake.user where username = #{username}")
+    User selectByUsername(String username);
+
+    @Select("select * from onlinemallcake.user where email = #{email}")
+    User selectByEmail(String email);
 }
 

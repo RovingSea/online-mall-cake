@@ -6,8 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 /**
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 19:09
+ * @date 2021/12/16 19:09
  * @since 1.0
  */
 @Mapper

@@ -5,8 +5,7 @@ import lombok.Data;
 /**
  * 接口统一响应体
  * @author Haixin Wu
- * @date 2021/12/16
- * @time 13:03
+ * @date 2021/12/16 13:03
  * @since 1.0
  */
 @Data

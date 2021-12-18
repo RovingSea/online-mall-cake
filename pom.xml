@@ -22,6 +22,22 @@
         <relativePath/>
     </parent>
 
+    <dependencies>
+        <!--zookeeper 注册中心客户端引入 curator客户端-->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <version>3.0.4</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
 
     <name>online-mall-cake</name>
     <description>大三上学期JavaWeb课程设计作业</description>
