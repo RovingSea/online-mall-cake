@@ -19,11 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean(name = "pw")
-    public PasswordEncoder pw() {
-        return new BCryptPasswordEncoder();
-    }
-
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
     private final RestAccessDeniedHandler restAccessDeniedHandler;
     private final RestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
