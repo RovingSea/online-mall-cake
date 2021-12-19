@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public RestResponse<Boolean> update(User user){
+    public RestResponse<Boolean> update(@RequestBody User user){
         return RestResponse.ok(userService.updateById(user));
     }
 

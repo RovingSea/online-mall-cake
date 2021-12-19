@@ -41,8 +41,8 @@ public class GoodsController {
 
     @PostMapping("/delete")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> delete(@RequestBody int id){
-        goodsService.deleteById(id);
+    public RestResponse<String> delete(@RequestBody Goods goods){
+        goodsService.deleteById(goods.getId());
         return RestResponse.ok("删除成功");
     }
 
@@ -55,8 +55,8 @@ public class GoodsController {
 
     @PostMapping("/select/one")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Goods> selectOne(@RequestBody int id){
-        return RestResponse.ok(goodsService.selectById(id));
+    public RestResponse<Goods> selectOne(@RequestBody Goods goods){
+        return RestResponse.ok(goodsService.selectById(goods.getId()));
     }
 
     @PostMapping("/select/page")

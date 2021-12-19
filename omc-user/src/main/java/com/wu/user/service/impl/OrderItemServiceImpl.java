@@ -1,11 +1,14 @@
 package com.wu.user.service.impl;
 
 import com.wu.common.base.BaseServiceImpl;
+import com.wu.common.domain.Order;
 import com.wu.common.domain.OrderItem;
 import com.wu.common.service.user.OrderItemService;
 import com.wu.user.repository.OrderItemMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @author Haixin Wu
@@ -20,6 +23,16 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem> implements 
     public OrderItemServiceImpl(OrderItemMapper orderItemMapper) {
         super(orderItemMapper);
         this.orderItemMapper = orderItemMapper;
+    }
+
+    @Override
+    public List<OrderItem> getOrderItemsByUserId(int userId) {
+        return orderItemMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public Order getOrderByOrderItemId(int orderItemId) {
+        return null;
     }
 }
 

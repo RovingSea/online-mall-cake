@@ -1,8 +1,11 @@
 package com.wu.user.repository;
 
 import com.wu.common.base.BaseMapper;
+import com.wu.common.domain.Order;
 import com.wu.common.domain.OrderItem;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * @author Haixin Wu
@@ -24,6 +27,10 @@ public interface OrderItemMapper extends BaseMapper<OrderItem> {
     @Override
     @Select("select * from onlinemallcake.orderitem where id = #{id}")
     OrderItem selectByPrimaryKey(Integer id);
+
+    List<OrderItem> selectByUserId(int userId);
+
+    Order selectOrderByOrderItemId(int orderItemId);
 
     @Override
     @Update("update onlinemallcake.orderitem set price = #{price}, amount = #{amount}, goods_id = #{goodsId}, order_id = #{orderId} where id = #{id}")
