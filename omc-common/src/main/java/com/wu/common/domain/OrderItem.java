@@ -17,6 +17,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class OrderItem implements Serializable {
+    public OrderItem(Order order){
+        setPrice(order.getTotal() / order.getAmount());
+        setAmount(order.getAmount());
+        setGoodsId(order.getGoodsId());
+        setOrderId(order.getId());
+    }
     /**
      * 订单项id
      */
