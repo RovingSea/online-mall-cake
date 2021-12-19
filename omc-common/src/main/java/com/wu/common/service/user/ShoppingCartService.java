@@ -3,6 +3,8 @@ package com.wu.common.service.user;
 import com.wu.common.base.BaseService;
 import com.wu.common.domain.ShoppingCart;
 
+import java.util.List;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/18 22:17
@@ -21,7 +23,14 @@ public interface ShoppingCartService extends BaseService<ShoppingCart> {
      * @param userId 用户id
      * @return 成功与否
      */
-    boolean purchaseAll(int userId);
+    boolean deleteAllByUserId(int userId);
+
+    /**
+     * 打开购物车
+     * @param userId 用户id
+     * @return 购物车中的商品
+     */
+    List<ShoppingCart> getShoppingCarts(int userId);
 
 }
 

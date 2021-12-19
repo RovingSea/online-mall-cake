@@ -2,16 +2,14 @@ package com.wu.user.repository;
 
 import com.wu.common.base.BaseMapper;
 import com.wu.common.domain.OrderItem;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @author Haixin Wu
  * @date 2021/12/19 14:18
  * @since 1.0
  */
+@Mapper
 public interface OrderItemMapper extends BaseMapper<OrderItem> {
     @Override
     @Delete("delete from onlinemallcake.orderitem where id = #{id}")

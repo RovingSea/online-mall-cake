@@ -7,6 +7,8 @@ import com.wu.user.repository.ShoppingCartMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/18 22:16
@@ -24,8 +26,13 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
     }
 
     @Override
-    public boolean purchaseAll(int userId) {
+    public boolean deleteAllByUserId(int userId) {
         return shoppingCartMapper.deleteByUserId(userId);
+    }
+
+    @Override
+    public List<ShoppingCart> getShoppingCarts(int userId) {
+        return shoppingCartMapper.getShoppingCarts(userId);
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.wu.common.base.BaseMapper;
 import com.wu.common.domain.ShoppingCart;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/18 22:18
@@ -11,6 +13,9 @@ import org.apache.ibatis.annotations.*;
  */
 @Mapper
 public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
+    @Select("select * from onlinemallcake.shoppingcart where user_id = #{userId}")
+    List<ShoppingCart> getShoppingCarts(int userId);
+
     @Override
     @Delete("delete from onlinemallcake.shoppingcart where id = #{id}")
     boolean deleteByPrimaryKey(Integer id);

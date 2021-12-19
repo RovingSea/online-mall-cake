@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/current")
-    public RestResponse<User> getCurrent(@RequestHeader("/authentication") String authentication){
+    public RestResponse<User> getCurrent(@RequestHeader("authentication") String authentication){
         String username = TokenUtil.getUserInfoFromToken(authentication);
         return RestResponse.ok(userService.getByUsername(username));
     }
