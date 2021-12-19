@@ -1,10 +1,12 @@
 package com.wu.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -54,7 +56,8 @@ public class Order implements Serializable {
     /**
      * 订单日期
      */
-    private Date datetime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime datetime;
     /**
      * 用户id
      */
