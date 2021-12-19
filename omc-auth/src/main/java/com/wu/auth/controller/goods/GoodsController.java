@@ -1,7 +1,9 @@
 package com.wu.auth.controller.goods;
 
 import com.wu.common.domain.Goods;
+import com.wu.common.model.PagingQueryModel;
 import com.wu.common.service.goods.GoodsService;
+import com.wu.common.utility.Page;
 import com.wu.common.utility.http.RestResponse;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +53,17 @@ public class GoodsController {
         return RestResponse.ok("更新成功");
     }
 
-    @PostMapping("/select")
+    @PostMapping("/select/one")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Goods> select(@RequestBody int id){
+    public RestResponse<Goods> selectOne(@RequestBody int id){
         return RestResponse.ok(goodsService.selectById(id));
+    }
+
+    @PostMapping("/select/page")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Page<Goods>> selectPage(@RequestBody PagingQueryModel model){
+        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getAmount(), model.getFrom());
+        return RestResponse.ok(goodsPage);
     }
 
 

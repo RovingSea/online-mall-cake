@@ -3,10 +3,13 @@ package com.wu.goods.service.impl;
 import com.wu.common.base.BaseServiceImpl;
 import com.wu.common.domain.Goods;
 import com.wu.common.service.goods.GoodsService;
+import com.wu.common.utility.Page;
 import com.wu.goods.repository.GoodsMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Haixin Wu
@@ -22,6 +25,17 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
     public GoodsServiceImpl(GoodsMapper goodsMapper) {
         super(goodsMapper);
         this.goodsMapper = goodsMapper;
+    }
+
+    @Override
+    public Page<Goods> selectPage(int eachPageSize, int amount) {
+        return selectPage(eachPageSize, amount, 0);
+    }
+
+    @Override
+    public Page<Goods> selectPage(int eachPageSize, int amount, int from) {
+        List<Goods> goodsList = goodsMapper.selectLimit(from, amount);
+        return new Page<>(eachPageSize, amount, goodsList);
     }
 }
 

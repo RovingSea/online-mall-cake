@@ -4,6 +4,8 @@ import com.wu.common.base.BaseMapper;
 import com.wu.common.domain.Goods;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/16 19:09
@@ -27,5 +29,8 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     @Override
     @Update("update onlinemallcake.goods set name = #{name}, image1 = #{image1}, image2 = #{image2}, price = #{price}, intro = #{intro}, stock = #{stock}, type_id = #{type_id}")
     boolean updateByPrimaryKey(Goods record);
+
+    @Select("select * from onlinemallcake.goods limit #{from},#{amount}")
+    List<Goods> selectLimit(int from, int amount);
 }
 
