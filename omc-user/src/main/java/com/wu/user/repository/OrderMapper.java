@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/19 14:19
@@ -29,6 +31,9 @@ public interface OrderMapper extends BaseMapper<Order> {
     @Override
     @Select("select * from onlinemallcake.order where id")
     Order selectByPrimaryKey(Integer id);
+
+    @Select("select * from onlinemallcake.order where user_id = #{userId}")
+    List<Order> selectByUserId(int userId);
 
     @Override
     @Select("update onlinemallcake.order set total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, #{datetime} = #{datetime}, user_id = #{userId} where id = #{id}")

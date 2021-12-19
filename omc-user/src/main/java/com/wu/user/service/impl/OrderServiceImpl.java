@@ -7,6 +7,8 @@ import com.wu.user.repository.OrderMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/19 14:21
@@ -20,6 +22,11 @@ public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderSer
     public OrderServiceImpl(OrderMapper orderMapper) {
         super(orderMapper);
         this.orderMapper = orderMapper;
+    }
+
+    @Override
+    public List<Order> getOrdersByUserId(int userId) {
+        return orderMapper.selectByUserId(userId);
     }
 }
 

@@ -67,8 +67,12 @@ public class ShoppingCartController extends BaseController {
     @PostMapping("/purchase/all")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<Boolean> purchaseAll(@RequestBody int userId){
-
-        return null;
+        List<Order> orders = orderService.getOrdersByUserId(userId);
+        for (Order order : orders) {
+            OrderItem orderItem = new OrderItem(order);
+            orderItemService.insert(orderItem);
+        }
+        return RestResponse.ok(true);
     }
 
     @PostMapping("/plus/one")
