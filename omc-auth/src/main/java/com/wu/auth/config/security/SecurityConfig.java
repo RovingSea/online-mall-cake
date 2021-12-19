@@ -3,12 +3,12 @@ package com.wu.auth.config.security;
 import com.wu.common.domain.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final RestLoginAuthenticationEntryPoint restLoginAuthenticationEntryPoint;
 
     @Autowired
-    public SecurityConfig(JWTAuthenticationFilter jwtAuthenticationFilter, RestAccessDeniedHandler restAccessDeniedHandler, RestAuthenticationSuccessHandler restAuthenticationSuccessHandler, RestAuthenticationFailureHandler restAuthenticationFailureHandler, RestLoginAuthenticationEntryPoint restLoginAuthenticationEntryPoint) {
+    public SecurityConfig(JWTAuthenticationFilter jwtAuthenticationFilter, RestAccessDeniedHandler restAccessDeniedHandler, RestAuthenticationSuccessHandler restAuthenticationSuccessHandler, RestAuthenticationFailureHandler restAuthenticationFailureHandler, RestLoginAuthenticationEntryPoint restLoginAuthenticationEntryPoint) throws Exception {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.restAccessDeniedHandler = restAccessDeniedHandler;
         this.restAuthenticationSuccessHandler = restAuthenticationSuccessHandler;
@@ -36,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter = new JsonUsernamePasswordAuthenticationFilter(super.authenticationManager());
+        jsonUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(restAuthenticationFailureHandler);
+        jsonUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(restAuthenticationSuccessHandler);
         // 关闭csrf
         http.cors().and().csrf().disable()
                 .logout()
@@ -47,10 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 // 用户登录调用的接口
                 .loginProcessingUrl("/omc/api/common/login")
-                // 登录成功处理
-                .successHandler(restAuthenticationSuccessHandler)
-                // 登录失败处理
-                .failureHandler(restAuthenticationFailureHandler)
                 .permitAll()
                 .and()
                 .exceptionHandling()
@@ -61,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 权限设置
-                // 只有用户身份可以访问学生接口
+                // 只有用户身份可以访问用戶接口
                 .antMatchers("/omc/api/user/**").hasRole(RoleEnum.USER.getName())
                 // 只有管理员身份可以访问管理员接口
                 .antMatchers("/omc/api/admin/**").hasRole(RoleEnum.ADMIN.getName())
@@ -71,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 自定义jwt验证过滤器
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(jsonUsernamePasswordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers().cacheControl();
     }
 }
