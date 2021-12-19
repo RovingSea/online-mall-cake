@@ -32,6 +32,7 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
     @Update("update onlinemallcake.shoppingcart set amount = #{amount} + 1 where id = #{id}")
     boolean addAmountByPrimaryKey(int shoppingCartId);
 
-    boolean addOrder(ShoppingCart shoppingCart);
+    @Delete("delete from onlinemallcake.shoppingcart where user_id = #{userId}")
+    boolean deleteByUserId(Integer userId);
 }
 

@@ -23,15 +23,15 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
         this.shoppingCartMapper = shoppingCartMapper;
     }
 
+    @Override
+    public boolean purchaseAll(int userId) {
+        return shoppingCartMapper.deleteByUserId(userId);
+    }
 
     @Override
     public boolean addGoods(int shoppingCartId) {
         return shoppingCartMapper.addAmountByPrimaryKey(shoppingCartId);
     }
 
-    @Override
-    public boolean addOrder(ShoppingCart shoppingCart) {
-        return false;
-    }
 }
 

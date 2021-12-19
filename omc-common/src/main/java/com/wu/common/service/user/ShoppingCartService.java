@@ -17,11 +17,11 @@ public interface ShoppingCartService extends BaseService<ShoppingCart> {
     boolean addGoods(int shoppingCartId);
 
     /**
-     * 加入订单
-     * @param shoppingCart 购物车信息
+     * 清空购物车
+     * @param userId 用户id
      * @return 成功与否
      */
-    boolean addOrder(ShoppingCart shoppingCart);
+    boolean purchaseAll(int userId);
 
 }
 
