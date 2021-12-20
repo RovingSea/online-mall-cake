@@ -7,10 +7,25 @@
         on o.id = oi.order_id
         where user_id = #{userId}
     </select>
+
     <select id="selectOrderByOrderItemId" resultType="com.wu.common.domain.Order">
         select * from onlinemallcake.orderitem oi
         left join onlinemallcake.orderitem o
         on oi.order_id = o.id
         where o.order_id = #{orderItemId}
+    </select>
+
+    <select id="selectUnpaidOrdersByUserId" resultType="com.wu.common.domain.OrderItem">
+        select * from onlinemallcake.orderitem oi
+        left join onlinemallcake.order o
+        on oi.order_id = o.id
+        where user_id = #{userId} and o.status = 0
+    </select>
+
+    <select id="selectPaidOrdersByUserId" resultType="com.wu.common.domain.OrderItem">
+        select * from onlinemallcake.orderitem oi
+        left join onlinemallcake.order o
+        on oi.order_id = o.id
+        where user_id = #{userId} and o.status = 1
     </select>
 </mapper>

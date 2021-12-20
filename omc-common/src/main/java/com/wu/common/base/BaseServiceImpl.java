@@ -39,7 +39,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
     @Override
     @ZkReadLock
-    public boolean updateById(T record) {
+    public boolean update(T record) {
         return baseMapper.updateByPrimaryKey(record);
     }
 }

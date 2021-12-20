@@ -17,5 +17,18 @@ public interface OrderService extends BaseService<Order>  {
      * @return 所有订单
      */
     List<Order> getOrdersByUserId(int userId);
+    /**
+     * 向数据库中增加 Order 类型的实体数据
+     * @param order Order 类型的实体数据
+     * @return 返回插入数据后的主键id
+     */
+    int initOrderAndReturnId(Order order);
+
+    /**
+     * 通过订单id返回订单
+     * @param id 订单id
+     * @return 该订单
+     */
+    Order getOrderById(int id);
 }
 

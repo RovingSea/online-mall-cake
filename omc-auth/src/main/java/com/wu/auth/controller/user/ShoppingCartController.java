@@ -1,11 +1,9 @@
 package com.wu.auth.controller.user;
 
 import com.wu.common.base.BaseController;
-import com.wu.common.domain.Order;
-import com.wu.common.domain.OrderItem;
-import com.wu.common.domain.ShoppingCart;
-import com.wu.common.domain.User;
+import com.wu.common.domain.*;
 import com.wu.common.model.SubmitOrderModel;
+import com.wu.common.service.goods.GoodsService;
 import com.wu.common.service.user.OrderItemService;
 import com.wu.common.service.user.OrderService;
 import com.wu.common.service.user.ShoppingCartService;
@@ -32,11 +30,44 @@ public class ShoppingCartController extends BaseController {
     private UserService userService;
     @DubboReference
     private ShoppingCartService shoppingCartService;
+    @DubboReference
+    private OrderItemService orderItemService;
+    @DubboReference
+    private OrderService orderService;
+    @DubboReference
+    private GoodsService goodsService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
     public ShoppingCartController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
+    }
+
+    @PostMapping("/empty/shoppingCart")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Integer> submitOrder(@RequestBody User user){
+        List<ShoppingCart> shoppingCarts = shoppingCartService.getShoppingCarts(user.getId());
+        //形成订单
+        Order order = new Order();
+        order.init();
+        int orderId = orderService.initOrderAndReturnId(order);
+        // 将购物车中的商品依次提交形成订单项
+        for (ShoppingCart shoppingCart : shoppingCarts) {
+            Goods goods = goodsService.selectById(shoppingCart.getGoodsId());
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrderId(orderId);
+            orderItem.setGoodsId(shoppingCart.getGoodsId());
+            orderItem.setAmount(shoppingCart.getAmount());
+            orderItem.setPrice(goods.getPrice());
+            orderItemService.insert(orderItem);
+        }
+        // 把购物车表有关该用户的信息清空
+        boolean deleteSuccessfully = shoppingCartService.deleteAllByUserId(user.getId());
+        if (deleteSuccessfully){
+            return RestResponse.ok(orderId);
+        } else {
+            return RestResponse.failure(0);
+        }
     }
 
     @PostMapping("/mine")

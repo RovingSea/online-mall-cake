@@ -45,7 +45,7 @@ public class GoodsController {
     @PostMapping("/update")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<String> update(@RequestBody Goods goods){
-        goodsService.insert(goods);
+        goodsService.update(goods);
         return RestResponse.ok("更新成功");
     }
 }

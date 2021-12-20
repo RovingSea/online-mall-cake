@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SubmitOrderModel {
+    private int orderId;
     /**
      * 用户id
      */
@@ -38,5 +39,9 @@ public class SubmitOrderModel {
      * 总额
      */
     private float total;
+    /**
+     * 买了多少东西
+     */
+    private int amount;
 }
 

@@ -34,6 +34,26 @@ public class OrderItemController extends BaseController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
+    @PostMapping("/get/order/info")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Order> getOne(@RequestBody OrderItem orderItem){
+        return RestResponse.ok(orderItemService.getOrderByOrderItemId(orderItem.getId()));
+    }
+
+    @PostMapping("/mine/paid")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<List<OrderItem>> minePaid(@RequestBody User user){
+        List<OrderItem> paidOrders = orderItemService.getAllUnpaidOrdersByUserId(user.getId());
+        return RestResponse.ok(paidOrders);
+    }
+
+    @PostMapping("/mine/unpaid")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<List<OrderItem>> mineUnpaid(@RequestBody User user){
+        List<OrderItem> unpaidOrders = orderItemService.getAllUnpaidOrdersByUserId(user.getId());
+        return RestResponse.ok(unpaidOrders);
+    }
+
     @PostMapping("/mine")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<List<OrderItem>> mine(@RequestBody User user){

@@ -65,7 +65,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return
      */
     @Override
-    boolean updateById(Goods record);
+    boolean update(Goods record);
 
     /**
      * 分页查询商品

@@ -26,13 +26,23 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem> implements 
     }
 
     @Override
+    public List<OrderItem> getAllPaidOrdersByUserId(int userId) {
+        return orderItemMapper.selectPaidOrdersByUserId(userId);
+    }
+
+    @Override
+    public List<OrderItem> getAllUnpaidOrdersByUserId(int userId) {
+        return orderItemMapper.selectUnpaidOrdersByUserId(userId);
+    }
+
+    @Override
     public List<OrderItem> getOrderItemsByUserId(int userId) {
         return orderItemMapper.selectByUserId(userId);
     }
 
     @Override
     public Order getOrderByOrderItemId(int orderItemId) {
-        return null;
+        return orderItemMapper.selectOrderByOrderItemId(orderItemId);
     }
 }
 

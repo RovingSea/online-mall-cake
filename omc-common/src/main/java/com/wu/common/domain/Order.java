@@ -11,7 +11,8 @@ import java.util.Date;
 
 /**
  * 订单实体类<br>
- * 订单项和订单的区别就是，订单项是订单提交后（即购买）后才有的
+ * 订单项和订单的区别就是，订单项是订单提交（即购买）前才有的，一个订单包括多个订单项，比如一个订单可能包
+ * 括了买衣服，也包括了买裤子，而其中的衣服或裤子就是一个订单项
  * @author Haixin Wu
  * @date 2021/12/16 0:16
  * @since 1.0
@@ -20,6 +21,17 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class Order implements Serializable {
+    public void init(){
+        setTotal(0F);
+        setAmount(0);
+        setName("null");
+        setStatus(0);
+        setPayType(0);
+        setPhone("000000");
+        setAddress("无");
+        setDatetime(LocalDateTime.now());
+        setUserId(0);
+    }
     /**
      * 订单id
      */
@@ -28,10 +40,6 @@ public class Order implements Serializable {
      * 用户id
      */
     private int userId;
-    /**
-     * 商品id
-     */
-    private int goodsId;
     /**
      * 商品总额
      */

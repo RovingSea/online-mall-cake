@@ -2,10 +2,7 @@ package com.wu.user.repository;
 
 import com.wu.common.base.BaseMapper;
 import com.wu.common.domain.Order;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,12 +21,17 @@ public interface OrderMapper extends BaseMapper<Order> {
     boolean deleteByUserId(Integer userId);
 
     @Override
-    @Insert("insert into onlinemallcake.order(total, amount, status, pay_type, name, phone, address, datetime, user_id, goods_id) " +
-            "VALUES(total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, #{datetime} = #{datetime}, user_id = #{userId}, goods_id = #{goodsId})")
+    @Insert("insert into onlinemallcake.order(total, amount, status, pay_type, name, phone, address, datetime, user_id) " +
+            "VALUES(total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, datetime = #{datetime}, user_id = #{userId})")
     boolean insert(Order record);
 
+    @Insert("insert into onlinemallcake.order(total, amount, status, pay_type, name, phone, address, datetime, user_id) " +
+            "VALUES(total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, datetime = #{datetime}, user_id = #{userId})")
+    @SelectKey(statement = "select LAST_INSERT_ID()", resultType = Integer.class, keyProperty = "id", before = false)
+    int initOrder(Order order);
+
     @Override
-    @Select("select * from onlinemallcake.order where id")
+    @Select("select * from onlinemallcake.order where id = #{id}")
     Order selectByPrimaryKey(Integer id);
 
     @Select("select * from onlinemallcake.order where user_id = #{userId}")

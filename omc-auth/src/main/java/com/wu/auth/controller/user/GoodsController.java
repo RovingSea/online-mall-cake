@@ -31,6 +31,12 @@ public class GoodsController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
+    @PostMapping("/get/info")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Goods> getInfo(@RequestBody Goods goods){
+        return RestResponse.ok(goodsService.selectById(goods.getId()));
+    }
+
     @PostMapping("/add/shoppingCart")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<Boolean> addShoppingCart(@RequestBody AddShoppingCartModel model){

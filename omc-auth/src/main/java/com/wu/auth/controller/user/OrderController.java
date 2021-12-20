@@ -11,6 +11,7 @@ import com.wu.common.service.user.OrderService;
 import com.wu.common.service.user.ShoppingCartService;
 import com.wu.common.utility.http.RestResponse;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.tomcat.jni.Local;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,43 +34,14 @@ public class OrderController extends BaseController {
     @DubboReference
     private OrderService orderService;
 
-    @PostMapping("/get/one")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Order> getOne(@RequestBody OrderItem orderItem){
-        return RestResponse.ok(orderItemService.getOrderByOrderItemId(orderItem.getId()));
-    }
-
-    @PostMapping("/mine")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<List<Order>> mine(@RequestBody User user){
-        return RestResponse.ok(orderService.getOrdersByUserId(user.getId()));
-    }
-
-    @PostMapping("/submit/order")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Boolean> submitOrder(@RequestBody SubmitOrderModel model){
-        List<ShoppingCart> shoppingCarts = shoppingCartService.getShoppingCarts(model.getUserId());
-        // 将购物车中的商品依次提交订单
-        for (ShoppingCart shoppingCart : shoppingCarts) {
-            Order order = MODEL_MAPPER.map(model, Order.class);
-            order.setAmount(shoppingCart.getAmount());
-            order.setGoodsId(shoppingCart.getGoodsId());
-            order.setDatetime(LocalDateTime.now());
-            orderService.insert(order);
-        }
-        // 把购物车表有关该用户的信息清空
-        return RestResponse.ok(shoppingCartService.deleteAllByUserId(model.getUserId()));
-    }
-
     @PostMapping("/purchase/all")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Boolean> purchaseAll(@RequestBody User user){
-        List<Order> orders = orderService.getOrdersByUserId(user.getId());
-        for (Order order : orders) {
-            OrderItem orderItem = new OrderItem(order);
-            orderItemService.insert(orderItem);
-        }
-        return RestResponse.ok(true);
+    public RestResponse<Boolean> purchaseAll(@RequestBody SubmitOrderModel model){
+        Order order = orderService.getOrderById(model.getOrderId());
+        order = MODEL_MAPPER.map(model, Order.class);
+        order.setStatus(1);
+        order.setDatetime(LocalDateTime.now());
+        return RestResponse.ok(orderService.update(order));
     }
 }
 

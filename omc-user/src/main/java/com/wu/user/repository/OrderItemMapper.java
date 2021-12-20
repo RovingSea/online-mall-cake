@@ -32,6 +32,10 @@ public interface OrderItemMapper extends BaseMapper<OrderItem> {
 
     Order selectOrderByOrderItemId(int orderItemId);
 
+    List<OrderItem> selectUnpaidOrdersByUserId(int userId);
+
+    List<OrderItem> selectPaidOrdersByUserId(int userId);
+
     @Override
     @Update("update onlinemallcake.orderitem set price = #{price}, amount = #{amount}, goods_id = #{goodsId}, order_id = #{orderId} where id = #{id}")
     boolean updateByPrimaryKey(OrderItem record);

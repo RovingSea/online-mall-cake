@@ -13,12 +13,23 @@ import java.util.List;
  */
 public interface OrderItemService extends BaseService<OrderItem> {
     /**
+     * 通过用户id得到支付了的订单项
+     * @param userId 用户id
+     * @return 已支付的订单项
+     */
+    List<OrderItem> getAllPaidOrdersByUserId(int userId);
+    /**
+     * 通过用户id得到未支付的订单项
+     * @param userId 用户id
+     * @return 未支付的订单项
+     */
+    List<OrderItem> getAllUnpaidOrdersByUserId(int userId);
+    /**
      * 通过用户id得到所有的订单项
      * @param userId 用户id
      * @return 所有订单
      */
     List<OrderItem> getOrderItemsByUserId(int userId);
-
     /**
      * 通过订单项id查询订单
      * @param orderItemId 订单项id
