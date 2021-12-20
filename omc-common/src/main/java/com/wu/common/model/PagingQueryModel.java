@@ -15,6 +15,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class PagingQueryModel {
     /**
+     * 查询物品名
+     */
+    private String goodsName;
+    /**
      * 从第几个数据开始
      */
     private int from;

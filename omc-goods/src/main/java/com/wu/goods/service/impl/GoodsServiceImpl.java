@@ -28,6 +28,17 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
     }
 
     @Override
+    public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount) {
+        return selectPageLikeByGoodsName(goodsName, eachPageSize, amount, 0);
+    }
+
+    @Override
+    public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount, int from) {
+        List<Goods> goodsList = goodsMapper.selectLikeLimit(goodsName, from, amount);
+        return new Page<>(eachPageSize, amount, goodsList);
+    }
+
+    @Override
     public Page<Goods> selectPage(int eachPageSize, int amount) {
         return selectPage(eachPageSize, amount, 0);
     }

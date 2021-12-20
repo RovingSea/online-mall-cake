@@ -11,6 +11,24 @@ import com.wu.common.utility.Page;
  */
 public interface GoodsService extends BaseService<Goods> {
     /**
+     * 模糊分页查询
+     * @param goodsName 商品名
+     * @param eachPageSize 每页大小
+     * @param amount 总数
+     * @return 整理好页码布局后的商品
+     */
+    Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount);
+
+    /**
+     * 模糊分页查询
+     * @param goodsName 商品名
+     * @param eachPageSize 每页大小
+     * @param amount 总数
+     * @param from 整理好页码布局后的商品
+     * @return 整理好页码布局后的商品
+     */
+    Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount, int from);
+    /**
      * 通过id删除商品
      * @param id {@link Goods} 类型的实体数据的主键id
      * @return 成功与否

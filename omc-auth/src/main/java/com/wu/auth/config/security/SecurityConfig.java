@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 权限设置
                 // 只有用户身份可以访问用戶接口
-                .antMatchers("/omc/api/user/**").hasRole(RoleEnum.USER.getName())
+                .antMatchers("/omc/api/user/**").hasAnyRole(RoleEnum.USER.getName(),RoleEnum.ADMIN.getName())
                 // 只有管理员身份可以访问管理员接口
                 .antMatchers("/omc/api/admin/**").hasRole(RoleEnum.ADMIN.getName())
                 // 所有人都可以访问
