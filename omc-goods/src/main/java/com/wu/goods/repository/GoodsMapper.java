@@ -17,6 +17,10 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     @Delete("delete from onlinemallcake.goods where id = #{id}")
     boolean deleteByPrimaryKey(Integer id);
 
+    @Insert("insert into onlinemallcake.shoppingcart(user_id, goods_id, amount) " +
+            "VALUES(#{userId}, #{goodsId}, 1)")
+    boolean insertToShoppingCart(int userId, int goodsId);
+
     @Override
     @Insert("insert into onlinemallcake.goods(name, image1, image2, price, intro, stock, type_id)" +
             "VALUES(#{name}, #{image1}, #{image2}, #{price}, #{intro}, #{stock}, #{typeId}) ")

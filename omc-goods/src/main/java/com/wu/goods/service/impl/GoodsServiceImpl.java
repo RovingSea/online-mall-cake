@@ -28,6 +28,11 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
     }
 
     @Override
+    public boolean addShoppingCart(int userId, int goodsId) {
+        return goodsMapper.insertToShoppingCart(userId, goodsId);
+    }
+
+    @Override
     public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount) {
         return selectPageLikeByGoodsName(goodsName, eachPageSize, amount, 0);
     }

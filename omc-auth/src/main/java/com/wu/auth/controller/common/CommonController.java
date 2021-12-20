@@ -1,7 +1,11 @@
 package com.wu.auth.controller.common;
 
+import com.wu.common.domain.Goods;
 import com.wu.common.domain.User;
+import com.wu.common.model.PagingQueryModel;
+import com.wu.common.service.goods.GoodsService;
 import com.wu.common.service.user.UserService;
+import com.wu.common.utility.Page;
 import com.wu.common.utility.http.RestResponse;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 public class CommonController {
     @DubboReference
     private UserService userService;
+    @DubboReference
+    private GoodsService goodsService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
@@ -39,6 +45,27 @@ public class CommonController {
         }
         userService.register(user);
         return RestResponse.ok("注册成功");
+    }
+
+
+    @PostMapping("/fuzzy/get/page")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Page<Goods>> selectPageLike(@RequestBody PagingQueryModel model){
+        Page<Goods> goodsPage = goodsService.selectPageLikeByGoodsName(model.getGoodsName(), model.getEachPageSize(), model.getAmount(), model.getFrom());
+        return RestResponse.ok(goodsPage);
+    }
+
+    @PostMapping("/select/one")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Goods> selectOne(@RequestBody Goods goods){
+        return RestResponse.ok(goodsService.selectById(goods.getId()));
+    }
+
+    @PostMapping("/select/page")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Page<Goods>> selectPage(@RequestBody PagingQueryModel model){
+        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getAmount(), model.getFrom());
+        return RestResponse.ok(goodsPage);
     }
 }
 

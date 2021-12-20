@@ -1,6 +1,7 @@
 package com.wu.auth.controller.user;
 
 import com.wu.common.domain.Goods;
+import com.wu.common.model.AddShoppingCartModel;
 import com.wu.common.model.PagingQueryModel;
 import com.wu.common.service.goods.GoodsService;
 import com.wu.common.utility.Page;
@@ -30,24 +31,10 @@ public class GoodsController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
-    @PostMapping("/fuzzy/get/page")
+    @PostMapping("/add/shoppingCart")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPageLike(@RequestBody PagingQueryModel model){
-        Page<Goods> goodsPage = goodsService.selectPageLikeByGoodsName(model.getGoodsName(), model.getEachPageSize(), model.getAmount(), model.getFrom());
-        return RestResponse.ok(goodsPage);
-    }
-
-    @PostMapping("/select/one")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Goods> selectOne(@RequestBody Goods goods){
-        return RestResponse.ok(goodsService.selectById(goods.getId()));
-    }
-
-    @PostMapping("/select/page")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPage(@RequestBody PagingQueryModel model){
-        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getAmount(), model.getFrom());
-        return RestResponse.ok(goodsPage);
+    public RestResponse<Boolean> addShoppingCart(@RequestBody AddShoppingCartModel model){
+        return RestResponse.ok(goodsService.addShoppingCart(model.getUserId(), model.getGoodsId()));
     }
 }
 

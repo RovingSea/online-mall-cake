@@ -11,6 +11,13 @@ import com.wu.common.utility.Page;
  */
 public interface GoodsService extends BaseService<Goods> {
     /**
+     * 将商品加入购物车
+     * @param userId 用户id
+     * @param goodsId 商品id
+     * @return 成功与否
+     */
+    boolean addShoppingCart(int userId, int goodsId);
+    /**
      * 模糊分页查询
      * @param goodsName 商品名
      * @param eachPageSize 每页大小
