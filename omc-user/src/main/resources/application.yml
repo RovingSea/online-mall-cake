@@ -36,7 +36,7 @@ dubbo:
   # 注册服务采用的协议 端口号
   protocol:
     name: dubbo
-    port: 20880
+    port: 20882
   config-center:
     timeout: 25000
   provider:

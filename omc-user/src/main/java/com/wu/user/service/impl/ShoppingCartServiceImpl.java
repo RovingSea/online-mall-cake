@@ -3,6 +3,8 @@ package com.wu.user.service.impl;
 import com.wu.common.base.BaseServiceImpl;
 import com.wu.common.domain.ShoppingCart;
 import com.wu.common.service.user.ShoppingCartService;
+import com.wu.common.utility.annotation.ZkReadLock;
+import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.user.repository.ShoppingCartMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +28,19 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
     }
 
     @Override
+    @ZkWriteLock
     public boolean deleteAllByUserId(int userId) {
         return shoppingCartMapper.deleteByUserId(userId);
     }
 
     @Override
+    @ZkReadLock
     public List<ShoppingCart> getShoppingCarts(int userId) {
         return shoppingCartMapper.getShoppingCarts(userId);
     }
 
     @Override
+    @ZkWriteLock
     public boolean addGoods(int shoppingCartId) {
         return shoppingCartMapper.addAmountByPrimaryKey(shoppingCartId);
     }

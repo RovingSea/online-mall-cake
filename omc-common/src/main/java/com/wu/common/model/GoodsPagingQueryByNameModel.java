@@ -6,13 +6,17 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author Haixin Wu
- * @date 2021/12/20 22:26
+ * @date 2021/12/20 22:20
  * @since 1.0
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PagingQueryModel {
+public class GoodsPagingQueryByNameModel {
+    /**
+     * 商品名
+     */
+    private String name;
     /**
      * 从第几个数据开始
      */

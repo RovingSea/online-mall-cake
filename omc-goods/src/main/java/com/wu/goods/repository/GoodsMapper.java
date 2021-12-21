@@ -31,10 +31,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     Goods selectByPrimaryKey(Integer id);
 
     @Select("select * from onlinemallcake.goods limit #{from},#{amount}")
-    List<Goods> selectLimit(int from, int amount);
+    List<Goods> selectLimit(int amount, int from);
 
-    @Select("select * from onlinemallcake.goods where name like '%#{goodsName}%' limit #{from}, #{amount}")
-    List<Goods> selectLikeLimit(String goodsName, int from, int amount);
+    List<Goods> selectLikeLimit(String goodsName, int amount, int from);
+
+    List<Goods> selectPageByType(int typeId, int amount, int from);
 
     @Override
     @Update("update onlinemallcake.goods set name = #{name}, image1 = #{image1}, image2 = #{image2}, price = #{price}, intro = #{intro}, stock = #{stock}, type_id = #{type_id}")

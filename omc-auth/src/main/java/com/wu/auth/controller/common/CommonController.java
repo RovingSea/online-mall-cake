@@ -1,12 +1,11 @@
 package com.wu.auth.controller.common;
 
-import com.wu.common.domain.Goods;
 import com.wu.common.domain.User;
-import com.wu.common.model.PagingQueryModel;
 import com.wu.common.service.goods.GoodsService;
 import com.wu.common.service.user.UserService;
-import com.wu.common.utility.Page;
 import com.wu.common.utility.http.RestResponse;
+import com.wu.common.utility.http.SystemCode;
+import com.wu.common.utility.util.TokenUtil;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -34,6 +33,18 @@ public class CommonController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
+    @GetMapping("/admin/login")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<String> adminLogin(@RequestHeader("authentication") String token){
+        String username = TokenUtil.getUserInfoFromToken(token);
+        User admin = userService.getByUsername(username);
+        if (admin == null){
+            return RestResponse.failure("用户不存在");
+        } else {
+            return RestResponse.ok(SystemCode.OK.getMessage());
+        }
+    }
+
     @PostMapping("/register")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<String> register(@RequestBody User user){
@@ -48,24 +59,5 @@ public class CommonController {
     }
 
 
-    @PostMapping("/fuzzy/get/page")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPageLike(@RequestBody PagingQueryModel model){
-        Page<Goods> goodsPage = goodsService.selectPageLikeByGoodsName(model.getGoodsName(), model.getEachPageSize(), model.getAmount(), model.getFrom());
-        return RestResponse.ok(goodsPage);
-    }
-
-    @PostMapping("/select/one")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Goods> selectOne(@RequestBody Goods goods){
-        return RestResponse.ok(goodsService.selectById(goods.getId()));
-    }
-
-    @PostMapping("/select/page")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPage(@RequestBody PagingQueryModel model){
-        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getAmount(), model.getFrom());
-        return RestResponse.ok(goodsPage);
-    }
 }
 

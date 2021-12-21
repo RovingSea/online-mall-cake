@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("omc/api/user/order")
 @CrossOrigin
-public class OrderController extends BaseController {
+public class UserOrderController extends BaseController {
     @DubboReference
     private ShoppingCartService shoppingCartService;
     @DubboReference

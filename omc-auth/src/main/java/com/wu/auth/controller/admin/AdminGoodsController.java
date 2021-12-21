@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("omc/api/admin/goods")
 @CrossOrigin
-public class GoodsController {
+public class AdminGoodsController {
     @DubboReference
     private GoodsService goodsService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
     @Autowired
-    public GoodsController(ThreadPoolTaskExecutor authApplicationExecutor) {
+    public AdminGoodsController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 

@@ -2,9 +2,7 @@ package com.wu.auth.controller.user;
 
 import com.wu.common.domain.Goods;
 import com.wu.common.model.AddShoppingCartModel;
-import com.wu.common.model.PagingQueryModel;
 import com.wu.common.service.goods.GoodsService;
-import com.wu.common.utility.Page;
 import com.wu.common.utility.http.RestResponse;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("omc/api/user/goods")
 @CrossOrigin
-public class GoodsController {
+public class UserGoodsController {
     @DubboReference
     private GoodsService goodsService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
     @Autowired
-    public GoodsController(ThreadPoolTaskExecutor authApplicationExecutor) {
+    public UserGoodsController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 

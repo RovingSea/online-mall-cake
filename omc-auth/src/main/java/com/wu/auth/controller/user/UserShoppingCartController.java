@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("omc/api/user/shoppingCart")
 @CrossOrigin
-public class ShoppingCartController extends BaseController {
+public class UserShoppingCartController extends BaseController {
     @DubboReference
     private UserService userService;
     @DubboReference
@@ -39,7 +39,7 @@ public class ShoppingCartController extends BaseController {
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
-    public ShoppingCartController(ThreadPoolTaskExecutor authApplicationExecutor) {
+    public UserShoppingCartController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 

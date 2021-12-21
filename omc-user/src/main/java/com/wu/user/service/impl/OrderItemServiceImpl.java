@@ -4,6 +4,7 @@ import com.wu.common.base.BaseServiceImpl;
 import com.wu.common.domain.Order;
 import com.wu.common.domain.OrderItem;
 import com.wu.common.service.user.OrderItemService;
+import com.wu.common.utility.annotation.ZkReadLock;
 import com.wu.user.repository.OrderItemMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +27,25 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem> implements 
     }
 
     @Override
+    @ZkReadLock
     public List<OrderItem> getAllPaidOrdersByUserId(int userId) {
         return orderItemMapper.selectPaidOrdersByUserId(userId);
     }
 
     @Override
+    @ZkReadLock
     public List<OrderItem> getAllUnpaidOrdersByUserId(int userId) {
         return orderItemMapper.selectUnpaidOrdersByUserId(userId);
     }
 
     @Override
+    @ZkReadLock
     public List<OrderItem> getOrderItemsByUserId(int userId) {
         return orderItemMapper.selectByUserId(userId);
     }
 
     @Override
+    @ZkReadLock
     public Order getOrderByOrderItemId(int orderItemId) {
         return orderItemMapper.selectOrderByOrderItemId(orderItemId);
     }

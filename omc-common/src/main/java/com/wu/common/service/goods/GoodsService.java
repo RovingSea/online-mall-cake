@@ -11,6 +11,24 @@ import com.wu.common.utility.Page;
  */
 public interface GoodsService extends BaseService<Goods> {
     /**
+     * 根据商品类型分页查询
+     * @param typeId 商品类型
+     * @param eachPageSize 每页大小
+     * @param amount 查询总数
+     * @return 整理好页码布局后的商品
+     */
+    Page<Goods> selectPageByType(int typeId, int eachPageSize, int amount);
+
+    /**
+     * 根据商品类型分页查询
+     * @param typeId 商品类型
+     * @param eachPageSize 每页大小
+     * @param amount 查询总数
+     * @param from 从第几个开始查
+     * @return
+     */
+    Page<Goods> selectPageByType(int typeId, int eachPageSize, int amount, int from);
+    /**
      * 将商品加入购物车
      * @param userId 用户id
      * @param goodsId 商品id

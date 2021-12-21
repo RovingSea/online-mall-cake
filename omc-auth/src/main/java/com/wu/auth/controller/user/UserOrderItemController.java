@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("omc/api/user/orderItem")
 @CrossOrigin
-public class OrderItemController extends BaseController {
+public class UserOrderItemController extends BaseController {
     @DubboReference
     private OrderItemService orderItemService;
     @DubboReference
@@ -30,7 +30,7 @@ public class OrderItemController extends BaseController {
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
-    public OrderItemController(ThreadPoolTaskExecutor authApplicationExecutor) {
+    public UserOrderItemController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
