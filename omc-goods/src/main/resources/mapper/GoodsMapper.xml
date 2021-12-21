@@ -7,12 +7,17 @@
         left join onlinemallcake.type t
         on g.type_id = t.id
         where type_id = #{typeId}
-        limit #{from}, #{amount}
+        limit #{from}, #{eachPageSize}
     </select>
 
-    <select id="selectLikeLimit" resultType="com.wu.common.domain.Goods">
+    <select id="selectPageLike" resultType="com.wu.common.domain.Goods">
         select * from onlinemallcake.goods
         where name like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
-        limit #{from}, #{amount}
+        limit #{from}, #{eachPageSize}
+    </select>
+
+    <select id="selectAllSizeLike" resultType="java.lang.Integer">
+        select count(*) from onlinemallcake.goods
+        where name like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
     </select>
 </mapper>

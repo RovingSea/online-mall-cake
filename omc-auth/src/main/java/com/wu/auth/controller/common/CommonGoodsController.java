@@ -24,24 +24,31 @@ public class CommonGoodsController {
     @DubboReference
     private GoodsService goodsService;
 
+    @PostMapping("/get")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Goods> getById(@RequestBody Goods goods){
+        Goods g = goodsService.selectById(goods.getId());
+        return RestResponse.ok(g);
+    }
+
     @PostMapping("/select/page/type")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<Page<Goods>> selectPageByType(@RequestBody GoodsPagingQueryByTypeModel model){
-        Page<Goods> goodsPage = goodsService.selectPageByType(model.getTypeId(), model.getEachPageSize(), model.getAmount(), model.getFrom());
+        Page<Goods> goodsPage = goodsService.selectPageByType(model.getTypeId(), model.getEachPageSize(), model.getWhichPage());
         return RestResponse.ok(goodsPage);
     }
 
     @PostMapping("/fuzzy/get/page")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<Page<Goods>> selectPageLike(@RequestBody GoodsPagingQueryByNameModel model){
-        Page<Goods> goodsPage = goodsService.selectPageLikeByGoodsName(model.getName(), model.getEachPageSize(), model.getAmount());
+        Page<Goods> goodsPage = goodsService.selectPageLikeByGoodsName(model.getName(), model.getEachPageSize(), model.getWhichPage());
         return RestResponse.ok(goodsPage);
     }
 
     @PostMapping("/select/page")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<Page<Goods>> selectPage(@RequestBody PagingQueryModel model){
-        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getAmount(), model.getFrom());
+        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getWhichPage());
         return RestResponse.ok(goodsPage);
     }
 }

@@ -26,16 +26,24 @@ public interface GoodsMapper extends BaseMapper<Goods> {
             "VALUES(#{name}, #{image1}, #{image2}, #{price}, #{intro}, #{stock}, #{typeId}) ")
     boolean insert(Goods record);
 
+    @Select("select count(*) from onlinemallcake.goods")
+    int selectAllSize();
+
+    @Select("select count(*) from onlinemallcake.goods where type_id = #{typeId}")
+    int selectAllSizeByTypeId(int typeId);
+
+    int selectAllSizeLike(String goodsName);
+
     @Override
     @Select("select * from onlinemallcake.goods where id = #{id}")
     Goods selectByPrimaryKey(Integer id);
 
-    @Select("select * from onlinemallcake.goods limit #{from},#{amount}")
-    List<Goods> selectLimit(int amount, int from);
+    @Select("select * from onlinemallcake.goods limit #{from},#{eachPageSize}")
+    List<Goods> selectPage(int from, int eachPageSize);
 
-    List<Goods> selectLikeLimit(String goodsName, int amount, int from);
+    List<Goods> selectPageLike(String goodsName, int from, int eachPageSize);
 
-    List<Goods> selectPageByType(int typeId, int amount, int from);
+    List<Goods> selectPageByType(int typeId, int from, int eachPageSize);
 
     @Override
     @Update("update onlinemallcake.goods set name = #{name}, image1 = #{image1}, image2 = #{image2}, price = #{price}, intro = #{intro}, stock = #{stock}, type_id = #{type_id}")

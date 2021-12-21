@@ -21,9 +21,9 @@ public class GoodsPagingQueryByTypeModel implements Serializable {
      */
     private int typeId;
     /**
-     * 从第几个数据开始
+     * 从第几页开始查
      */
-    private int from;
+    private int whichPage;
     /**
      * 每页大小
      */

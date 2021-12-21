@@ -31,15 +31,15 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
-    public Page<Goods> selectPageByType(int typeId, int eachPageSize, int amount) {
-        return selectPageByType(typeId, eachPageSize, amount, 0);
+    public Page<Goods> selectPageByType(int typeId, int eachPageSize) {
+        return selectPageByType(typeId, eachPageSize, 1);
     }
 
     @Override
     @ZkReadLock
-    public Page<Goods> selectPageByType(int typeId, int eachPageSize, int amount, int from) {
-        List<Goods> goodsList = goodsMapper.selectPageByType(typeId, amount, from);
-        return new Page<>(eachPageSize, amount, goodsList);
+    public Page<Goods> selectPageByType(int typeId, int eachPageSize, int whichPage) {
+        List<Goods> goodsList = goodsMapper.selectPageByType(typeId, (whichPage - 1) * eachPageSize, eachPageSize);
+        return new Page<>(whichPage, eachPageSize, goodsList, goodsMapper.selectAllSizeByTypeId(typeId));
     }
 
     @Override
@@ -50,28 +50,28 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkWriteLock
-    public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount) {
-        return selectPageLikeByGoodsName(goodsName, eachPageSize, amount, 0);
+    public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize) {
+        return selectPageLikeByGoodsName(goodsName, eachPageSize, 1);
     }
 
     @Override
     @ZkWriteLock
-    public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount, int from) {
-        List<Goods> goodsList = goodsMapper.selectLikeLimit(goodsName, amount, from);
-        return new Page<>(eachPageSize, amount, goodsList);
+    public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage) {
+        List<Goods> goodsList = goodsMapper.selectPageLike(goodsName, (whichPage - 1) * eachPageSize, eachPageSize);
+        return new Page<>(whichPage, eachPageSize, goodsList, goodsMapper.selectAllSizeLike(goodsName));
     }
 
     @Override
     @ZkWriteLock
-    public Page<Goods> selectPage(int eachPageSize, int amount) {
-        return selectPage(eachPageSize, amount, 0);
+    public Page<Goods> selectPage(int eachPageSize) {
+        return selectPage(eachPageSize, 1);
     }
 
     @Override
     @ZkWriteLock
-    public Page<Goods> selectPage(int eachPageSize, int amount, int from) {
-        List<Goods> goodsList = goodsMapper.selectLimit(amount, from);
-        return new Page<>(eachPageSize, amount, goodsList);
+    public Page<Goods> selectPage(int eachPageSize, int whichPage) {
+        List<Goods> goodsList = goodsMapper.selectPage((whichPage - 1) * eachPageSize, eachPageSize);
+        return new Page<>(whichPage, eachPageSize, goodsList, goodsMapper.selectAllSize());
     }
 }
 

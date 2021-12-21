@@ -14,20 +14,18 @@ public interface GoodsService extends BaseService<Goods> {
      * 根据商品类型分页查询
      * @param typeId 商品类型
      * @param eachPageSize 每页大小
-     * @param amount 查询总数
      * @return 整理好页码布局后的商品
      */
-    Page<Goods> selectPageByType(int typeId, int eachPageSize, int amount);
+    Page<Goods> selectPageByType(int typeId, int eachPageSize);
 
     /**
      * 根据商品类型分页查询
      * @param typeId 商品类型
      * @param eachPageSize 每页大小
-     * @param amount 查询总数
-     * @param from 从第几个开始查
+     * @param whichPage 从第几页开始查
      * @return
      */
-    Page<Goods> selectPageByType(int typeId, int eachPageSize, int amount, int from);
+    Page<Goods> selectPageByType(int typeId, int eachPageSize, int whichPage);
     /**
      * 将商品加入购物车
      * @param userId 用户id
@@ -36,23 +34,21 @@ public interface GoodsService extends BaseService<Goods> {
      */
     boolean addShoppingCart(int userId, int goodsId);
     /**
-     * 模糊分页查询
+     * 根据商品名模糊分页查询
      * @param goodsName 商品名
      * @param eachPageSize 每页大小
-     * @param amount 总数
      * @return 整理好页码布局后的商品
      */
-    Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount);
+    Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize);
 
     /**
-     * 模糊分页查询
+     * 根据商品名模糊分页查询
      * @param goodsName 商品名
      * @param eachPageSize 每页大小
-     * @param amount 总数
-     * @param from 整理好页码布局后的商品
+     * @param whichPage 从第几页开始查
      * @return 整理好页码布局后的商品
      */
-    Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int amount, int from);
+    Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage);
     /**
      * 通过id删除商品
      * @param id {@link Goods} 类型的实体数据的主键id
@@ -88,18 +84,16 @@ public interface GoodsService extends BaseService<Goods> {
     /**
      * 分页查询商品
      * @param eachPageSize 每页大小
-     * @param amount 总数
      * @return 整理好页码布局后的商品
      */
-    Page<Goods> selectPage(int eachPageSize, int amount);
+    Page<Goods> selectPage(int eachPageSize);
 
     /**
-     * 从第几个数据开始分页查询
+     * 从第几页开始分页查询
      * @param eachPageSize 每页大小
-     * @param amount 总数
-     * @param from 从第几个数据开始
+     * @param whichPage 从第几个数据开始
      * @return 整理好页码布局后的商品
      */
-    Page<Goods> selectPage(int eachPageSize, int amount, int from);
+    Page<Goods> selectPage(int eachPageSize, int whichPage);
 }
 

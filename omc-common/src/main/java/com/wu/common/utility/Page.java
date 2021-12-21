@@ -5,92 +5,85 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 工具类——页码，用于分页查询
  * @author Haixin Wu
  * @date 2021/12/19 0:46
  * @since 1.0
  */
 public class Page<T> implements Serializable {
-    private List<List<T>> layout;
-    private int pageSize;
-    private int eachPageSize;
-    private int amount;
+    /**
+     * 总共有多少数据
+     */
+    private int databaseDataSize;
+    /**
+     * 总共多少页
+     */
+    private int totalPage;
+    /**
+     * 当前页
+     */
+    private int currentPage;
+    /**
+     * 当前页有多少数据
+     */
+    private int size;
+    /**
+     * 当前页数据
+     */
+    private List<T> data;
+
     public Page(){
 
     }
-    /**
-     * 初始化构造方法<br>
-     * 建议总数 % 每页大小 = 0
-     * @param eachPageSize 每页大小
-     * @param amount 总数
-     * @param databaseData 数据库中的数据
-     */
-    public Page(int eachPageSize, int amount, List<T> databaseData){
-        int dataSize = databaseData.size();
-        setPageSize((dataSize / eachPageSize) +1);
-        setAmount(dataSize);
-        // 如果查出来的数据小于每一页的大小
-        if (dataSize < eachPageSize){
-            setEachPageSize(dataSize);
-        }
-        // 如果查出来的数据等于每一页的大小
-        if (dataSize == eachPageSize){
-            setEachPageSize(dataSize);
-        }
-        // 如果查出来的数据大于每一页的大小
-        if (dataSize > eachPageSize){
-            setEachPageSize(eachPageSize);
-        }
-        init();
-        convert(databaseData);
-    }
 
-    private void convert(List<T> databaseData){
-        int s = 0;
-        for (int i = 0; i < pageSize; ++i) {
-            for (int j = 0; j < eachPageSize; j++) {
-                layout.get(i).add(databaseData.get(s));
-                ++s;
-            }
-        }
-    }
-
-    private void init() {
-        layout = new ArrayList<>(pageSize);
-        for (int i = 0; i < pageSize; i++) {
-            layout.add(new ArrayList<>());
-        }
-        for (int i = 0; i < pageSize; ++i) {
-            layout.set(i, new ArrayList<>(eachPageSize));
-        }
+    public Page(int whichPage, int eachPageSize, List<T> databaseData, int databaseDataSize){
+        setDatabaseDataSize(databaseDataSize);
+        setTotalPage((databaseData.size() / eachPageSize) + 1);
+        setCurrentPage(whichPage);
+        setSize(eachPageSize);
+        data = new ArrayList<>(databaseData);
     }
 
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+
+    public int getTotalPage() {
+        return totalPage;
     }
 
-    public void setEachPageSize(int eachPageSize) {
-        this.eachPageSize = eachPageSize;
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
-    public List<List<T>> getLayout() {
-        return layout;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public int getSize() {
+        return size;
     }
 
-    public int getEachPageSize() {
-        return eachPageSize;
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public int getAmount() {
-        return amount;
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
+
+    public int getDatabaseDataSize() {
+        return databaseDataSize;
+    }
+
+    public void setDatabaseDataSize(int databaseDataSize) {
+        this.databaseDataSize = databaseDataSize;
     }
 }
 
