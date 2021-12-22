@@ -108,6 +108,7 @@ export default defineComponent({
           console.log(res)
           if (res.data.code == 1) {
             alert('注册成功')
+            alertInfoMsg('注册成功', 'success')
           } else {
             alert(res.data.response)
           }
@@ -128,6 +129,7 @@ export default defineComponent({
           console.log(res)
           if (res.data.code == 1) {
             // 登录成功
+            alertInfoMsg('登录成功', 'success')
             setToken(res.data.response.token)
             router.push({ name: 'home' })
           } else {
