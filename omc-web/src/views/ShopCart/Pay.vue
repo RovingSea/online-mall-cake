@@ -35,6 +35,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .pay {
+  color: @fontColor;
   width: 1200px;
   margin: 20px auto;
   text-align: center;
@@ -62,6 +63,13 @@ export default defineComponent({
     }
   }
   .pay-way {
+    h2 {
+      margin-bottom: 20px;
+    }
+    .price {
+      margin-top: 20px;
+      color: red;
+    }
     div {
       margin-top: 40px;
       display: flex;
