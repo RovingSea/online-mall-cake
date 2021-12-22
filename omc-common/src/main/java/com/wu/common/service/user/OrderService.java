@@ -12,6 +12,11 @@ import java.util.List;
  */
 public interface OrderService extends BaseService<Order>  {
     /**
+     * 得到最后一条数据的id
+     * @return id
+     */
+    int getLastId();
+    /**
      * 通过用户id得到所有的订单
      * @param userId 用户id
      * @return 所有订单
@@ -22,7 +27,8 @@ public interface OrderService extends BaseService<Order>  {
      * @param order Order 类型的实体数据
      * @return 返回插入数据后的主键id
      */
-    int initOrderAndReturnId(Order order);
+    @Deprecated
+    Order initOrderAndReturnId(Order order);
 
     /**
      * 通过订单id返回订单

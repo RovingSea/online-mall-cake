@@ -21,7 +21,7 @@ public interface OrderItemMapper extends BaseMapper<OrderItem> {
 
     @Override
     @Insert("insert into onlinemallcake.orderitem(price, amount, goods_id, order_id) " +
-            "VALUES(price = #{price}, amount = #{amount}, goods_id = #{goodsId}, order_id = #{orderId})")
+            "VALUES(#{price}, #{amount}, #{goodsId}, #{orderId})")
     Boolean insert(OrderItem record);
 
     @Override

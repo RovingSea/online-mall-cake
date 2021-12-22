@@ -20,4 +20,32 @@
         select count(*) from onlinemallcake.goods
         where name like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
     </select>
+
+    <select id="selectModelByPrimaryKey" resultType="com.wu.common.model.GoodsViewModel">
+        select g.id,g.name,g.image1,g.image2,g.price,g.intro,g.stock,t.name from onlinemallcake.goods g, onlinemallcake.type t
+        where g.type_id = t.id
+        and g.id = #{goodsId}
+    </select>
+
+    <select id="selectModelPage" resultType="com.wu.common.model.GoodsViewModel">
+        select g.id,g.name,g.image1,g.image2,g.price,g.intro,g.stock,t.name from onlinemallcake.goods g, onlinemallcake.type t
+        where g.type_id = t.id
+        limit #{from},#{eachPageSize}
+    </select>
+
+    <select id="selectModelPageLike" resultType="com.wu.common.model.GoodsViewModel">
+        select g.id,g.name,g.image1,g.image2,g.price,g.intro,g.stock,t.name from onlinemallcake.goods g, onlinemallcake.type t
+        where g.type_id = t.id
+        and g.name like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
+        limit #{from},#{eachPageSize}
+    </select>
+
+    <select id="selectModelPageByType" resultType="com.wu.common.model.GoodsViewModel">
+        select g.id,g.name,g.image1,g.image2,g.price,g.intro,g.stock,t.name from onlinemallcake.goods g, onlinemallcake.type t
+        where g.type_id = t.id
+        and type_id = #{typeId}
+        limit #{from},#{eachPageSize}
+    </select>
+
+
 </mapper>

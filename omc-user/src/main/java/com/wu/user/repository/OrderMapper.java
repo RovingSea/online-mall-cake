@@ -22,13 +22,14 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     @Override
     @Insert("insert into onlinemallcake.order(total, amount, status, pay_type, name, phone, address, datetime, user_id) " +
-            "VALUES(total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, datetime = #{datetime}, user_id = #{userId})")
+            "VALUES(#{total}, #{amount}, #{status}, #{payType}, #{name}, #{phone}, #{address}, #{datetime}, #{userId})")
     Boolean insert(Order record);
 
-    @Insert("insert into onlinemallcake.order(total, amount, status, pay_type, name, phone, address, datetime, user_id) " +
-            "VALUES(total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, datetime = #{datetime}, user_id = #{userId})")
-    @SelectKey(statement = "select LAST_INSERT_ID()", resultType = Integer.class, keyProperty = "id", before = false)
-    int initOrder(Order order);
+    @Deprecated
+    Order initOrder(Order order);
+
+    @Select("SELECT id FROM onlinemallcake.order ORDER BY id DESC LIMIT 1")
+    int selectLastId();
 
     @Override
     @Select("select * from onlinemallcake.order where id = #{id}")

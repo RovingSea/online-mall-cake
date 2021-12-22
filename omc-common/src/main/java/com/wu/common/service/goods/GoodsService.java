@@ -2,6 +2,7 @@ package com.wu.common.service.goods;
 
 import com.wu.common.base.BaseService;
 import com.wu.common.domain.Goods;
+import com.wu.common.model.GoodsViewModel;
 import com.wu.common.utility.Page;
 
 /**
@@ -17,6 +18,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 整理好页码布局后的商品
      */
     Page<Goods> selectPageByType(int typeId, int eachPageSize);
+    Page<GoodsViewModel> selectModelPageByType(int typeId, int eachPageSize);
 
     /**
      * 根据商品类型分页查询
@@ -26,6 +28,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return
      */
     Page<Goods> selectPageByType(int typeId, int eachPageSize, int whichPage);
+    Page<GoodsViewModel> selectModelPageByType(int typeId, int eachPageSize, int whichPage);
     /**
      * 将商品加入购物车
      * @param userId 用户id
@@ -40,6 +43,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 整理好页码布局后的商品
      */
     Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize);
+    Page<GoodsViewModel> selectModelPageLikeByGoodsName(String goodsName, int eachPageSize);
 
     /**
      * 根据商品名模糊分页查询
@@ -49,6 +53,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 整理好页码布局后的商品
      */
     Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage);
+    Page<GoodsViewModel> selectModelPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage);
     /**
      * 通过id删除商品
      * @param id {@link Goods} 类型的实体数据的主键id
@@ -72,6 +77,7 @@ public interface GoodsService extends BaseService<Goods> {
      */
     @Override
     Goods selectById(Integer id);
+    GoodsViewModel selectModelById(Integer id);
 
     /**
      * 更新商品信息
@@ -87,6 +93,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 整理好页码布局后的商品
      */
     Page<Goods> selectPage(int eachPageSize);
+    Page<GoodsViewModel> selectModelPage(int eachPageSize);
 
     /**
      * 从第几页开始分页查询
@@ -95,5 +102,6 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 整理好页码布局后的商品
      */
     Page<Goods> selectPage(int eachPageSize, int whichPage);
+    Page<GoodsViewModel> selectModelPage(int eachPageSize, int whichPage);
 }
 
