@@ -2,6 +2,7 @@ package com.wu.auth.controller.user;
 
 import com.wu.common.base.BaseController;
 import com.wu.common.domain.*;
+import com.wu.common.exception.GenerateOrdersFailureException;
 import com.wu.common.model.ShoppingCartViewModel;
 import com.wu.common.model.SubmitOrderModel;
 import com.wu.common.service.goods.GoodsService;
@@ -10,8 +11,10 @@ import com.wu.common.service.user.OrderService;
 import com.wu.common.service.user.ShoppingCartService;
 import com.wu.common.service.user.UserService;
 import com.wu.common.utility.http.RestResponse;
+import com.wu.common.utility.http.SystemCode;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,14 +47,18 @@ public class UserShoppingCartController extends BaseController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
-    @PostMapping("/empty/shoppingCart")
+    @PostMapping("/empty")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Integer> submitOrder(@RequestBody User user){
+    public RestResponse<Integer> submitOrder(@RequestBody User user) throws Exception {
         List<ShoppingCart> shoppingCarts = shoppingCartService.getShoppingCarts(user.getId());
         //形成订单
-        Order order = new Order();
-        order.init();
-        int orderId = orderService.initOrderAndReturnId(order);
+        int orderId = 0;
+        Order order = new Order(user.getId());
+        // mybatis将自增长后的id放至到作为参数的order中
+        if (!orderService.insert(order)) {
+            throw new GenerateOrdersFailureException();
+        }
+        orderId = orderService.getLastId();
         // 将购物车中的商品依次提交形成订单项
         for (ShoppingCart shoppingCart : shoppingCarts) {
             Goods goods = goodsService.selectById(shoppingCart.getGoodsId());
@@ -60,15 +67,15 @@ public class UserShoppingCartController extends BaseController {
             orderItem.setGoodsId(shoppingCart.getGoodsId());
             orderItem.setAmount(shoppingCart.getAmount());
             orderItem.setPrice(goods.getPrice());
-            orderItemService.insert(orderItem);
+            if (!orderItemService.insert(orderItem)) {
+                throw new GenerateOrdersFailureException();
+            }
         }
         // 把购物车表有关该用户的信息清空
-        Boolean deleteSuccessfully = shoppingCartService.deleteAllByUserId(user.getId());
-        if (deleteSuccessfully){
-            return RestResponse.ok(orderId);
-        } else {
-            return RestResponse.failure(0);
+        if (!shoppingCartService.deleteAllByUserId(user.getId())){
+            throw new GenerateOrdersFailureException();
         }
+        return RestResponse.ok(orderId);
     }
 
     @PostMapping("/mine")
