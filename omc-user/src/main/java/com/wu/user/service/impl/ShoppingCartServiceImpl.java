@@ -48,6 +48,11 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
     }
 
     @Override
+    public Boolean changeNum(int id, int num) {
+        return shoppingCartMapper.changeNumByPrimaryKey(id, num);
+    }
+
+    @Override
     @ZkWriteLock
     public Boolean addGoods(int shoppingCartId) {
         return shoppingCartMapper.addAmountByPrimaryKey(shoppingCartId);

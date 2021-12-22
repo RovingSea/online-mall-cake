@@ -3,6 +3,7 @@ package com.wu.auth.controller.user;
 import com.wu.common.base.BaseController;
 import com.wu.common.domain.*;
 import com.wu.common.exception.GenerateOrdersFailureException;
+import com.wu.common.model.ChangeShoppingCartNumModel;
 import com.wu.common.model.ShoppingCartViewModel;
 import com.wu.common.model.SubmitOrderModel;
 import com.wu.common.service.goods.GoodsService;
@@ -85,10 +86,10 @@ public class UserShoppingCartController extends BaseController {
     }
 
 
-    @PostMapping("/plus/one")
+    @PostMapping("/change")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Boolean> addGoods(@RequestBody ShoppingCart shoppingCart){
-        return RestResponse.ok(shoppingCartService.addGoods(shoppingCart.getId()));
+    public RestResponse<Boolean> addGoods(@RequestBody ChangeShoppingCartNumModel model){
+        return RestResponse.ok(shoppingCartService.changeNum(model.getId(), model.getChangeNum()));
     }
 
 }

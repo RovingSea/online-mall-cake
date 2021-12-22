@@ -37,7 +37,7 @@ public class UserOrderController extends BaseController {
 
     @PostMapping("/submit")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> purchaseAll(@RequestBody SubmitOrderModel model){
+    public RestResponse<String> submit(@RequestBody SubmitOrderModel model){
         Order order = MODEL_MAPPER.map(model, Order.class);
         order.setStatus(1);
         order.setDatetime(LocalDateTime.now());

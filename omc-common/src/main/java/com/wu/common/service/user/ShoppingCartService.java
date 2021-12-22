@@ -13,6 +13,13 @@ import java.util.List;
  */
 public interface ShoppingCartService extends BaseService<ShoppingCart> {
     /**
+     * 在一个商品的数值上增加或减少数量
+     * @param id 购物车id
+     * @param num 增加或减少的数值
+     * @return
+     */
+    Boolean changeNum(int id, int num);
+    /**
      * 再来一单
      * @param shoppingCartId 购物车id
      * @return 成功与否
