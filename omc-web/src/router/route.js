@@ -101,7 +101,7 @@ const routes = [
 				component: () => import('../views/Desk/Category.vue')
 			},
 			{
-				path: 'search',
+				path: 'search/:keyword',
 				name: 'search',
 				component: () => import('../views/Desk/Search.vue')
 			}

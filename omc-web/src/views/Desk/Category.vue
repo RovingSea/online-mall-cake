@@ -2,9 +2,7 @@
   <div class="category">
     <div class="header">
       <span class="title">分类:</span>
-      <span class="active">全部分类</span>
-      <span>蛋糕</span>
-      <span>巧克力</span>
+      <span v-for="item in categoryList" :key="item.id">{{item.name}}</span>
     </div>
     <div class="main">
       <div class="cake">
@@ -37,11 +35,20 @@
 </template>
 
 <script>
+import { reqGoodsCategory } from '@/api/index.js'
+import { reactive } from '@vue/reactivity'
 export default {
   setup() {
-    console.log('1')
+    const state = reactive({
+      categoryList: [],
+      currentIndex: 1 //默认的选中状,切换商品分类
+    })
+    reqGoodsCategory().then(res => {
+      console.log(res)
+      state.categoryList = res.data.response
+    })
 
-    return {}
+    return state
   }
 }
 </script>

@@ -1,41 +1,49 @@
 <template>
   <div class="goods-detail">
     <h2>商品详情</h2>
-    <img src="../../assets/images/cakehot.png" alt="">
+    <img :src="detail.image1" alt />
     <div class="desc">
-      <h2>半熟知识</h2>
+      <h2>{{detail.name}}</h2>
       <span>分类: 儿童类</span>
-      <p>desc: Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ipsam nihil eius aliquid soluta vel architecto. Rem corporis libero voluptates nostrum doloremque dolore veritatis quisquam in soluta et, sed maiores.</p>
-      <br>
-      <span>￥ 28</span>
+      <p>{{detail.intro}}</p>
+      <br />
+      <span>￥ {{detail.price}}</span>
     </div>
-    <div class="button" @click="goShopCart(2)">
-      加入购物车
-    </div>
+    <div class="button" @click="goShopCart(2)">加入购物车</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { defineComponent, reactive, toRefs } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { reqGoodsDetail } from '../../api/index.js'
 export default defineComponent({
   setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const goShopCart = (id) => {
+    const state = reactive({
+      detail: {}
+    })
+    const route = useRoute()
+    const router = useRouter()
+    // 请求商品详情数据
+    reqGoodsDetail({ id: route.params.id }).then(res => {
+      console.log(res)
+      state.detail = res.data.response
+    })
+    const goShopCart = id => {
       router.push({
-        name: "shopcart",
+        name: 'shopcart',
         params: {
-          id,
-        },
-      });
-    };
+          id
+        }
+      })
+    }
     return {
       route,
       goShopCart,
-    };
-  },
-});
+      ...toRefs(state)
+    }
+  }
+})
 </script>
 
 <style scoped lang="less">
@@ -43,6 +51,9 @@ export default defineComponent({
   width: 1220px;
   margin: 40px auto;
   text-align: center;
+  img {
+    width: 400px;
+  }
 }
 .button {
   height: 40px;
