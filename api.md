@@ -26,7 +26,7 @@ Content-Type：application/json
 无
 ```
 
-#### 返回样例
+#### 成功样例
 
 ```json
 {
@@ -57,12 +57,12 @@ Content-Type：application/json
 }
 ```
 
-### 查询商品
+### 默认查询商品
 
 ```apl
 接口状态：已完成
 
-接口URL：http://www.ccsu1204branch.com/omc/api/common/select/page
+接口URL：http://www.ccsu1204branch.com/omc/api/common/goods/select/page
 
 请求方式：POST
 
@@ -80,7 +80,7 @@ Content-Type：application/json
 }
 ```
 
-#### 返回样例
+#### 成功样例
 
 ```
 Base64数据太长了，ApiPost调试不出来
@@ -112,7 +112,7 @@ Content-Type：application/json
 }
 ```
 
-#### 返回样例
+#### 成功样例
 
 ```json
 {
@@ -175,7 +175,7 @@ Content-Type：application/json
 }
 ```
 
-#### 返回类型
+#### 成功样例
 
 ```json
 {
@@ -224,7 +224,7 @@ Content-Type：application/json
 }
 ```
 
-#### 返回类型
+#### 成功样例
 
 ```json
 {
@@ -247,27 +247,353 @@ Content-Type：application/json
 
 ### 注册
 
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/common/register
+
+请求方式：POST
+
+Content-Type：application/json
+
+接口地址（后端写）：/register
+```
+
+#### 请求参数
+
+```json
+{
+    "username" : 'bitian',
+    "password" : 'bitian',
+    "email" : 'bitian',
+    "phone" : 'feibitian',
+    "address" : 'feibitian',
+    "name" : 'feibitian'
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": "注册成功"
+}
+```
+
 ### 登录
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/common/login
+
+请求方式：POST
+
+Content-Type：application/json
+
+接口地址（后端写）：/login
+```
+
+#### 请求参数
+
+```json
+{
+    "username" : 'bitian',
+    "password" : 'bitian'
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": {
+		"token": "eyJhbGciOiJIUzUxMiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAKtWKi5NUrJSSsosyUzMU9JRSq0oULIyNDMxMDIytTQzqgUA37c3NSEAAAA.50Hp6ircEWB-kzc4UL8q2qLE1uTFZOYgAt-IRs-sHQK6VtmbgzaXFBbLzxrBMV-MUczCDpuB9VsnMMLxjMgR-w"
+	}
+}
+```
+
+## 管理员
+
+### 身份认证
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/common/isAdmin
+
+请求方式：GET
+
+Content-Type：none
+
+Header:authentication
+
+接口地址（后端写）：/isAdmin
+```
+
+#### 请求头
+
+authentication即登陆成功后返回的token值
+
+```apl
+Header:authentication
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": "成功"
+}
+```
 
 # 有权限接口
 
-# 用户
+## 用户
 
-## 登录
+### 查看个人信息
 
-## 注册
+```apl
+接口状态：已完成
 
-## 个人信息
+接口URL：http://www.ccsu1204branch.com/omc/api/user/current
 
-## 更新信息
+请求方式：GET
 
-## 将商品加入购物车
+Content-Type：none
 
-## 将购物车中的商品加一
+Header:authentication
 
-## 查看我的购物车
+接口地址（后端写）：/user/current
+```
 
-## 清空购物车
+#### 请求头
+
+```
+Header:authentication
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": {
+		"id": 5,
+		"username": "wu",
+		"password": "123",
+		"name": null,
+		"email": "123",
+		"phone": null,
+		"address": null,
+		"validate": false,
+		"admin": true
+	}
+}
+```
+
+### 更新个人信息
+
+```apl
+接口状态：出bug
+
+接口URL：http://www.ccsu1204branch.com/omc/api/user/update
+
+请求方式：POST
+
+Content-Type：none
+
+Header:authentication
+
+接口地址（后端写）：/user/update
+```
+
+#### 请求头
+
+```
+Header:authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "username" : 'bitian',
+    "password" : 'bitian',
+    "email" : 'bitian',
+    "phone" : 'feibitian',
+    "address" : 'feibitian',
+    "name" : 'feibitian'
+}
+```
+
+#### 成功样例
+
+```json
+
+```
+
+### 将商品加入购物车
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/user/goods/add/shoppingCart
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/user/goods/add/shoppingCart
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "userId" : 5,
+    "goodsId" : 9
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
+
+### 将购物车中的商品加一
+
+### 
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/user/shoppingCart/plus/one
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/user/shoppingCart/plus/one
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "id" : 1
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
+
+### 
+
+### 查看我的购物车
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/user/shoppingCart/mine
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/user/shoppingCart/mine
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "userId" : 5
+}
+```
+
+#### 成功样例
+
+```json
+
+```
+
+
+
+### 
+
+### 清空购物车
+
+### 
+
+```apl
+
+```
+
+#### 请求头
+
+```
+
+```
+
+#### 请求参数
+
+```json
+
+```
+
+#### 成功样例
+
+```json
+
+```
+
+
+
+### 
 
 
 
