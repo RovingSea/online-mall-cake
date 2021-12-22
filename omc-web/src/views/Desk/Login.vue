@@ -5,22 +5,22 @@
       <div class="form-container sign-up-container">
         <div class="form">
           <h2>sign up</h2>
-          <input type="text" name="username" id="username" placeholder="Username...">
-          <input type="email" name="emal" id="email" placeholder="Email...">
-          <input type="password" name="password" id="password" placeholder="Password...">
-          <input type="text" name="consignee" id="consignee" placeholder="Consignee...">
-          <input type="text" name="address" id="address" placeholder="Address...">
-          <input type="text" name="phone" id="phone" placeholder="Phone...">
-          <button class="signUp">注册</button>
+          <input v-model="username" type="text" name="username" id="username" placeholder="Username..." />
+          <input v-model="email" type="email" name="emal" id="email" placeholder="Email..." />
+          <input v-model="password" type="password" name="password" id="password" placeholder="Password..." />
+          <input v-model="name" type="text" name="consignee" id="consignee" placeholder="Consignee..." />
+          <input v-model="address" type="text" name="address" id="address" placeholder="Address..." />
+          <input v-model="phone" type="text" name="phone" id="phone" placeholder="Phone..." />
+          <button class="signUp" @click="register">注册</button>
         </div>
       </div>
       <!-- login 开始左 -->
       <div class="form-container sign-in-container">
         <div class="form">
           <h2>sign in</h2>
-          <input type="email" name="emal" id="email" placeholder="Username...">
-          <input type="password" name="password" id="password" placeholder="Password...">
-          <button class="signIn" @click="signInClick">登陆</button>
+          <input v-model="username" type="email" name="emal" id="email" placeholder="Username..." />
+          <input v-model="password" type="password" name="password" id="password" placeholder="Password..." />
+          <button class="signIn" @click="login">登陆</button>
         </div>
       </div>
       <!-- overlay container -->
@@ -39,31 +39,97 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
+import { reqRegister, reqLogin } from '../../api/index.js'
+import { setToken } from '../../utils/token.js'
 export default defineComponent({
   setup() {
     const obj = reactive({
       container: null,
-    });
+      username: '',
+      name: '', //收件人
+      password: '',
+      email: '',
+      address: '',
+      phone: ''
+    })
+    // 清空obj中的属性
+    function clearState() {
+      for (let k in obj) {
+        if (k != 'container') {
+          obj[k] = ''
+        }
+      }
+    }
+    // 动画切换
     function signInClick() {
-      obj.container.classList.remove("active");
+      obj.container.classList.remove('active')
+      clearState()
     }
     function signUpClick() {
-      obj.container.classList.add("active");
+      obj.container.classList.add('active')
+      clearState()
+    }
+    // 注册
+    function register() {
+      console.log('12')
+      let data = {
+        username: obj.username,
+        password: obj.password,
+        email: obj.email,
+        address: obj.email,
+        phone: obj.phone
+      }
+      if (obj.username == '' || obj.password == '' || obj.email == '') {
+        alert('用户名,密码,邮箱都必须填')
+      } else {
+        reqRegister(data).then(res => {
+          console.log(res)
+          if (res.data.code == 1) {
+            alert('注册成功')
+          } else {
+            alert(res.data.response)
+          }
+        })
+      }
+    }
+    // 登录
+    const router = useRouter()
+    function login() {
+      if (obj.username == '' || obj.password == '') {
+        alert('用户名或密码不能为空')
+      } else {
+        const data = {
+          username: obj.username,
+          password: obj.password
+        }
+        reqLogin(data).then(res => {
+          console.log(res)
+          if (res.data.code == 1) {
+            // 登录成功
+            setToken(res.data.response.token)
+            router.push({ name: 'home' })
+          } else {
+            alert(res.data.msg)
+          }
+        })
+      }
     }
 
     return {
       ...toRefs(obj),
       signInClick,
       signUpClick,
-    };
-  },
-});
+      register,
+      login
+    }
+  }
+})
 </script>
 
 <style scoped lang="less">

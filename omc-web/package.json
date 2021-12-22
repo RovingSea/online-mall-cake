@@ -11,6 +11,8 @@
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
     "mockjs": "^1.1.0",
+    "qs": "^6.10.2",
+    "swiper": "^5.4.5",
     "vite-plugin-mock": "^2.9.6",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12",
