@@ -2,6 +2,7 @@ package com.wu.common.base;
 
 import com.wu.common.utility.annotation.ZkReadLock;
 import com.wu.common.utility.annotation.ZkWriteLock;
+import org.springframework.stereotype.Service;
 
 /**
  * 各模块ServiceImpl的父类<br>
@@ -38,7 +39,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
     @Override
     @ZkReadLock
-    public boolean updateById(T record) {
+    public boolean update(T record) {
         return baseMapper.updateByPrimaryKey(record);
     }
 }

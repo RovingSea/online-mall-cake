@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wu.goods.repository.GoodsMapper">
 
+    <select id="selectPageByType" resultType="com.wu.common.domain.Goods">
+        select * from onlinemallcake.goods g
+        left join onlinemallcake.type t
+        on g.type_id = t.id
+        where type_id = #{typeId}
+        limit #{from}, #{eachPageSize}
+    </select>
+
+    <select id="selectPageLike" resultType="com.wu.common.domain.Goods">
+        select * from onlinemallcake.goods
+        where name like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
+        limit #{from}, #{eachPageSize}
+    </select>
+
+    <select id="selectAllSizeLike" resultType="java.lang.Integer">
+        select count(*) from onlinemallcake.goods
+        where name like concat('%',#{goodsName,jdbcType=VARCHAR},'%')
+    </select>
 </mapper>

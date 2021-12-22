@@ -1,13 +1,18 @@
 package com.wu.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * 订单实体类
+ * 订单实体类<br>
+ * 订单项和订单的区别就是，订单项是订单提交（即购买）前才有的，一个订单包括多个订单项，比如一个订单可能包
+ * 括了买衣服，也包括了买裤子，而其中的衣服或裤子就是一个订单项
  * @author Haixin Wu
  * @date 2021/12/16 0:16
  * @since 1.0
@@ -15,11 +20,26 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Order {
+public class Order implements Serializable {
+    public void init(){
+        setTotal(0F);
+        setAmount(0);
+        setName("null");
+        setStatus(0);
+        setPayType(0);
+        setPhone("000000");
+        setAddress("无");
+        setDatetime(LocalDateTime.now());
+        setUserId(0);
+    }
     /**
-     * 商品id
+     * 订单id
      */
     private int id;
+    /**
+     * 用户id
+     */
+    private int userId;
     /**
      * 商品总额
      */
@@ -53,10 +73,7 @@ public class Order {
     /**
      * 订单日期
      */
-    private Date datetime;
-    /**
-     * 用户id
-     */
-    private int userId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime datetime;
 }
 

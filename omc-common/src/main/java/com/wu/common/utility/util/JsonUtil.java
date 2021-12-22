@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,6 +25,10 @@ public class JsonUtil {
 
     static {
         MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+    public static HashMap<String, String> getJsonStr(HttpServletRequest request) throws IOException {
+        return MAPPER.readValue(request.getInputStream(), HashMap.class);
     }
 
     public static <T> String toJsonStr(T o) {

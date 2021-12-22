@@ -7,26 +7,29 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 推荐栏实体类
  * @author Haixin Wu
- * @date 2021/12/16 0:23
+ * @date 2021/12/18 22:12
  * @since 1.0
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Recommend implements Serializable {
+public class ShoppingCart implements Serializable {
     /**
-     * 推荐栏id
+     * 购物车id
      */
     private int id;
     /**
-     * 商品类型
+     * 用户id
      */
-    private int typeId;
+    private int userId;
     /**
      * 商品id
      */
     private int goodsId;
+    /**
+     * 购物车中某个商品的数量
+     */
+    private int amount;
 }
 

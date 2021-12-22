@@ -1,4 +1,4 @@
-package com.wu.auth.controller.goods;
+package com.wu.auth.controller.admin;
 
 import com.wu.common.domain.Goods;
 import com.wu.common.service.goods.GoodsService;
@@ -9,24 +9,22 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @author Haixin Wu
- * @date 2021/12/18 17:19
+ * @date 2021/12/20 14:14
  * @since 1.0
  */
 @RestController
-@RequestMapping("moc/api/goods")
+@RequestMapping("omc/api/admin/goods")
 @CrossOrigin
-public class GoodsController {
+public class AdminGoodsController {
     @DubboReference
     private GoodsService goodsService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
     @Autowired
-    public GoodsController(ThreadPoolTaskExecutor authApplicationExecutor) {
+    public AdminGoodsController(ThreadPoolTaskExecutor authApplicationExecutor) {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
@@ -39,24 +37,16 @@ public class GoodsController {
 
     @PostMapping("/delete")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> delete(@RequestBody int id){
-        goodsService.deleteById(id);
+    public RestResponse<String> delete(@RequestBody Goods goods){
+        goodsService.deleteById(goods.getId());
         return RestResponse.ok("删除成功");
     }
 
     @PostMapping("/update")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<String> update(@RequestBody Goods goods){
-        goodsService.insert(goods);
+        goodsService.update(goods);
         return RestResponse.ok("更新成功");
     }
-
-    @PostMapping("/select")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Goods> select(@RequestBody int id){
-        return RestResponse.ok(goodsService.selectById(id));
-    }
-
-
 }
 

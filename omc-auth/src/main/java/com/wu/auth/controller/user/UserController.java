@@ -3,8 +3,9 @@ package com.wu.auth.controller.user;
 import com.wu.common.domain.User;
 import com.wu.common.service.user.UserService;
 import com.wu.common.utility.http.RestResponse;
+import com.wu.common.utility.util.JsonUtil;
+import com.wu.common.utility.util.TokenUtil;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 1.0
  */
 @RestController
-@RequestMapping("moc/api/user")
+@RequestMapping("omc/api/user")
 @CrossOrigin
 public class UserController {
     @DubboReference
@@ -29,17 +30,16 @@ public class UserController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
-    @PostMapping("/register")
-    @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> register(@RequestBody User user){
-        if (userService.getByUsername(user.getUsername()) != null){
-            return RestResponse.failure("该用户名已被注册");
-        }
-        if (userService.getByEmail(user.getEmail()) != null){
-            return RestResponse.failure("该邮箱已被注册");
-        }
-        userService.register(user);
-        return RestResponse.ok("注册成功");
+    @GetMapping("/current")
+    public RestResponse<User> getCurrent(@RequestHeader("authentication") String authentication){
+        String username = TokenUtil.getUserInfoFromToken(authentication);
+        return RestResponse.ok(userService.getByUsername(username));
     }
+
+    @PostMapping("/update")
+    public RestResponse<Boolean> update(@RequestBody User user){
+        return RestResponse.ok(userService.update(user));
+    }
+
 }
 

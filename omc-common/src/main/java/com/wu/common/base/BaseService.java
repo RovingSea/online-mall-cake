@@ -31,6 +31,6 @@ public interface BaseService<T> {
      * @param record T 类型的实体数据
      * @return 成功与否
      */
-    boolean updateById(T record);
+    boolean update(T record);
 }
 

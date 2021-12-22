@@ -35,12 +35,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     @ZkReadLock
-    public boolean login() {
-        return false;
-    }
-
-    @Override
-    @ZkReadLock
     public User getByUsername(String username) {
         return userMapper.selectByUsername(username);
     }
