@@ -12,10 +12,16 @@ import '@/mock/mockServe.js'
 // 导入路由
 import router from './router/index'
 
+// 懒加载
+// import lazyPlugin from 'vue3-lazy'
+// app.use(lazyPlugin, {
+// 	loading: require('../src/assets/images/cakeloading.png'), // 图片加载时默认图片
+// 	error: require('@/assets/images/error.png') // 图片加载失败时默认图片
+// })
+
 const app = createApp(App)
 app.use(ElementPlus)
 app.component(Pagination.name, Pagination)
 app.component(Alert.name, Alert)
-
 app.use(router)
 app.mount('#app')

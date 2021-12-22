@@ -16,6 +16,7 @@
     "vite-plugin-mock": "^2.9.6",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12",
+    "vue3-lazy": "^1.0.0-alpha.1",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
