@@ -75,7 +75,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         log.info("用户[{}]发送了校验请求", user.getUsername());
 
         List<GrantedAuthority> authorityList =
-                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_"+ RoleEnum.getName(user.isAdmin()));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_"+ RoleEnum.getName(user.getIsAdmin()));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 pw.encode(user.getPassword()), authorityList);

@@ -47,7 +47,7 @@ public class AuthenticationHandler implements UserDetailsService {
         log.info("用户[{}]发送了登录请求", username);
 
         ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.getName(user.isAdmin())));
+        grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.getName(user.getIsAdmin())));
 
         return new User(user.getUsername(), pw.encode(user.getPassword()), grantedAuthorities);
     }
