@@ -63,7 +63,7 @@ public class UserShoppingCartController extends BaseController {
             orderItemService.insert(orderItem);
         }
         // 把购物车表有关该用户的信息清空
-        boolean deleteSuccessfully = shoppingCartService.deleteAllByUserId(user.getId());
+        Boolean deleteSuccessfully = shoppingCartService.deleteAllByUserId(user.getId());
         if (deleteSuccessfully){
             return RestResponse.ok(orderId);
         } else {

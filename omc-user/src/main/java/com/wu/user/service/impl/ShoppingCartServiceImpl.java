@@ -9,6 +9,7 @@ import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.user.repository.ShoppingCartMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @DubboService
+@Service
 public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> implements ShoppingCartService {
 
     private final ShoppingCartMapper shoppingCartMapper;
@@ -30,7 +32,7 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
 
     @Override
     @ZkWriteLock
-    public boolean deleteAllByUserId(int userId) {
+    public Boolean deleteAllByUserId(int userId) {
         return shoppingCartMapper.deleteByUserId(userId);
     }
 
@@ -47,7 +49,7 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
 
     @Override
     @ZkWriteLock
-    public boolean addGoods(int shoppingCartId) {
+    public Boolean addGoods(int shoppingCartId) {
         return shoppingCartMapper.addAmountByPrimaryKey(shoppingCartId);
     }
 

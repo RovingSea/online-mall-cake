@@ -19,6 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @DubboService
+@Service
 public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsService {
 
     private final GoodsMapper goodsMapper;
@@ -44,7 +45,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkWriteLock
-    public boolean addShoppingCart(int userId, int goodsId) {
+    public Boolean addShoppingCart(int userId, int goodsId) {
         return goodsMapper.insertToShoppingCart(userId, goodsId);
     }
 

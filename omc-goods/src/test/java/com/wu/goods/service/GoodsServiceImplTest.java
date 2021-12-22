@@ -34,7 +34,7 @@ public class GoodsServiceImplTest {
         Goods goods = new Goods();
         goods.setName("ceshi1");
         goods.setImage1("12312312");
-        boolean insert = goodsService.insert(goods);
+        Boolean insert = goodsService.insert(goods);
         System.out.println(insert);
         Goods goods1 = goodsService.selectById(10);
         System.out.println(goods1);

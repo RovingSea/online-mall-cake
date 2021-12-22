@@ -15,7 +15,7 @@ public interface UserService extends BaseService<User> {
      * @param record {@link User}
      * @return 成功与否
      */
-    boolean register(User record);
+    Boolean register(User record);
 
     /**
      * 通过username查询

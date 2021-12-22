@@ -13,13 +13,13 @@ public interface BaseService<T> {
      * @param id T 类型的实体数据的主键id
      * @return 成功与否
      */
-    boolean deleteById(Integer id);
+    Boolean deleteById(Integer id);
     /**
      * 向数据库中增加 T 类型的实体数据
      * @param record T 类型的实体数据
      * @return 成功与否
      */
-    boolean insert(T record);
+    Boolean insert(T record);
     /**
      * 通过 T 类型的实体数据的主键id 查询数据
      * @param id T 类型的实体数据的主键id
@@ -31,6 +31,6 @@ public interface BaseService<T> {
      * @param record T 类型的实体数据
      * @return 成功与否
      */
-    boolean update(T record);
+    Boolean update(T record);
 }
 

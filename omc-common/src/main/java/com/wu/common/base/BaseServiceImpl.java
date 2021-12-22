@@ -2,6 +2,7 @@ package com.wu.common.base;
 
 import com.wu.common.utility.annotation.ZkReadLock;
 import com.wu.common.utility.annotation.ZkWriteLock;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,13 +22,13 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
     @Override
     @ZkWriteLock
-    public boolean deleteById(Integer id) {
+    public Boolean deleteById(Integer id) {
         return baseMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     @ZkWriteLock
-    public boolean insert(T record) {
+    public Boolean insert(T record) {
         return baseMapper.insert(record);
     }
 
@@ -39,7 +40,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
 
     @Override
     @ZkReadLock
-    public boolean update(T record) {
+    public Boolean update(T record) {
         return baseMapper.updateByPrimaryKey(record);
     }
 }

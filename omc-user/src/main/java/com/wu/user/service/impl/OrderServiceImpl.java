@@ -18,6 +18,7 @@ import java.util.List;
  * @since 1.0
  */
 @DubboService
+@Service
 public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderService {
     private final OrderMapper orderMapper;
 

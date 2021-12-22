@@ -19,10 +19,10 @@ public enum RoleEnum {
     USER(false, "用户"),
     ADMIN( true, "管理员");
 
-    private final boolean isAdmin;
+    private final Boolean isAdmin;
     private final String name;
 
-    RoleEnum(boolean isAdmin, String name) {
+    RoleEnum(Boolean isAdmin, String name) {
         this.isAdmin = isAdmin;
         this.name = name;
     }
@@ -35,7 +35,7 @@ public enum RoleEnum {
         }
     }
 
-    public static String getName(boolean isAdmin){
+    public static String getName(Boolean isAdmin){
         return keyMap.get(isAdmin);
     }
 }

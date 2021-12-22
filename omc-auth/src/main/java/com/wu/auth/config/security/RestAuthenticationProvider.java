@@ -58,7 +58,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
+    public Boolean supports(Class<?> authentication) {
         return true;
     }
 }

@@ -21,12 +21,12 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
 
     @Override
     @Delete("delete from onlinemallcake.shoppingcart where id = #{id}")
-    boolean deleteByPrimaryKey(Integer id);
+    Boolean deleteByPrimaryKey(Integer id);
 
     @Override
     @Insert("insert into onlinemallcake.shoppingcart(user_id, goods_id, amount) " +
             "VALUES (#{userId}, #{goodsId}, #{amount})")
-    boolean insert(ShoppingCart record);
+    Boolean insert(ShoppingCart record);
 
     @Override
     @Select("select * from onlinemallcake.shoppingcart where id = #{id}")
@@ -35,12 +35,12 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
     @Override
     @Deprecated
     @Update("update onlinemallcake.shoppingcart set amount = #{amount} where id = #{id}")
-    boolean updateByPrimaryKey(ShoppingCart record);
+    Boolean updateByPrimaryKey(ShoppingCart record);
 
     @Update("update onlinemallcake.shoppingcart set amount = #{amount} + 1 where id = #{id}")
-    boolean addAmountByPrimaryKey(int shoppingCartId);
+    Boolean addAmountByPrimaryKey(int shoppingCartId);
 
     @Delete("delete from onlinemallcake.shoppingcart where user_id = #{userId}")
-    boolean deleteByUserId(Integer userId);
+    Boolean deleteByUserId(Integer userId);
 }
 

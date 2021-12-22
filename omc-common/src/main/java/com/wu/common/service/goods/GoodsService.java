@@ -32,7 +32,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @param goodsId 商品id
      * @return 成功与否
      */
-    boolean addShoppingCart(int userId, int goodsId);
+    Boolean addShoppingCart(int userId, int goodsId);
     /**
      * 根据商品名模糊分页查询
      * @param goodsName 商品名
@@ -55,7 +55,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 成功与否
      */
     @Override
-    boolean deleteById(Integer id);
+    Boolean deleteById(Integer id);
 
     /**
      * 新增商品
@@ -63,7 +63,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return 成功与否
      */
     @Override
-    boolean insert(Goods record);
+    Boolean insert(Goods record);
 
     /**
      * 通过id查询一个商品
@@ -79,7 +79,7 @@ public interface GoodsService extends BaseService<Goods> {
      * @return
      */
     @Override
-    boolean update(Goods record);
+    Boolean update(Goods record);
 
     /**
      * 分页查询商品

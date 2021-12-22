@@ -8,6 +8,7 @@ import com.wu.common.utility.annotation.ZkReadLock;
 import com.wu.user.repository.OrderItemMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 1.0
  */
 @DubboService
+@Service
 public class OrderItemServiceImpl extends BaseServiceImpl<OrderItem> implements OrderItemService {
     private final OrderItemMapper orderItemMapper;
 

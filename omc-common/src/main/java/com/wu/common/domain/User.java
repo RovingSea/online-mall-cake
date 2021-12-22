@@ -46,10 +46,10 @@ public class User implements Serializable {
     /**
      * 是否为管理员
      */
-    private boolean isAdmin;
+    private Boolean isAdmin;
     /**
      * 账户是否有效
      */
-    private boolean isValidate;
+    private Boolean isValidate;
 }
 

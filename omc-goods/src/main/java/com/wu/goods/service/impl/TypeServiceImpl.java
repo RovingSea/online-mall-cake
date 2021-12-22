@@ -9,6 +9,7 @@ import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.goods.repository.TypeMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 1.0
  */
 @DubboService
+@Service
 public class TypeServiceImpl extends BaseServiceImpl<Type> implements TypeService {
     private final TypeMapper typeMapper;
 
@@ -35,13 +37,13 @@ public class TypeServiceImpl extends BaseServiceImpl<Type> implements TypeServic
 
     @Override
     @ZkWriteLock
-    public boolean deleteById(Integer id) {
+    public Boolean deleteById(Integer id) {
         return typeMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     @ZkWriteLock
-    public boolean insert(Type record) {
+    public Boolean insert(Type record) {
         return typeMapper.insert(record);
     }
 
@@ -53,7 +55,7 @@ public class TypeServiceImpl extends BaseServiceImpl<Type> implements TypeServic
 
     @Override
     @ZkWriteLock
-    public boolean update(Type record) {
+    public Boolean update(Type record) {
         return typeMapper.updateByPrimaryKey(record);
     }
 }

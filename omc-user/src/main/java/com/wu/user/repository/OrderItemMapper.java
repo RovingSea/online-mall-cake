@@ -17,12 +17,12 @@ public interface OrderItemMapper extends BaseMapper<OrderItem> {
     @Override
     @Delete("delete from onlinemallcake.orderitem where id = #{id}")
     @Deprecated
-    boolean deleteByPrimaryKey(Integer id);
+    Boolean deleteByPrimaryKey(Integer id);
 
     @Override
     @Insert("insert into onlinemallcake.orderitem(price, amount, goods_id, order_id) " +
             "VALUES(price = #{price}, amount = #{amount}, goods_id = #{goodsId}, order_id = #{orderId})")
-    boolean insert(OrderItem record);
+    Boolean insert(OrderItem record);
 
     @Override
     @Select("select * from onlinemallcake.orderitem where id = #{id}")
@@ -38,6 +38,6 @@ public interface OrderItemMapper extends BaseMapper<OrderItem> {
 
     @Override
     @Update("update onlinemallcake.orderitem set price = #{price}, amount = #{amount}, goods_id = #{goodsId}, order_id = #{orderId} where id = #{id}")
-    boolean updateByPrimaryKey(OrderItem record);
+    Boolean updateByPrimaryKey(OrderItem record);
 }
 
