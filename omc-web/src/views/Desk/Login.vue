@@ -1,5 +1,7 @@
 <template>
   <div class="login">
+    <!-- 控制提示内容 -->
+    <Alert v-if="isShowAlert" :title="title" :type="type" />
     <div class="container" ref="container">
       <!-- register -->
       <div class="form-container sign-up-container">
@@ -43,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { reqRegister, reqLogin } from '../../api/index.js'
 import { setToken } from '../../utils/token.js'
@@ -56,15 +58,30 @@ export default defineComponent({
       password: '',
       email: '',
       address: '',
-      phone: ''
+      phone: '',
+      type: '',
+      title: '',
+      isShowAlert: false
     })
+    // 弹出提示曾内容和控制是否显示
+    // 弹出失败
+    function alertInfoMsg(msg, type) {
+      obj.title = msg
+      obj.type = type
+      obj.isShowAlert = true
+      setTimeout(() => {
+        obj.isShowAlert = false
+      }, 2000)
+    }
+
     // 清空obj中的属性
     function clearState() {
-      for (let k in obj) {
-        if (k != 'container') {
-          obj[k] = ''
-        }
-      }
+      obj.username = ''
+      obj.name = ''
+      obj.password = ''
+      obj.email = ''
+      obj.address = ''
+      obj.phone = ''
     }
     // 动画切换
     function signInClick() {
@@ -77,7 +94,6 @@ export default defineComponent({
     }
     // 注册
     function register() {
-      console.log('12')
       let data = {
         username: obj.username,
         password: obj.password,
@@ -86,7 +102,7 @@ export default defineComponent({
         phone: obj.phone
       }
       if (obj.username == '' || obj.password == '' || obj.email == '') {
-        alert('用户名,密码,邮箱都必须填')
+        alertInfoMsg('用户名,密码,邮箱都必须填', 'error')
       } else {
         reqRegister(data).then(res => {
           console.log(res)
@@ -102,7 +118,7 @@ export default defineComponent({
     const router = useRouter()
     function login() {
       if (obj.username == '' || obj.password == '') {
-        alert('用户名或密码不能为空')
+        alertInfoMsg('用户名或密码不能为空', 'error')
       } else {
         const data = {
           username: obj.username,
