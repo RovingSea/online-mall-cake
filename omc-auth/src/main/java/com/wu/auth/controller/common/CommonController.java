@@ -33,7 +33,7 @@ public class CommonController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
-    @GetMapping("/admin/login")
+    @GetMapping("/isAdmin")
     @Transactional(rollbackFor = Exception.class)
     public RestResponse<String> adminLogin(@RequestHeader("authentication") String token){
         String username = TokenUtil.getUserInfoFromToken(token);
@@ -41,7 +41,11 @@ public class CommonController {
         if (admin == null){
             return RestResponse.failure("用户不存在");
         } else {
-            return RestResponse.ok(SystemCode.OK.getMessage());
+            if (admin.isAdmin()) {
+                return RestResponse.ok(SystemCode.OK.getMessage());
+            } else {
+                return RestResponse.failure("该用户不是管理员");
+            }
         }
     }
 

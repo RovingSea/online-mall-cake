@@ -2,6 +2,7 @@ package com.wu.auth.controller.user;
 
 import com.wu.common.base.BaseController;
 import com.wu.common.domain.*;
+import com.wu.common.model.ShoppingCartViewModel;
 import com.wu.common.model.SubmitOrderModel;
 import com.wu.common.service.goods.GoodsService;
 import com.wu.common.service.user.OrderItemService;
@@ -72,8 +73,8 @@ public class UserShoppingCartController extends BaseController {
 
     @PostMapping("/mine")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<List<ShoppingCart>> mine(@RequestBody User user){
-        return RestResponse.ok(shoppingCartService.getShoppingCarts(user.getId()));
+    public RestResponse<List<ShoppingCartViewModel>> mine(@RequestBody User user){
+        return RestResponse.ok(shoppingCartService.getMine(user.getId()));
     }
 
 

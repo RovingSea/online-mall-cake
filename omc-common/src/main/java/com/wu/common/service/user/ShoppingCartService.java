@@ -2,6 +2,7 @@ package com.wu.common.service.user;
 
 import com.wu.common.base.BaseService;
 import com.wu.common.domain.ShoppingCart;
+import com.wu.common.model.ShoppingCartViewModel;
 
 import java.util.List;
 
@@ -26,11 +27,18 @@ public interface ShoppingCartService extends BaseService<ShoppingCart> {
     boolean deleteAllByUserId(int userId);
 
     /**
+     * 打开购物车表信息
+     * @param userId 用户id
+     * @return 对应购物车表的信息
+     */
+    List<ShoppingCart> getShoppingCarts(int userId);
+
+    /**
      * 打开购物车
      * @param userId 用户id
      * @return 购物车中的商品
      */
-    List<ShoppingCart> getShoppingCarts(int userId);
+    List<ShoppingCartViewModel> getMine(int userId);
 
 }
 

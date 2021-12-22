@@ -2,6 +2,7 @@ package com.wu.user.repository;
 
 import com.wu.common.base.BaseMapper;
 import com.wu.common.domain.ShoppingCart;
+import com.wu.common.model.ShoppingCartViewModel;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
     @Select("select * from onlinemallcake.shoppingcart where user_id = #{userId}")
     List<ShoppingCart> getShoppingCarts(int userId);
+
+    List<ShoppingCartViewModel> selectMine(int userId);
 
     @Override
     @Delete("delete from onlinemallcake.shoppingcart where id = #{id}")

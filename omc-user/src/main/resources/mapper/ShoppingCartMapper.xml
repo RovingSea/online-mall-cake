@@ -2,5 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wu.user.repository.ShoppingCartMapper">
 
-    <insert id="addOrder"></insert>
+    <select id="selectMine" resultType="com.wu.common.model.ShoppingCartViewModel">
+        select g.id goodsId, s.id shoppingCartId, g.image1, g.name goodsName, g.price , s.amount
+        from onlinemallcake.shoppingcart s , onlinemallcake.goods g
+        where g.id = s.goods_id and user_id = #{userId}
+    </select>
 </mapper>

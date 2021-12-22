@@ -2,6 +2,7 @@ package com.wu.user.service.impl;
 
 import com.wu.common.base.BaseServiceImpl;
 import com.wu.common.domain.ShoppingCart;
+import com.wu.common.model.ShoppingCartViewModel;
 import com.wu.common.service.user.ShoppingCartService;
 import com.wu.common.utility.annotation.ZkReadLock;
 import com.wu.common.utility.annotation.ZkWriteLock;
@@ -37,6 +38,11 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<ShoppingCart> imple
     @ZkReadLock
     public List<ShoppingCart> getShoppingCarts(int userId) {
         return shoppingCartMapper.getShoppingCarts(userId);
+    }
+
+    @Override
+    public List<ShoppingCartViewModel> getMine(int userId) {
+        return shoppingCartMapper.selectMine(userId);
     }
 
     @Override
