@@ -47,6 +47,6 @@ public class GoodsViewModel implements Serializable {
     /**
      * 商品类型名称
      */
-    private int typeName;
+    private String typeName;
 }
 
