@@ -85,13 +85,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   setup() {
     const state = reactive({
       keyword: ''
     })
-    return state
+    const router = useRouter()
+    // 搜索内容
+    function searchInfo() {
+      if (state.keyword == '') {
+        alert('搜索内容不能为空')
+      } else {
+        router.push({ name: 'search', params: { keywords: state.keyword } })
+      }
+    }
+    return {
+      ...toRefs(state),
+      searchInfo
+    }
   }
 })
 </script>
