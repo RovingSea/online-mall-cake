@@ -39,10 +39,10 @@ public interface OrderMapper extends BaseMapper<Order> {
     List<Order> selectByUserId(int userId);
 
     @Override
-    @Select("update onlinemallcake.order set total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, #{datetime} = #{datetime}, user_id = #{userId} where id = #{id}")
+    @Select("update onlinemallcake.order set total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, datetime = #{datetime}, user_id = #{userId} where id = #{id}")
     Boolean updateByPrimaryKey(Order record);
 
-    @Select("update onlinemallcake.order set total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, #{datetime} = #{datetime} where user_id = #{userId}")
+    @Select("update onlinemallcake.order set total = #{total}, amount = #{amount}, status = #{status}, pay_type = #{payType}, name = #{name}, phone = #{phone}, address = #{address}, datetime = #{datetime} where user_id = #{userId}")
     Boolean updateByUserId(Order record);
 }
 

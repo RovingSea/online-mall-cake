@@ -5,6 +5,7 @@ import com.wu.common.domain.Order;
 import com.wu.common.domain.OrderItem;
 import com.wu.common.domain.ShoppingCart;
 import com.wu.common.domain.User;
+import com.wu.common.exception.SubmitOrdersFailureException;
 import com.wu.common.model.SubmitOrderModel;
 import com.wu.common.service.user.OrderItemService;
 import com.wu.common.service.user.OrderService;
@@ -34,14 +35,16 @@ public class UserOrderController extends BaseController {
     @DubboReference
     private OrderService orderService;
 
-    @PostMapping("/purchase/all")
+    @PostMapping("/submit")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Boolean> purchaseAll(@RequestBody SubmitOrderModel model){
-        Order order = orderService.getOrderById(model.getOrderId());
-        order = MODEL_MAPPER.map(model, Order.class);
+    public RestResponse<String> purchaseAll(@RequestBody SubmitOrderModel model){
+        Order order = MODEL_MAPPER.map(model, Order.class);
         order.setStatus(1);
         order.setDatetime(LocalDateTime.now());
-        return RestResponse.ok(orderService.update(order));
+        if (!orderService.update(order)){
+            throw new SubmitOrdersFailureException();
+        }
+        return RestResponse.ok("提交订单成功");
     }
 }
 

@@ -16,7 +16,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class SubmitOrderModel implements Serializable {
-    private int orderId;
+    /**
+     * 订单id
+     */
+    private int id;
     /**
      * 用户id
      */

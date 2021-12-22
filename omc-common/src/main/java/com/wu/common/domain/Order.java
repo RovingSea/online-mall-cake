@@ -18,6 +18,7 @@ import java.util.Date;
  * @since 1.0
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Order implements Serializable {
     public Order(int userId){
