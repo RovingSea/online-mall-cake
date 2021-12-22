@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author Haixin Wu
  * @date 2021/12/20 14:52
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AddShoppingCartModel {
+public class AddShoppingCartModel implements Serializable {
     /**
      * 用户id
      */
