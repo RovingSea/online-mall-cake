@@ -87,6 +87,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+// import { reqSearchGoods } from '../../api/index.js'
 export default defineComponent({
   setup() {
     const state = reactive({
@@ -98,7 +99,7 @@ export default defineComponent({
       if (state.keyword == '') {
         alert('搜索内容不能为空')
       } else {
-        router.push({ name: 'search', params: { keywords: state.keyword } })
+        router.push({ name: 'search', params: { keyword: state.keyword } })
       }
     }
     return {
