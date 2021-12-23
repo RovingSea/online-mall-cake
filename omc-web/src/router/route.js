@@ -1,9 +1,11 @@
 import Back from '../views/Back/index.vue'
 import Desk from '../views/Desk/index.vue'
 const routes = [
-	{ path: '/', name: 'back', redirect: '/back' },
+	{ path: '/', redirect: '/desk' },
 	{
 		path: '/back',
+		name: 'back',
+		meta: { isAuth: true },
 		component: Back,
 		children: [
 			{
@@ -104,6 +106,11 @@ const routes = [
 				path: 'search/:keyword',
 				name: 'search',
 				component: () => import('../views/Desk/Search.vue')
+			},
+			{
+				path: 'profile',
+				name: 'profile',
+				component: () => import('../views/Profile/index.vue')
 			}
 		]
 	}
