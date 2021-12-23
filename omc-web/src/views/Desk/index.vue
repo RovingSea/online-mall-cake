@@ -7,6 +7,7 @@
         <router-link :to="{name:'hot'}">热销</router-link>
         <router-link :to="{name:'new'}">新品</router-link>
         <router-link :to="{name:'login'}">登录 | 注册</router-link>
+        <router-link :to="{name:'profile'}">个人主页</router-link>
       </ul>
       <div class="right">
         <div class="search">

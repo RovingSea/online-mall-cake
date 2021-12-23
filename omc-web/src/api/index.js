@@ -23,3 +23,6 @@ export const reqSearchGoods = data => request({ url: '/common/goods/fuzzy/get/pa
 
 // 根据Id查看商品详情信息
 export const reqGoodsDetail = data => request({ url: '/common/goods/get', method: 'post', data })
+
+// 管理员身份认证
+export const reqAuthentication = () => request({ url: '/common/isAdmin', method: 'get' })

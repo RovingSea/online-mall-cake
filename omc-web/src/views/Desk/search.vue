@@ -12,6 +12,8 @@
           <div class="add-cart">加入购物车</div>
         </div>
       </div>
+      <!-- 分页器 -->
+      <!-- <Pagination  /> -->
     </div>
     <div class="no-data" v-else>
       <h2>没有找到该商品，请重新搜索试试~~</h2>
