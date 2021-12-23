@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @since 1.0
  */
 @DubboService
+@Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     private final UserMapper userMapper;
@@ -29,7 +30,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     @ZkWriteLock
-    public boolean register(User record) {
+    public Boolean register(User record) {
         return super.insert(record);
     }
 

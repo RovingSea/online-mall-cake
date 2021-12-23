@@ -16,12 +16,12 @@ public interface TypeMapper extends BaseMapper<Type> {
 
     @Override
     @Delete("delete from onlinemallcake.type where id = #{id}")
-    boolean deleteByPrimaryKey(Integer id);
+    Boolean deleteByPrimaryKey(Integer id);
 
     @Override
     @Insert("insert into onlinemallcake.type(id, name) " +
             "VALUES(#{id}, #{name}) ")
-    boolean insert(Type record);
+    Boolean insert(Type record);
 
     @Override
     @Select("select * from onlinemallcake.type where id = #{id}")
@@ -32,6 +32,6 @@ public interface TypeMapper extends BaseMapper<Type> {
 
     @Override
     @Update("update onlinemallcake.type set id = #{id}, name = #{name}")
-    boolean updateByPrimaryKey(Type record);
+    Boolean updateByPrimaryKey(Type record);
 }
 

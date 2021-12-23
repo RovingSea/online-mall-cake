@@ -8,20 +8,14 @@ import java.io.Serializable;
 
 /**
  * @author Haixin Wu
- * @date 2021/12/20 14:52
+ * @date 2021/12/23 0:25
  * @since 1.0
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AddShoppingCartModel implements Serializable {
-    /**
-     * 用户id
-     */
-    private int userId;
-    /**
-     * 商品id
-     */
-    private int goodsId;
+public class ChangeShoppingCartNumModel implements Serializable {
+    private int id;
+    private int changeNum;
 }
 

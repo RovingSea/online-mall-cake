@@ -41,7 +41,7 @@ public class CommonController {
         if (admin == null){
             return RestResponse.failure("用户不存在");
         } else {
-            if (admin.isAdmin()) {
+            if (admin.getIsAdmin()) {
                 return RestResponse.ok(SystemCode.OK.getMessage());
             } else {
                 return RestResponse.failure("该用户不是管理员");

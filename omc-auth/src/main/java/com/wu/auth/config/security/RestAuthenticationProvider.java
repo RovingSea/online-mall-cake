@@ -51,7 +51,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         }
 
         ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.getName(user.isAdmin())));
+        grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.getName(user.getIsAdmin())));
 
         User springUser = new User(user.getUsername(), user.getPassword(), grantedAuthorities);
         return new UsernamePasswordAuthenticationToken(springUser, pw.encode(springUser.getPassword()), springUser.getAuthorities());

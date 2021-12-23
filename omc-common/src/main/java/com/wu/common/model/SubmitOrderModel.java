@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 提交订单模型
  * @author Haixin Wu
@@ -13,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SubmitOrderModel {
-    private int orderId;
+public class SubmitOrderModel implements Serializable {
+    /**
+     * 订单id
+     */
+    private int id;
     /**
      * 用户id
      */

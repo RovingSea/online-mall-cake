@@ -132,7 +132,7 @@ Content-Type：application/json
 				"price": 39,
 				"intro": "牛乳烤的戚风坯，覆一层低温奶油，奶油蛋糕中的奶油蛋糕。",
 				"stock": 999,
-				"typeId": 4
+				"typeName": "下午茶"
 			},
 			{
 				"id": 8,
@@ -142,7 +142,7 @@ Content-Type：application/json
 				"price": 39,
 				"intro": "重烘焙，“湿刨法”苏门答腊咖啡豆，浓厚，几乎没有酸涩口感",
 				"stock": 999,
-				"typeId": 4
+				"typeName": "下午茶"
 			}
 		]
 	}
@@ -195,7 +195,7 @@ Content-Type：application/json
 				"price": 39,
 				"intro": "牛乳烤的戚风坯，覆一层低温奶油，奶油蛋糕中的奶油蛋糕。",
 				"stock": 999,
-				"typeId": 4
+				"typeName": "下午茶"
 			}
 		]
 	}
@@ -238,7 +238,7 @@ Content-Type：application/json
 		"price": 45,
 		"intro": "纯正牛乳，牛乳香，单纯；Gelato10自研，新西兰乳脂奶油；融入鲜奶，单纯之能及。",
 		"stock": 999,
-		"typeId": 3
+		"typeName": "冰淇淋"
 	}
 }
 ```
@@ -402,7 +402,7 @@ Header:authentication
 ### 更新个人信息
 
 ```apl
-接口状态：出bug
+接口状态：已完成
 
 接口URL：http://www.ccsu1204branch.com/omc/api/user/update
 
@@ -425,19 +425,26 @@ Header:authentication
 
 ```json
 {
-    "username" : 'bitian',
-    "password" : 'bitian',
-    "email" : 'bitian',
-    "phone" : 'feibitian',
-    "address" : 'feibitian',
-    "name" : 'feibitian'
+	"id": 5,
+	"username": "wu",
+	"password": "123123",
+	"email": "123123451@qq",
+	"phone": "1376253",
+	"address": "feibitian",
+	"name": "haixin",
+	"isAdmin": true,
+	"isValidate": true
 }
 ```
 
 #### 成功样例
 
 ```json
-
+{
+	"code": 1,
+	"msg": "成功",
+	"response": "更新成功"
+}
 ```
 
 ### 将商品加入购物车
@@ -481,14 +488,12 @@ authentication
 }
 ```
 
-### 将购物车中的商品加一
-
-### 
+### 增加或减少购物车中的某个商品的数量
 
 ```apl
 接口状态：已完成
 
-接口URL：http://www.ccsu1204branch.com/omc/api/user/shoppingCart/plus/one
+接口URL：http://www.ccsu1204branch.com/omc/api/user/shoppingCart/change
 
 请求方式：POST
 
@@ -509,7 +514,8 @@ authentication
 
 ```json
 {
-    "id" : 1
+    "id" : 30,
+    "changeNum" : -1
 }
 ```
 
@@ -551,49 +557,115 @@ authentication
 
 ```json
 {
-    "userId" : 5
+    "id" : 5
 }
 ```
 
 #### 成功样例
 
 ```json
-
+{
+	"code": 1,
+	"msg": "成功",
+	"response": [
+		{
+			"goodsId": 8,
+			"shoppingCartId": 16,
+			"image1": "https://oss.51cocoa.com//upload/images/ff9693a8b8fbf6ccfd14fe760527c5ed.jpg",
+			"goodsName": "苏门答腊咖啡盒装（10包入）",
+			"price": 39,
+			"amount": 1
+		}
+	]
+}
 ```
 
-
-
-### 
-
-### 清空购物车
-
-### 
+### 清空购物车（生成订单）
 
 ```apl
+接口状态：已完成
 
+接口URL：http://www.ccsu1204branch.com/omc/api/user/shoppingCart/empty
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/user/shoppingCart/empty
 ```
 
 #### 请求头
 
 ```
-
+authentication
 ```
 
 #### 请求参数
 
 ```json
-
+{
+    "id" : 5
+}
 ```
 
 #### 成功样例
 
 ```json
-
+{
+	"code": 1,
+	"msg": "成功",
+	"response": 2
+}
 ```
 
+### 提交订单
 
+```apl
+接口状态：已完成
 
-### 
+接口URL：http://www.ccsu1204branch.com/omc/api/user/order/submit
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/user/order/submit
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "id" : 4,
+    "userId" : 5,
+    "payType" : 1,
+    "total" : 999,
+    "amount" : 2,
+    "name" : "shao",
+    "phone" : "1555",
+    "address" : "beijing"
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
 
 
 

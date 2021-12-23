@@ -18,6 +18,7 @@ import java.util.List;
  * @since 1.0
  */
 @DubboService
+@Service
 public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderService {
     private final OrderMapper orderMapper;
 
@@ -29,13 +30,20 @@ public class OrderServiceImpl extends BaseServiceImpl<Order> implements OrderSer
 
     @Override
     @ZkReadLock
+    public int getLastId(){
+        return orderMapper.selectLastId();
+    }
+
+    @Override
+    @ZkReadLock
     public List<Order> getOrdersByUserId(int userId) {
         return orderMapper.selectByUserId(userId);
     }
 
     @Override
     @ZkWriteLock
-    public int initOrderAndReturnId(Order order) {
+    @Deprecated
+    public Order initOrderAndReturnId(Order order) {
         return orderMapper.initOrder(order);
     }
 

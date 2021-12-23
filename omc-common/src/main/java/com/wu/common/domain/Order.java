@@ -21,7 +21,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class Order implements Serializable {
-    public void init(){
+    public Order(int userId){
+        setUserId(userId);
         setTotal(0F);
         setAmount(0);
         setName("null");
@@ -30,7 +31,6 @@ public class Order implements Serializable {
         setPhone("000000");
         setAddress("无");
         setDatetime(LocalDateTime.now());
-        setUserId(0);
     }
     /**
      * 订单id

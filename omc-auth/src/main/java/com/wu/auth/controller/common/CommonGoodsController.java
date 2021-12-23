@@ -3,6 +3,7 @@ package com.wu.auth.controller.common;
 import com.wu.common.domain.Goods;
 import com.wu.common.model.GoodsPagingQueryByNameModel;
 import com.wu.common.model.GoodsPagingQueryByTypeModel;
+import com.wu.common.model.GoodsViewModel;
 import com.wu.common.model.PagingQueryModel;
 import com.wu.common.service.goods.GoodsService;
 import com.wu.common.utility.Page;
@@ -26,30 +27,30 @@ public class CommonGoodsController {
 
     @PostMapping("/get")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Goods> getById(@RequestBody Goods goods){
-        Goods g = goodsService.selectById(goods.getId());
+    public RestResponse<GoodsViewModel> getById(@RequestBody Goods goods){
+        GoodsViewModel g = goodsService.selectModelById(goods.getId());
         return RestResponse.ok(g);
     }
 
     @PostMapping("/select/page/type")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPageByType(@RequestBody GoodsPagingQueryByTypeModel model){
-        Page<Goods> goodsPage = goodsService.selectPageByType(model.getTypeId(), model.getEachPageSize(), model.getWhichPage());
-        return RestResponse.ok(goodsPage);
+    public RestResponse<Page<GoodsViewModel>> selectPageByType(@RequestBody GoodsPagingQueryByTypeModel model){
+        Page<GoodsViewModel> goodsViewModelPages = goodsService.selectModelPageByType(model.getTypeId(), model.getEachPageSize(), model.getWhichPage());
+        return RestResponse.ok(goodsViewModelPages);
     }
 
     @PostMapping("/fuzzy/get/page")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPageLike(@RequestBody GoodsPagingQueryByNameModel model){
-        Page<Goods> goodsPage = goodsService.selectPageLikeByGoodsName(model.getName(), model.getEachPageSize(), model.getWhichPage());
-        return RestResponse.ok(goodsPage);
+    public RestResponse<Page<GoodsViewModel>> selectPageLike(@RequestBody GoodsPagingQueryByNameModel model){
+        Page<GoodsViewModel> goodsViewModelPages = goodsService.selectModelPageLikeByGoodsName(model.getName(), model.getEachPageSize(), model.getWhichPage());
+        return RestResponse.ok(goodsViewModelPages);
     }
 
     @PostMapping("/select/page")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<Page<Goods>> selectPage(@RequestBody PagingQueryModel model){
-        Page<Goods> goodsPage = goodsService.selectPage(model.getEachPageSize(), model.getWhichPage());
-        return RestResponse.ok(goodsPage);
+    public RestResponse<Page<GoodsViewModel>> selectPage(@RequestBody PagingQueryModel model){
+        Page<GoodsViewModel> goodsViewModelPages = goodsService.selectModelPage(model.getEachPageSize(), model.getWhichPage());
+        return RestResponse.ok(goodsViewModelPages);
     }
 }
 

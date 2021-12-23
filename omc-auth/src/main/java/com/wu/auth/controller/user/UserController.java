@@ -37,8 +37,14 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public RestResponse<Boolean> update(@RequestBody User user){
-        return RestResponse.ok(userService.update(user));
+    public RestResponse<String> update(@RequestBody User user){
+        Boolean updateSuccessfully = userService.update(user);
+        if (updateSuccessfully){
+            return RestResponse.ok("更新成功");
+        } else {
+            return RestResponse.failure("更新失败");
+        }
+
     }
 
 }

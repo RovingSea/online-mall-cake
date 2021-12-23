@@ -14,12 +14,12 @@ public interface UserMapper extends BaseMapper<User> {
     @Override
     @Delete("delete from onlinemallcake.user where id = #{id}")
     @Deprecated
-    boolean deleteByPrimaryKey(Integer id);
+    Boolean deleteByPrimaryKey(Integer id);
 
     @Override
     @Insert("insert into onlinemallcake.user(username, password, name, email, phone, address, is_admin, is_validate) " +
             "VALUES(#{username}, #{password}, #{name}, #{email}, #{phone}, #{address}, #{isAdmin}, #{isValidate}) ")
-    boolean insert(User record);
+    Boolean insert(User record);
 
     @Override
     @Select("select * from user where id = #{id}")
@@ -27,7 +27,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Override
     @Update("update onlinemallcake.user set username = #{username}, password = #{password}, name = #{name}, phone = #{phone}, address = #{address}, is_admin = #{isAdmin}, is_validate = #{isValidate} where id = #{id}")
-    boolean updateByPrimaryKey(User record);
+    Boolean updateByPrimaryKey(User record);
 
     @Select("select * from onlinemallcake.user where username = #{username}")
     User selectByUsername(String username);
