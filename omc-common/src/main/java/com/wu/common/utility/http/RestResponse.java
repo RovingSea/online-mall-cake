@@ -2,6 +2,8 @@ package com.wu.common.utility.http;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 接口统一响应体
  * @author Haixin Wu
@@ -9,7 +11,7 @@ import lombok.Data;
  * @since 1.0
  */
 @Data
-public class RestResponse<T> {
+public class RestResponse<T> implements Serializable {
     private int code;
     private String msg;
     private T response;

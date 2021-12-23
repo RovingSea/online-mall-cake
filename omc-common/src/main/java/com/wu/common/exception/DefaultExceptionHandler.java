@@ -1,49 +1,27 @@
 package com.wu.common.exception;
 
-import org.apache.zookeeper.proto.ErrorResponse;
-import org.springframework.http.HttpStatus;
+import com.wu.common.utility.http.RestResponse;
+import com.wu.common.utility.http.SystemCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 异常处理返回
  * @author Haixin Wu
- * @date 2021/12/23 0:12
+ * @date 2021/12/23 10:22
  * @since 1.0
  */
 @ControllerAdvice
+@Slf4j
 public class DefaultExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorResponse errorResponse(Exception exception) {
-        return new ErrorResponse(exception.getMessage());
+    public RestResponse handle (Exception ex){
+        log.error("捕获异常：[{}]", ex.getMessage());
+        return new RestResponse(SystemCode.InnerError.getCode(), SystemCode.InnerError.getMessage());
     }
 
-    @ExceptionHandler({NullPointerException.class})
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ModelAndView processUnauthenticatedException(NativeWebRequest request, Exception e) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("exception", e);
-        mv.setViewName("error");
-        return mv;
-    }
-
-    public static class ErrorResponse {
-        private final String message;
-
-        public ErrorResponse(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
 }
 
