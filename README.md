@@ -1,37 +1,44 @@
 # online-mall-cake
 
-#### 介绍 🎧
+## 介绍 🎧
+
 长沙大学软件工程大三上学期JavaWeb课程设计作业
 
-#### 软件架构
-软件架构说明
+- Java Web程序设计任务教程 / 黑马程序员编著. -- 2版. -- 北京 ： 人民邮电出版社，2021.9  
+- 工业和信息化精品系列教材
+- ISBN 978-7-115-56685-0
 
+与书上不同的是MySQL多建了一个ShoppingCart表，各表中的详情信息查看common模块下的com.wu.common.domain包
+github：https://github.com/1262917629/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
+gitee：https://gitee.com/GiteeOfMasker/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
 
-#### 安装教程
+## 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 后端
 
-#### 使用说明
+1. 下载Zookeeper(https://zookeeper.apache.org/releases.html)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+2. 下载Redis(https://redis.io/)
 
-#### 参与贡献
+3. 配置各模块下的application.yml，本次实验是集群配置，相应配置如下
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+   ```
+     redis:
+       sentinel:
+         nodes: ip1:port1,ip2:port2,ip3:port3 // redis集群
+         master: // 主机名
+         password: pwd1 // 集群通讯密码
+       password: pwd2 //连接集群密码
+   ```
 
+   ```
+   dubbo:
+     #应用名称
+     application:
+       name: // 服务名
+     #配置注册中心
+     registry:
+       address: zookeeper:ip1:port1,ip2:port2,ip3:port3 // zookeeper注册中心集群
+   ```
 
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+4. 先启动goods和user模块，再启动auth模块即可
