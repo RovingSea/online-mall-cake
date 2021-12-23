@@ -9,7 +9,9 @@
 - ISBN 978-7-115-56685-0
 
 与书上不同的是MySQL多建了一个ShoppingCart表，各表中的详情信息查看common模块下的com.wu.common.domain包
+
 github：https://github.com/1262917629/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
+
 gitee：https://gitee.com/GiteeOfMasker/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
 
 ## 安装教程
