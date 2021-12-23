@@ -3,6 +3,9 @@ package com.wu.auth.config.security;
 import com.wu.common.domain.User;
 import com.wu.common.domain.enums.RoleEnum;
 import com.wu.common.service.user.UserService;
+import com.wu.common.utility.http.SystemCode;
+import com.wu.common.utility.util.RedisUtil;
+import com.wu.common.utility.util.RestUtil;
 import com.wu.common.utility.util.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.common.utils.StringUtils;
@@ -16,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -40,10 +42,13 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private UserService userService;
 
     private final PasswordEncoder pw;
+    private final RedisUtil redisUtil;
+    private final static String USER_TOKEN = "omc-user-token-";
 
     @Autowired
-    public JWTAuthenticationFilter(PasswordEncoder pw) {
+    public JWTAuthenticationFilter(PasswordEncoder pw, RedisUtil redisUtil) {
         this.pw = pw;
+        this.redisUtil = redisUtil;
     }
 
 
@@ -57,7 +62,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             // 2.解析token对应的用户id
             String username = TokenUtil.getUserInfoFromToken(token);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // 3.解析该用户的权限
+                // 3.如果token过期
+                if (!redisUtil.hasKey(USER_TOKEN+username) | redisUtil.getExpire(USER_TOKEN+username) == -1){
+                    RestUtil.response(response, SystemCode.AccessTokenError);
+                    return;
+                }
+                // 4.解析该用户的权限
                 UserDetails userDetails = verifyByUsername(username);
                 if (userDetails != null) {
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

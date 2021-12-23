@@ -21,6 +21,11 @@ public class RedisUtil {
         this.redisTemplate = redisTemplate;
     }
 
+    /**
+     * 是否存在key
+     * @param key key
+     * @return 是否存在
+     */
     public Boolean hasKey(String key){
         try {
             return redisTemplate.hasKey(key);
@@ -30,10 +35,21 @@ public class RedisUtil {
         }
     }
 
+    /**
+     * 通过key得到值
+     * @param key key
+     * @return value
+     */
     public Object get(String key){
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
+    /**
+     * 在redis中添加String类型的数据类型
+     * @param key key
+     * @param value value
+     * @return 成功与否
+     */
     public boolean set(String key, Object value) {
         try {
             redisTemplate.opsForValue().set(key, value);
@@ -44,10 +60,18 @@ public class RedisUtil {
         }
     }
 
-    public boolean set(String key, Object value, long time) {
+    /**
+     * 在redis中添加String类型的数据类型，并设置过期时间
+     * @param key key
+     * @param value value
+     * @param time 时间长度
+     * @param timeUnit 时间单位
+     * @return 成功与否
+     */
+    public boolean set(String key, Object value, long time, TimeUnit timeUnit) {
         try {
             if (time > 0) {
-                redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(key, value, time, timeUnit);
             } else {
                 set(key, value);
             }
@@ -56,6 +80,15 @@ public class RedisUtil {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 根据key 获取过期时间
+     * @param key 键 不能为null
+     * @return 时间(秒) 返回0代表为永久有效
+     */
+    public long getExpire(String key) {
+        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 }
 
