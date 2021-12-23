@@ -243,6 +243,124 @@ Content-Type：application/json
 }
 ```
 
+### 查询所有推荐商品
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/common/goods/get/recommend
+
+请求方式：GET
+
+Content-Type：none
+
+接口地址（后端写）：/common/goods/get/recommend
+```
+
+#### 请求参数
+
+```json
+无
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": {
+			"id": 2,
+			"recommendType": "新品",
+			"goodsId": 6,
+			"goodsName": "Milk Gelato 原味牛乳冰淇淋",
+			"image1": "https://oss.51cocoa.com//upload/images/8353be78e8839f0ad0a1ab5a159859a2.jpg",
+			"price": 45,
+			"typeName": "冰淇淋"
+		}
+}
+```
+
+### 查询所有热销商品
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/common/goods/get/hot
+
+请求方式：GET
+
+Content-Type：none
+
+接口地址（后端写）：/common/goods/get/hot
+```
+
+#### 请求参数
+
+```json
+无
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": {
+			"id": 2,
+			"recommendType": "热销",
+			"goodsId": 5,
+			"goodsName": "**",
+			"image1": "https://**",
+			"price": 45,
+			"typeName": "冰淇淋"
+		}
+}
+```
+
+### 查询所有新品
+
+
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/common/goods/get/new
+
+请求方式：GET
+
+Content-Type：none
+
+接口地址（后端写）：/common/goods/get/new
+```
+
+#### 请求参数
+
+```json
+无
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": [
+		{
+			"id": 2,
+			"recommendType": "新品",
+			"goodsId": 6,
+			"goodsName": "Milk Gelato 原味牛乳冰淇淋",
+			"image1": "https://oss.51cocoa.com//upload/images/8353be78e8839f0ad0a1ab5a159859a2.jpg",
+			"price": 45,
+			"typeName": "冰淇淋"
+		}
+	]
+}
+```
+
 ## 用户
 
 ### 注册
@@ -667,7 +785,217 @@ authentication
 }
 ```
 
+## 管理员
 
+### 增加商品
 
-# 管理员
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/admin/goods/add
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/admin/goods/add
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "name" : 4,
+    "image1" : 5,
+	"image2" : 1,
+    "price" : 20,
+    "intro" : "好吃的不得了",
+    "stock" : 99,
+    "typeId" : 1
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
+
+### 删除商品
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/admin/goods/delete
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/admin/goods/delete
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "id" : 4
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
+
+### 更改商品
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/admin/goods/update
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/admin/goods/update
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "name" : 4,
+    "image1" : 5,
+	"image2" : 1,
+    "price" : 20,
+    "intro" : "好吃的不得了",
+    "stock" : 99,
+    "typeId" : 1
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
+
+### 将某个商品加入热销
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/admin/goods/be/hot
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/admin/goods/be/hot
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "id" : 4
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
+
+### 将某个商品加入新品
+
+```apl
+接口状态：已完成
+
+接口URL：http://www.ccsu1204branch.com/omc/api/admin/goods/be/new
+
+请求方式：POST
+
+Content-Type：application/json
+
+Header:authentication
+
+接口地址（后端写）：/admin/goods/be/new
+```
+
+#### 请求头
+
+```
+authentication
+```
+
+#### 请求参数
+
+```json
+{
+    "id" : 4
+}
+```
+
+#### 成功样例
+
+```json
+{
+	"code": 1,
+	"msg": "成功",
+	"response": true
+}
+```
 
