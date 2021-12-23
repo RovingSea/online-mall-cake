@@ -43,7 +43,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final PasswordEncoder pw;
     private final RedisUtil redisUtil;
-    private final static String USER_TOKEN = "omc-user-token-";
+    private final static String USER_TOKEN = "omc:user:token::";
 
     @Autowired
     public JWTAuthenticationFilter(PasswordEncoder pw, RedisUtil redisUtil) {

@@ -9,6 +9,7 @@ import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.goods.repository.TypeMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class TypeServiceImpl extends BaseServiceImpl<Type> implements TypeServic
 
     @Override
     @ZkReadLock
+    @Cacheable(cacheNames = GOODS, key = TYPE, unless = "#result == null", sync = true)
     public List<Type> selectAll() {
         return typeMapper.selectAll();
     }

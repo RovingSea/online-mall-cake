@@ -10,6 +10,7 @@ import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.goods.repository.GoodsMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
+    @Cacheable(cacheNames = GOODS_PAGE, key = "#goodsName+#eachPageSize+#whichPage", sync = true)
     public Page<GoodsViewModel> selectModelPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage) {
         List<GoodsViewModel> goodsViewModels = goodsMapper.selectModelPageLike(goodsName, (whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsViewModels, goodsMapper.selectAllSizeLike(goodsName));
@@ -45,6 +47,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
+    @Cacheable(cacheNames = GOODS_INFO, key = "#goodsId", sync = true)
     public GoodsViewModel selectModelById(Integer goodsId) {
         return goodsMapper.selectModelByPrimaryKey(goodsId);
     }
@@ -56,6 +59,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
+    @Cacheable(cacheNames = GOODS_PAGE, key = "#eachPageSize+#whichPage", sync = true)
     public Page<GoodsViewModel> selectModelPage(int eachPageSize, int whichPage) {
         List<GoodsViewModel> goodsViewModels = goodsMapper.selectModelPage((whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsViewModels, goodsMapper.selectAllSize());
@@ -63,7 +67,6 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
 
     @Override
-    @ZkReadLock
     public Page<Goods> selectPageByType(int typeId, int eachPageSize) {
         return selectPageByType(typeId, eachPageSize, 1);
     }
@@ -81,6 +84,8 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
     }
 
     @Override
+    @ZkReadLock
+    @Cacheable(cacheNames = GOODS_PAGE, key = "#typeId+#eachPageSize+#whichPage", sync = true)
     public Page<GoodsViewModel> selectModelPageByType(int typeId, int eachPageSize, int whichPage) {
         List<GoodsViewModel> goodsViewModels = goodsMapper.selectModelPageByType(typeId, (whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsViewModels, goodsMapper.selectAllSizeByTypeId(typeId));
@@ -93,26 +98,24 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
     }
 
     @Override
-    @ZkWriteLock
     public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize) {
         return selectPageLikeByGoodsName(goodsName, eachPageSize, 1);
     }
 
     @Override
-    @ZkWriteLock
+    @ZkReadLock
     public Page<Goods> selectPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage) {
         List<Goods> goodsList = goodsMapper.selectPageLike(goodsName, (whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsList, goodsMapper.selectAllSizeLike(goodsName));
     }
 
     @Override
-    @ZkWriteLock
     public Page<Goods> selectPage(int eachPageSize) {
         return selectPage(eachPageSize, 1);
     }
 
     @Override
-    @ZkWriteLock
+    @ZkReadLock
     public Page<Goods> selectPage(int eachPageSize, int whichPage) {
         List<Goods> goodsList = goodsMapper.selectPage((whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsList, goodsMapper.selectAllSize());

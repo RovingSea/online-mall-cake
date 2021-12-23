@@ -6,9 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.net.UnknownHostException;
@@ -47,6 +50,17 @@ public class RedisConfig {
         // 把所有的配置 set 进 template
         template.afterPropertiesSet();
         return template;
+    }
+
+
+    /**
+     * 注册自定义RedisCacheConfiguration组件，解决@Cacheable @Cacheput注解在向Redis中保存的Value是java序列化乱码的问题
+     */
+    @Bean
+    public RedisCacheConfiguration redisCacheConfiguration() {
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+        config=config.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));
+        return config;
     }
 }
 

@@ -9,6 +9,7 @@ import com.wu.common.utility.annotation.ZkWriteLock;
 import com.wu.user.repository.UserMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,6 +37,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     @ZkReadLock
+    @Cacheable(value = USER_INFO, key = "#username", sync = true)
     public User getByUsername(String username) {
         return userMapper.selectByUsername(username);
     }

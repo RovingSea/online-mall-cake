@@ -38,7 +38,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
     private final RedisUtil redisUtil;
-    private final static String USER_TOKEN = "omc-user-token-";
+    private final static String USER_TOKEN = "omc:user:token::";
 
     private static final Map<String, Object> MAP;
     static {
