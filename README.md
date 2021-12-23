@@ -10,9 +10,22 @@
 
 与书上不同的是MySQL多建了一个ShoppingCart表，各表中的详情信息查看common模块下的com.wu.common.domain包
 
-github：https://github.com/1262917629/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
+- github：https://github.com/1262917629/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
 
-gitee：https://gitee.com/GiteeOfMasker/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
+- gitee：https://gitee.com/GiteeOfMasker/online-mall-cake/tree/master/omc-common/src/main/java/com/wu/common/domain
+
+## 使用技术
+
+### 后端
+
+- 选用语言：Java
+- 应用框架：Spring Boot
+- 分布式服务框架：Dubbo
+- 持久层框架：Mybatis
+- 注册中心：Zookeeper
+- 身份权限认证：Spring Security
+- 缓存：Redis
+- 代理：Nginx
 
 ## 安装教程
 
