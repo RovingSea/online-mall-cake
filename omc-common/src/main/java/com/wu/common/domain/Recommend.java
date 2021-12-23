@@ -21,9 +21,9 @@ public class Recommend implements Serializable {
      */
     private int id;
     /**
-     * 商品类型
+     * 推荐类型
      */
-    private int typeId;
+    private String type;
     /**
      * 商品id
      */

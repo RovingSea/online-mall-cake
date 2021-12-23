@@ -39,7 +39,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
-    @Cacheable(cacheNames = GOODS_PAGE, key = "#goodsName+#eachPageSize+#whichPage", sync = true)
+    //@Cacheable(cacheNames = GOODS_PAGE, key = "#goodsName+#eachPageSize+#whichPage", sync = true)
     public Page<GoodsViewModel> selectModelPageLikeByGoodsName(String goodsName, int eachPageSize, int whichPage) {
         List<GoodsViewModel> goodsViewModels = goodsMapper.selectModelPageLike(goodsName, (whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsViewModels, goodsMapper.selectAllSizeLike(goodsName));
@@ -47,7 +47,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
-    @Cacheable(cacheNames = GOODS_INFO, key = "#goodsId", sync = true)
+    //@Cacheable(cacheNames = GOODS_INFO, key = "#goodsId", sync = true)
     public GoodsViewModel selectModelById(Integer goodsId) {
         return goodsMapper.selectModelByPrimaryKey(goodsId);
     }
@@ -59,7 +59,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
-    @Cacheable(cacheNames = GOODS_PAGE, key = "#eachPageSize+#whichPage", sync = true)
+    //@Cacheable(cacheNames = GOODS_PAGE, key = "#eachPageSize+#whichPage", sync = true)
     public Page<GoodsViewModel> selectModelPage(int eachPageSize, int whichPage) {
         List<GoodsViewModel> goodsViewModels = goodsMapper.selectModelPage((whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsViewModels, goodsMapper.selectAllSize());
@@ -85,7 +85,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements GoodsSer
 
     @Override
     @ZkReadLock
-    @Cacheable(cacheNames = GOODS_PAGE, key = "#typeId+#eachPageSize+#whichPage", sync = true)
+    //@Cacheable(cacheNames = GOODS_PAGE, key = "#typeId+#eachPageSize+#whichPage", sync = true)
     public Page<GoodsViewModel> selectModelPageByType(int typeId, int eachPageSize, int whichPage) {
         List<GoodsViewModel> goodsViewModels = goodsMapper.selectModelPageByType(typeId, (whichPage - 1) * eachPageSize, eachPageSize);
         return new Page<>(whichPage, eachPageSize, goodsViewModels, goodsMapper.selectAllSizeByTypeId(typeId));

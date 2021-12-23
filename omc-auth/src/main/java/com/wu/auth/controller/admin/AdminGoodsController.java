@@ -2,6 +2,7 @@ package com.wu.auth.controller.admin;
 
 import com.wu.common.domain.Goods;
 import com.wu.common.service.goods.GoodsService;
+import com.wu.common.service.goods.RecommendService;
 import com.wu.common.utility.http.RestResponse;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminGoodsController {
     @DubboReference
     private GoodsService goodsService;
+    @DubboReference
+    private RecommendService recommendService;
 
     private final ThreadPoolTaskExecutor authApplicationExecutor;
 
@@ -28,25 +31,49 @@ public class AdminGoodsController {
         this.authApplicationExecutor = authApplicationExecutor;
     }
 
+    @PostMapping("/be/hot")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Boolean> beHot(@RequestBody Goods goods){
+        if (recommendService.insertHot(goods.getId())){
+            return RestResponse.ok(true);
+        }
+        return RestResponse.failure(false);
+    }
+
+    @PostMapping("/be/new")
+    @Transactional(rollbackFor = Exception.class)
+    public RestResponse<Boolean> beNew(@RequestBody Goods goods){
+        if (recommendService.insertNew(goods.getId())){
+            return RestResponse.ok(true);
+        }
+        return RestResponse.failure(false);
+    }
+
     @PostMapping("/add")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> add(@RequestBody Goods goods){
-        goodsService.insert(goods);
-        return RestResponse.ok("添加成功");
+    public RestResponse<Boolean> add(@RequestBody Goods goods){
+        if (goodsService.insert(goods)) {
+            return RestResponse.ok(true);
+        }
+        return RestResponse.failure(false);
     }
 
     @PostMapping("/delete")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> delete(@RequestBody Goods goods){
-        goodsService.deleteById(goods.getId());
-        return RestResponse.ok("删除成功");
+    public RestResponse<Boolean> delete(@RequestBody Goods goods){
+        if (goodsService.deleteById(goods.getId())) {
+            return RestResponse.ok(true);
+        }
+        return RestResponse.failure(false);
     }
 
     @PostMapping("/update")
     @Transactional(rollbackFor = Exception.class)
-    public RestResponse<String> update(@RequestBody Goods goods){
-        goodsService.update(goods);
-        return RestResponse.ok("更新成功");
+    public RestResponse<Boolean> update(@RequestBody Goods goods){
+        if (goodsService.update(goods)) {
+            return RestResponse.ok(true);
+        }
+        return RestResponse.failure(false);
     }
 }
 

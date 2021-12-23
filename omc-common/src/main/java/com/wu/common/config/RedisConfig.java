@@ -54,7 +54,7 @@ public class RedisConfig {
 
 
     /**
-     * 注册自定义RedisCacheConfiguration组件，解决@Cacheable @Cacheput注解在向Redis中保存的Value是java序列化乱码的问题
+     * 注册自定义RedisCacheConfiguration组件，解决//@Cacheable @Cacheput注解在向Redis中保存的Value是java序列化乱码的问题
      */
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {

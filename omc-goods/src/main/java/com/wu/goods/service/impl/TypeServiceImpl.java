@@ -32,7 +32,7 @@ public class TypeServiceImpl extends BaseServiceImpl<Type> implements TypeServic
 
     @Override
     @ZkReadLock
-    @Cacheable(cacheNames = GOODS, key = TYPE, unless = "#result == null", sync = true)
+    //@Cacheable(cacheNames = GOODS, key = TYPE, unless = "#result == null", sync = true)
     public List<Type> selectAll() {
         return typeMapper.selectAll();
     }

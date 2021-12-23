@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wu.goods.repository.RecommendMapper">
+
+    <select id="selectAllModel" resultType="com.wu.common.model.RecommendViewModel">
+        select r.`id`, r.`type` recommendType, g.`id` goodsId, g.`image1`,g.`price`,g.`name` goodsName, t.`name` typeName
+        from onlinemallcake.goods g, onlinemallcake.type t, onlinemallcake.recommend r
+        where g.`type_id` = t.`id` AND r.`goods_id` = g.`id`
+    </select>
+
+    <select id="selectHotModel" resultType="com.wu.common.model.RecommendViewModel">
+        select r.`id`, r.`type` recommendType, g.`id` goodsId, g.`image1`,g.`price`,g.`name` goodsName, t.`name` typeName
+        from onlinemallcake.goods g, onlinemallcake.type t, onlinemallcake.recommend r
+        where g.`type_id` = t.`id` AND r.`goods_id` = g.`id`
+        and r.type = '热销'
+    </select>
+
+    <select id="selectNewModel" resultType="com.wu.common.model.RecommendViewModel">
+        select r.`id`, r.`type` recommendType, g.`id` goodsId, g.`image1`,g.`price`,g.`name` goodsName, t.`name` typeName
+        from onlinemallcake.goods g, onlinemallcake.type t, onlinemallcake.recommend r
+        where g.`type_id` = t.`id` AND r.`goods_id` = g.`id`
+        and r.type = '新品'
+    </select>
+</mapper>

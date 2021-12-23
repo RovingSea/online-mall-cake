@@ -55,7 +55,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     List<GoodsViewModel> selectModelPageByType(int typeId, int from, int eachPageSize);
 
     @Override
-    @Update("update onlinemallcake.goods set name = #{name}, image1 = #{image1}, image2 = #{image2}, price = #{price}, intro = #{intro}, stock = #{stock}, type_id = #{type_id}")
+    @Update("update onlinemallcake.goods set name = #{name}, image1 = #{image1}, image2 = #{image2}, price = #{price}, intro = #{intro}, stock = #{stock}, type_id = #{typeId}")
     Boolean updateByPrimaryKey(Goods record);
 
 }

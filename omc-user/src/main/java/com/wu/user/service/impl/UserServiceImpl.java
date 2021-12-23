@@ -37,7 +37,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     @ZkReadLock
-    @Cacheable(value = USER_INFO, key = "#username", sync = true)
+    //@Cacheable(value = USER_INFO, key = "#username", sync = true)
     public User getByUsername(String username) {
         return userMapper.selectByUsername(username);
     }
