@@ -1,13 +1,13 @@
 <template>
   <div class="hot">
-    <div class="cake">
+    <div class="cake" v-for="item in hotList" :key="item.goodsId">
       <router-link :to="{name:'detail',params:{id:'002'}}">
-        <img src="../../assets/images/cakehot.png" alt />
-        <span class="title">深爱</span>
-        <span class="desc">玫瑰蜜饯,口感丰富</span>
+        <img :src="item.image1" />
+        <span class="title">{{item.goodsName}}</span>
+        <span class="desc">{{item.typeName}}</span>
       </router-link>
       <div class="footer">
-        <span>￥389.00(1.0/磅)</span>
+        <span>￥{{item.price}}</span>
         <div class="add-cart">加入购物车</div>
       </div>
     </div>
@@ -15,10 +15,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, reactive } from 'vue'
+import { reqHotGoods } from '../../api/index.js'
 export default defineComponent({
   setup() {
-    return {}
+    const state = reactive({
+      hotList: []
+    })
+    onMounted(() => {
+      reqHotGoods().then(res => {
+        state.hotList = res.data.response
+      })
+    })
+    return state
   }
 })
 </script>
@@ -33,6 +42,9 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     align-items: left;
+    img {
+      width: 300px;
+    }
     .title {
       font-size: 18x;
       color: @fontColor;

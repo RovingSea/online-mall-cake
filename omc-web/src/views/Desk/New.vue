@@ -1,12 +1,12 @@
 <template>
   <div class="new">
     <div class="header">
-      <img src="../../assets/images/newheader.jpg" alt />
+      <img src="../../assets/images/newheader.jpg" />
     </div>
-    <div class="cake">
-      <img src="../../assets/images/cake.jpg" alt class="back" @click="goDetail(2)" />
-      <span class="title">菠萝包</span>
-      <span class="price">￥ 18.0/一份</span>
+    <div class="cake" v-for="item in newList" :key="item.id">
+      <img :src="item.image1" class="back" @click="goDetail(item.goodsId)" />
+      <span class="title">{{item.goodsName}}</span>
+      <span class="price">￥ {{item.price}}/一份</span>
       <div class="add-cart">
         <svg
           t="1639824237437"
@@ -32,10 +32,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import { reqNewGoods } from '../../api/index.js'
 export default defineComponent({
   setup() {
+    const state = reactive({
+      newList: []
+    })
+
+    onMounted(() => {
+      reqNewGoods().then(res => {
+        state.newList = res.data.response
+      })
+    })
+
     const router = useRouter()
     const goDetail = id => {
       router.push({
@@ -46,7 +57,8 @@ export default defineComponent({
       })
     }
     return {
-      goDetail
+      goDetail,
+      ...toRefs(state)
     }
   }
 })

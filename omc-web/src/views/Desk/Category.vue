@@ -2,13 +2,14 @@
   <div class="category">
     <div class="header">
       <span class="title">分类:</span>
-      <span v-for="item in categoryList" :key="item.id">{{item.name}}</span>
+      <span v-for="item in categoryList" :key="item.id" @click="categoryClick(item.id)">{{item.name}}</span>
     </div>
     <div class="main">
-      <div class="cake">
-        <img src="../../assets/images/cake.jpg" alt class="back" @click="goDetail(2)" />
-        <span class="title">菠萝包</span>
-        <span class="price">￥ 18.0/一份</span>
+      <div class="cake" v-for="item in goodsList" :key="item.id">
+        <img :src="item.image1" alt class="back" @click="goDetail(item.id)" />
+        <span class="title">{{item.name}}</span>
+        <p class="desc">{{item.intro}}</p>
+        <span class="price">￥ {{item.price}}/一份</span>
         <div class="add-cart">
           <svg
             t="1639824237437"
@@ -36,19 +37,43 @@
 
 <script>
 import { reqGoodsCategory } from '@/api/index.js'
-import { reactive } from '@vue/reactivity'
+import { reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
+import { reqGoodsByCategory } from '@/api/index.js'
 export default {
   setup() {
     const state = reactive({
       categoryList: [],
-      currentIndex: 1 //默认的选中状,切换商品分类
+      currentIndex: 1, //默认的选中状,切换商品分类,
+      goodsList: []
     })
     reqGoodsCategory().then(res => {
       console.log(res)
       state.categoryList = res.data.response
     })
-
-    return state
+    // 点击切换查询商品种类
+    function categoryClick(id) {
+      const data = {
+        whichPage: 1,
+        eachPageSize: 8,
+        typeId: id
+      }
+      reqGoodsByCategory(data).then(res => {
+        console.log(res)
+        state.goodsList = res.data.response.data
+      })
+    }
+    const router = useRouter()
+    function goDetail(id) {
+      router.push({ name: 'detail', params: { id } })
+    }
+    // 默认执行第一
+    categoryClick(1)
+    return {
+      ...toRefs(state),
+      categoryClick,
+      goDetail
+    }
   }
 }
 </script>
@@ -74,43 +99,48 @@ export default {
       color: #9b9b9b;
     }
   }
-}
-.main {
-  margin-top: 20px;
-  .cake {
-    width: 300px;
-    height: 364px;
-    box-sizing: border-box;
-    padding: 0 10px;
+  .main {
+    margin-top: 20px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    .back {
-      cursor: pointer;
-      height: 246px;
-      background-color: #fff;
-    }
-    .title {
-      margin-top: 10px;
-      color: @fontColor;
-    }
-    .price {
-      margin: 4px 0;
-      color: @hoverColor;
-    }
-    .add-cart {
-      position: relative;
-      text-align: right;
-      width: 140px;
-      height: 38px;
-      line-height: 28px;
-      text-align: center;
-      color: @fontColor;
-      cursor: pointer;
-      svg {
-        position: absolute;
-        top: 0;
-        left: 1px;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+    .cake {
+      margin-left: 20px;
+      width: 400px;
+      height: 364px;
+      box-sizing: border-box;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .back {
+        cursor: pointer;
+        height: 200px;
+        background-color: #fff;
+      }
+      .title {
+        margin-top: 10px;
+        color: @fontColor;
+      }
+      .price {
+        margin: 4px 0;
+        color: @hoverColor;
+      }
+      .add-cart {
+        position: relative;
+        text-align: right;
+        width: 140px;
+        height: 38px;
+        line-height: 28px;
+        text-align: center;
+        color: @fontColor;
+        cursor: pointer;
+        svg {
+          position: absolute;
+          top: 0;
+          left: 1px;
+        }
       }
     }
   }

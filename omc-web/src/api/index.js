@@ -26,3 +26,11 @@ export const reqGoodsDetail = data => request({ url: '/common/goods/get', method
 
 // 管理员身份认证
 export const reqAuthentication = () => request({ url: '/common/isAdmin', method: 'get' })
+// 查询所有热销商品
+export const reqHotGoods = () => request({ url: '/common/goods/get/hot', method: 'get' })
+
+// 查询所有新品
+export const reqNewGoods = () => request({ url: '/common/goods/get/new', method: 'get' })
+
+// 根据商品类型查询数据
+export const reqGoodsByCategory = data => request({ url: 'common/goods/select/page/type', method: 'post', data })
