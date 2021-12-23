@@ -3,6 +3,7 @@ package com.wu;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * 权限认证服务
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableDubbo
+@EnableCaching
 public class OMCAuthApplication {
     public static void main( String[] args ) {
         SpringApplication.run(OMCAuthApplication.class, args);
