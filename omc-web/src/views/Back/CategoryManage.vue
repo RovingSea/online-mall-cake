@@ -28,7 +28,7 @@
 </template>
 
 <script >
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { reqAllGoodsCategory } from '../../../src/api/index.js'
 export default defineComponent({
   setup() {
@@ -40,7 +40,10 @@ export default defineComponent({
       console.log(res)
       state.categoryList = res.data.response
     })
-    return state
+
+    return {
+      ...toRefs(state)
+    }
   }
 })
 </script>

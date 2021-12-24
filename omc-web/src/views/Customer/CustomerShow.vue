@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class>
     <table>
       <thead>
         <tr>
@@ -13,27 +13,54 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>ID</td>
-          <td>用户名</td>
-          <td>邮箱</td>
-          <td>收件人</td>
-          <td>电话</td>
-          <td>地址</td>
+        <tr v-for="item in userList" :key="item.id">
+          <td>{{item.id}}</td>
+          <td>{{item.username}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.address}}</td>
           <td>操作</td>
         </tr>
       </tbody>
     </table>
-    <Pagination :total="50" :pageSize="4" :pageNo="1" :continues="5" />
+    <Pagination :total="total" :pageSize="eachPageSize" :pageNo="whichPage" :continues="3" @getPageNo="getPageNo" />
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
+import { reqDeleteUSesr, reqAllUser, reqChangeUserInfo } from '@/api/index.js'
 export default defineComponent({
   setup() {
-    return {}
-  },
+    const state = reactive({
+      userList: [],
+      whichPage: 1,
+      eachPageSize: 4,
+      total: 0
+    })
+    function getUserInfo() {
+      const data = {
+        whichPage: state.whichPage,
+        eachPageSize: state.eachPageSize
+      }
+      reqAllUser(data).then(res => {
+        console.log(res)
+        state.userList = res.data.response.data
+        state.total = res.data.response.databaseDataSize
+      })
+    }
+    getUserInfo()
+    // 分页器进行切换
+    function getPageNo(num) {
+      state.whichPage = num
+      getUserInfo()
+    }
+    return {
+      ...toRefs(state),
+      getPageNo
+    }
+  }
 })
 </script>
 

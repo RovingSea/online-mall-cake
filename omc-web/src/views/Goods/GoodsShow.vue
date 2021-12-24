@@ -39,9 +39,11 @@
           <td>{{item.price}}</td>
           <td>{{item.typeName}}</td>
           <td>
-            <div>移除热销</div>
-            <div>移除新品</div>
-            <div style="background-color: #e63326">删除</div>
+            <div v-if="item.isHot" @click="changeGoodsState(item.id,1)">移除热销</div>
+            <div v-else style="background-color: green" @click="changeGoodsState(item.id,2)">加入热销</div>
+            <div v-if="item.isNew" @click="changeGoodsState(item.id,3)">移除新品</div>
+            <div v-else style="background-color: green" @click="changeGoodsState(item.id,4)">加入新品</div>
+            <div style="background-color: #e63326" @click="deleteGoods(item.id)">删除</div>
             <div style="background-color: #e6a726">修改</div>
           </td>
         </tr>
@@ -53,7 +55,18 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
-import { reqAllGoods, reqAllRecommend, reqHotRecommend, reqNewRecommend } from '../../../src/api/index.js'
+import { useRouter } from 'vue-router'
+import {
+  reqAllGoods,
+  reqAllRecommend,
+  reqHotRecommend,
+  reqDeleteGoodsManager,
+  reqNewRecommend,
+  reqRemoveHot,
+  reqRemoveNew,
+  reqToHot,
+  reqToNew
+} from '../../../src/api/index.js'
 export default defineComponent({
   setup() {
     const state = reactive({
@@ -65,6 +78,7 @@ export default defineComponent({
       currentPage: 1,
       currentTapId: 1
     })
+    const router = useRouter()
     // 根据不同导航选项的切换内容
     function navClick(id) {
       const data = {
@@ -75,6 +89,7 @@ export default defineComponent({
       // 请求所有商品数据
       if (id === 1) {
         reqAllGoods(data).then(res => {
+          console.log(res)
           result = res.data.response
           state.goodsList = result.data
           state.total = result.databaseDataSize
@@ -123,11 +138,46 @@ export default defineComponent({
       state.currentTapId = id
       navClick(id)
     }
+    // 删除商品
+    function deleteGoods(id) {
+      reqDeleteGoodsManager({ id }).then(res => {
+        router.go(0) //刷新页面
+      })
+    }
+    //切换商品的热销/新品状态  1-移除热销 2-加入热销  3-移除新品 4-加入新品
+    function changeGoodsState(id, num) {
+      console.log(id)
+      switch (num) {
+        case 1:
+          reqRemoveHot({ id }).then(res => {
+            console.log(res)
+          })
+          break
+        case 2:
+          reqToHot({ id }).then(res => {
+            console.log(res)
+          })
+          break
+        case 3:
+          reqRemoveNew({ id }).then(res => {
+            console.log(res)
+          })
+          break
+        case 4:
+          reqToNew({ id }).then(res => {
+            console.log(res)
+          })
+          break
+      }
+      // router.go(0)
+    }
     return {
       ...toRefs(state),
       navClick,
       getPageNo,
-      tapClick
+      tapClick,
+      deleteGoods,
+      changeGoodsState
     }
   }
 })

@@ -11,8 +11,8 @@ import { getToken } from '../utils/token.js'
 request.interceptors.request.use(config => {
 	nprogress.start()
 	// 请求拦截器
+	config.headers['Content-type'] = 'application/json;charset=UTF-8'
 	if (getToken()) {
-		console.log('token')
 		config.headers.authentication = getToken()
 	}
 	return config

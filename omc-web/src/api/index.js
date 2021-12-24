@@ -38,6 +38,14 @@ export const reqAddToShopCart = data => request({ url: '/user/goods/add/shopping
 export const reqProfileShopCart = () => request({ url: '/user/shoppingCart/mine', method: 'get' })
 // 查看个人订单
 export const reqProfileOrder = () => request({ url: '/user/orderItem/mine', method: 'get' })
+// 修改购物车中商品的数量
+export const reqChangeGoodsNum = data => request({ url: '/user/shoppingCart/change', method: 'post', data })
+// 删除购物车中的商品
+export const reqDeleteGoods = data => request({ url: '/user/shoppingCart/delete', method: 'post', data })
+// 提交订单
+export const reqSubmitOrder = data => request({ url: '/user/order/submit', method: 'post', data })
+// 清空购物车生成订单
+export const reqGenerateOrder = () => request({ url: '/user/shoppingCart/empty', method: 'get' })
 /* 管理员接口 */
 
 // 添加商品
@@ -53,11 +61,19 @@ export const reqHotRecommend = data => request({ url: '/common/goods/get/page/ho
 export const reqNewRecommend = data => request({ url: '/common/goods/get/page/new', method: 'post', data })
 // 所有商品种类
 export const reqAllGoodsCategory = () => request({ url: '/common/type/all', method: 'get' })
-// 修改购物车中商品的数量
-export const reqChangeGoodsNum = data => request({ url: '/user/shoppingCart/change', method: 'post', data })
-// 删除购物车中的商品
-export const reqDeleteGoods = data => request({ url: '/user/shoppingCart/delete', method: 'post', data })
-// 提交订单
-export const reqSubmitOrder = data => request({ url: '/user/order/submit', method: 'post', data })
-// 清空购物车生成订单
-export const reqGenerateOrder = () => request({ url: '/user/shoppingCart/empty', method: 'get' })
+//删除商品
+export const reqDeleteGoodsManager = data => request({ url: '/admin/goods/delete', method: 'post', data })
+// 加入热销
+export const reqToHot = data => request({ url: '/admin/goods/be/hot', method: 'post', data })
+// 加入新品
+export const reqToNew = data => request({ url: '/admin/goods/be/new', method: 'post', data })
+// 移除热销
+export const reqRemoveHot = data => request({ url: '/admin/goods/be/not/hot', method: 'post', data })
+// 移除新品
+export const reqRemoveNew = data => request({ url: '/admin/goods/be/not/new', method: 'post', data })
+// 查询所有用户
+export const reqAllUser = data => request({ url: '/admin/user/page/all', method: 'post', data })
+// 修改用户信息
+export const reqChangeUserInfo = data => request({ url: '' })
+// 删除某个用户
+export const reqDeleteUSesr = data => request({ url: '/admin/user/delete', method: 'post', data })

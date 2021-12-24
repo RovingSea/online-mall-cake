@@ -82,7 +82,8 @@ export default defineComponent({
     const state = reactive({
       shopCartList: [],
       shoppingCartId: '',
-      total: 0
+      total: 0,
+      id: 1
     })
     const router = useRouter()
     // 计算总价格
@@ -95,6 +96,7 @@ export default defineComponent({
     // 初始化购物车数据
     function getShopCartInfo() {
       reqProfileShopCart().then(res => {
+        console.log(res, 'init')
         state.shopCartList = res.data.response
         state.shoppingCartId = res.data.response[0].shoppingCartId
       })
@@ -121,7 +123,8 @@ export default defineComponent({
     function submit() {
       reqGenerateOrder().then(res => {
         console.log(res)
-        router.push({ name: 'pay', params: { shopCartId: state.shoppingCartId, totalPrice: totalPrice.value } })
+        state.id = res.data.response
+        router.push({ name: 'pay', params: { shopCartId: state.id, totalPrice: totalPrice.value } })
       })
     }
     return {

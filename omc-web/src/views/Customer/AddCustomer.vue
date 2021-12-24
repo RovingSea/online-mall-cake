@@ -1,12 +1,30 @@
 <template>
   <div class="main">
     <ul>
-      <li><label for="">用户名</label> <input type="text" /></li>
-      <li><label for="">用户名</label> <input type="text" /></li>
-      <li><label for="">用户名</label> <input type="text" /></li>
-      <li><label for="">用户名</label> <input type="text" /></li>
-      <li><label for="">用户名</label> <input type="text" /></li>
-      <li><label for="">用户名</label> <input type="text" /></li>
+      <li>
+        <label for>用户名</label>
+        <input type="text" />
+      </li>
+      <li>
+        <label for>邮箱</label>
+        <input type="text" />
+      </li>
+      <li>
+        <label for>收件人</label>
+        <input type="text" />
+      </li>
+      <li>
+        <label for>用户名</label>
+        <input type="text" />
+      </li>
+      <li>
+        <label for>用户名</label>
+        <input type="text" />
+      </li>
+      <li>
+        <label for>用户名</label>
+        <input type="text" />
+      </li>
     </ul>
     <div class="save">提交保存</div>
   </div>
@@ -17,7 +35,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   setup() {
     return {}
-  },
+  }
 })
 </script>
 
