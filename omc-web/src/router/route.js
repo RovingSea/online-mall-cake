@@ -5,7 +5,7 @@ const routes = [
 	{
 		path: '/back',
 		name: 'back',
-		meta: { isAuth: true },
+		meta: { isAuth: true, isManage: true },
 		component: Back,
 		redirect: { name: 'order' },
 		children: [
@@ -86,11 +86,13 @@ const routes = [
 			{
 				path: 'shopcart',
 				name: 'shopcart',
+				meta: { isAuth: true },
 				component: () => import('../views/ShopCart/index.vue')
 			},
 			{
-				path: 'pay',
+				path: 'pay/:shopCartId/:totalPrice',
 				name: 'pay',
+				meta: { isAuth: true },
 				component: () => import('../views/ShopCart/Pay.vue')
 			},
 			{
@@ -111,6 +113,7 @@ const routes = [
 			{
 				path: 'profile',
 				name: 'profile',
+				meta: { isAuth: true },
 				component: () => import('../views/Profile/index.vue')
 			}
 		]

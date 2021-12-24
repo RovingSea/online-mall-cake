@@ -9,7 +9,7 @@
       <br />
       <span>￥ {{detail.price}}</span>
     </div>
-    <div class="button" @click="goShopCart(2)">加入购物车</div>
+    <div class="button" @click="goShopCart(detail.id)">加入购物车</div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { reqGoodsDetail } from '../../api/index.js'
-import { reqAddToShopCart } from '../../api/index.js'
+import { reqAddToShopCart, reqChangeGoodsNum } from '../../api/index.js'
 export default defineComponent({
   setup() {
     const state = reactive({
@@ -27,19 +27,21 @@ export default defineComponent({
     const router = useRouter()
     // 请求商品详情数据
     reqGoodsDetail({ id: route.params.id }).then(res => {
-      console.log(res)
+      console.log(res, '商品详情')
       state.detail = res.data.response
     })
+
     // 加入购物车并且跳转到购物车
-    const goShopCart = id => {
-      reqAddToShopCart({ id }).then(res => {
-        // 加入购物车
+    const goShopCart = goodsId => {
+      console.log(goodsId)
+      reqAddToShopCart({ goodsId }).then(res => {
+        if (res.data.code == 1) {
+          alert('成功加入购物车')
+        }
+        console.log(res, 'addToShopCart')
       })
       router.push({
-        name: 'shopcart',
-        params: {
-          id
-        }
+        name: 'shopcart'
       })
     }
     return {

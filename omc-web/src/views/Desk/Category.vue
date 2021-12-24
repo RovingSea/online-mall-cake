@@ -41,10 +41,9 @@
 </template>
 
 <script>
-import { reqGoodsCategory, reqAddToShopCart } from '@/api/index.js'
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { reqGoodsByCategory } from '@/api/index.js'
+import { reqGoodsByCategory, reqGoodsCategory, reqAddToShopCart } from '@/api/index.js'
 export default {
   setup() {
     const state = reactive({
@@ -53,6 +52,7 @@ export default {
       goodsList: []
     })
     reqGoodsCategory().then(res => {
+      console.log(res)
       state.categoryList = res.data.response
     })
     // 点击切换查询商品种类

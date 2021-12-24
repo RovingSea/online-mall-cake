@@ -1,7 +1,7 @@
 <template>
   <div class="Header">
     <div class="title flex-item">
-      <img src="../../assets/logo.png" alt="" />
+      <img src="../../assets/logo.png" alt />
       蛋糕店后台
     </div>
     <router-link :to="{ name: 'order' }">订单管理</router-link>
@@ -17,12 +17,13 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   setup() {
     return {}
-  },
+  }
 })
 </script>
 
 <style scoped lang="less">
 .Header {
+  min-width: 1280px;
   position: fixed;
   z-index: 1000;
   background-color: #fff;

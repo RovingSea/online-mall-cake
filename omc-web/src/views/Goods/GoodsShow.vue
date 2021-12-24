@@ -59,7 +59,7 @@ export default defineComponent({
     const state = reactive({
       goodsList: [],
       currentIndex: 1,
-      whichPage: 1,
+      whichPage: 1, //发送给服务端请求的页码
       eachPageSize: 2,
       total: 0,
       currentPage: 1,
@@ -80,20 +80,31 @@ export default defineComponent({
           state.total = result.databaseDataSize
           state.currentPage = result.currentPage
         })
+      } else if (id === 2) {
+        reqAllRecommend(data).then(res => {
+          console.log(res)
+          result = res.data.response
+          state.goodsList = result.data
+          state.total = result.databaseDataSize
+          state.currentPage = result.currentPage
+        })
+      } else if (id === 3) {
+        reqHotRecommend(data).then(res => {
+          console.log(res)
+          result = res.data.response
+          state.goodsList = result.data
+          state.total = result.databaseDataSize
+          state.currentPage = result.currentPage
+        })
+      } else {
+        reqNewRecommend(data).then(res => {
+          console.log(res)
+          result = res.data.response
+          state.goodsList = result.data
+          state.total = result.databaseDataSize
+          state.currentPage = result.currentPage
+        })
       }
-      //  else if (id === 2) {
-      //   reqAllRecommend(data).then(res => {
-      //     result = res.data.response
-      //   })
-      // } else if (id === 3) {
-      //   reqHotRecommend(data).then(res => {
-      //     result = res.data.response
-      //   })
-      // } else {
-      //   reqNewRecommend(data).then(res => {
-      //     result = res.data.response
-      //   })
-      // }
     }
     navClick(1)
 
@@ -104,9 +115,10 @@ export default defineComponent({
     }
     // tap切换
     function tapClick(id) {
-      if (state.currentTapId == id) {
+      if (state.currentTapId != id) {
         //重新初始化
         state.currentPage = 1
+        state.whichPage = 1
       }
       state.currentTapId = id
       navClick(id)

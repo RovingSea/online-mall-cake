@@ -15,18 +15,15 @@
       </div>
 
       <tbody>
-        <tr id="12799" class="cart-object-item">
+        <tr id="12799" class="cart-object-item" v-for="item in shopCartList" :key="item.goodsId">
           <td class="goods-img">
-            <a href="/product-12799.html" target="_blank">
-              <img src="//oss.51cocoa.com/public/images/f9/6f/bd/2484de0a79055f6713bc5f71dbf6100c.jpg" />
-              <!-- <div class = "exchange-text">兑</div> -->
-            </a>
+            <img :src="item.image1" />
           </td>
           <td class="goods-cake">
             <div>
               <p class="cart-tips">最早配送时间 2021-12-19 09:30~10:00</p>
               <h4 class="cart-title">
-                <a href="/product-12799.html" target="_blank">四口味挂耳咖啡混合装（4包入）</a>
+                <a>{{item.goodsName}}</a>
               </h4>
               <span class="goods-spec">
                 规格：
@@ -35,16 +32,16 @@
             </div>
           </td>
           <td class="select-birthday-td"></td>
-          <td class="cart-unit-Price">¥40.00</td>
+          <td class="cart-unit-Price">¥{{item.price}}</td>
           <td class="number-li">
             <div class="number quantity-update">
-              <button>-</button>
-              <input type="text" class="quantity _quantity" data-indent="12799" data-price="40.000" data-max="99" value="1" />
-              <button>+</button>
+              <button @click="changeGoodsNum(item.shoppingCartId,-1,item.amount)">-</button>
+              <input type="text" class="quantity _quantity" data-indent="12799" data-price="40.000" data-max="99" :value="item.amount" />
+              <button @click="changeGoodsNum(item.shoppingCartId,1,item.amount)">+</button>
             </div>
           </td>
-          <td class="money" id="total_amount_12799">¥40.00</td>
-          <td class="delete">X</td>
+          <td class="money" id="total_amount_12799">¥{{item.price*item.amount}}</td>
+          <td class="delete" @click="deleteGoods(item.shoppingCartId)">X</td>
         </tr>
         <!-- 普通商品结束 -->
       </tbody>
@@ -53,14 +50,14 @@
       <div class="cart-submit cart-area">
         <!-- <a href="#" class="cart-submit-empty user-behavior-tj-analysis" data-action="empty_cart"><i></i>全部清空</a> -->
         <ul class="cart-total-detail">
-          <li>商品金额：¥ 48.00</li>
+          <li>商品金额：¥ {{totalPrice}}</li>
           <!--- <li>配送费：¥ 12.00</li> --->
           <li>活动优惠：¥ 0.00</li>
         </ul>
         <div class="cart-total">
           <span>
             合计：¥
-            <span>48.00</span>
+            <span>{{totalPrice}}</span>
           </span>
         </div>
         <span class="cart-balance" id="cost-freight-tip"></span>
@@ -68,7 +65,7 @@
           <span></span>
         </div>
         <div class="cart-submit-button">
-          <router-link :to="{name:'pay'}">去结算</router-link>
+          <a @click="submit">去结算</a>
         </div>
       </div>
     </div>
@@ -76,18 +73,64 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import { reqProfileShopCart } from '../../api/index.js'
+import { defineComponent, reactive, computed, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
+import { reqProfileShopCart, reqChangeGoodsNum, reqDeleteGoods, reqGenerateOrder } from '../../api/index.js'
 export default defineComponent({
+  computed: {},
   setup() {
     const state = reactive({
-      shopCartList: []
+      shopCartList: [],
+      shoppingCartId: '',
+      total: 0
     })
-    reqProfileShopCart().then(res => {
-      console.log(res)
+    const router = useRouter()
+    // 计算总价格
+    const totalPrice = computed(() => {
+      return state.shopCartList.reduce((pre, cur): number => {
+        return pre + cur.price * cur.amount
+      }, 0)
     })
 
-    return state
+    // 初始化购物车数据
+    function getShopCartInfo() {
+      reqProfileShopCart().then(res => {
+        state.shopCartList = res.data.response
+        state.shoppingCartId = res.data.response[0].shoppingCartId
+      })
+    }
+    getShopCartInfo()
+    // 修改商品的个数
+    function changeGoodsNum(id, changeNum, amount) {
+      if (changeNum == -1 && amount <= 1) {
+        return alert('当前数量无法继续操作')
+      }
+      reqChangeGoodsNum({ id, changeNum }).then(res => {
+        if (res.data.response) {
+          getShopCartInfo()
+        }
+      })
+    }
+    // 删除商品
+    function deleteGoods(id) {
+      reqDeleteGoods({ id }).then(res => {
+        getShopCartInfo()
+      })
+    }
+    // 清空购物车
+    function submit() {
+      reqGenerateOrder().then(res => {
+        console.log(res)
+        router.push({ name: 'pay', params: { shopCartId: state.shoppingCartId, totalPrice: totalPrice.value } })
+      })
+    }
+    return {
+      ...toRefs(state),
+      changeGoodsNum,
+      totalPrice,
+      deleteGoods,
+      submit
+    }
   }
 })
 </script>
@@ -137,8 +180,7 @@ export default defineComponent({
     width: 1200px !important;
     position: relative;
     img {
-      height: 80px;
-      width: 80px;
+      width: 140px;
       border: 1px solid #efefef;
     }
     .goods-cake {
@@ -208,6 +250,7 @@ export default defineComponent({
     right: -77px;
     top: 55px;
     color: #ccc;
+    cursor: pointer;
   }
 
   // 结算

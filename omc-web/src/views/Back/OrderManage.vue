@@ -16,8 +16,7 @@
         <tr>
           <th>ID</th>
           <th>总价</th>
-          <th>商品详情</th>
-          <th>收获信息</th>
+          <th>收获地址</th>
           <th>订单状态</th>
           <th>支付方式</th>
           <th>下单用户</th>
@@ -29,8 +28,7 @@
         <tr>
           <td>77</td>
           <td>299</td>
-          <td>草莓冰淇淋</td>
-          <td>管理员</td>
+          <td>长沙学院</td>
           <td>订单状态</td>
           <td>微信</td>
           <td>admin</td>

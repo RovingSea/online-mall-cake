@@ -117,6 +117,7 @@ export default defineComponent({
   border-bottom: 3px solid @fontColor;
 }
 .header {
+  min-width: 1280px;
   position: fixed;
   z-index: 1000;
   display: flex;
