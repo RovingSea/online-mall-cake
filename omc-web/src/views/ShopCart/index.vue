@@ -1,82 +1,95 @@
 <template>
   <div class="shop-cart">
-    <div class="no-goods-show" v-show="false">
-      <img src="../../assets/images/cartempty.png" alt="">
+    <div class="no-goods-show" v-if="shopCartList.length==0">
+      <img src="../../assets/images/cartempty.png" alt />
       <span>您的购物车里还没有商品</span>
       <router-link :to="{name:'new'}">去购物 > ></router-link>
     </div>
-    <div>
-    </div>
-    <div class="header">
-      <li class="goods-ti">商品</li>
-      <li class="birthday-card-ti">生日牌</li>
-      <li class="unit-Price" style="width:115px">单价</li>
-      <li class="number-ti" style="width:150px">数量</li>
-      <li class="money-ti" colspan="2" style="width:180px">金额</li>
-    </div>
+    <div class="main" v-else>
+      <div class="header">
+        <li class="goods-ti">商品</li>
+        <li class="birthday-card-ti">生日牌</li>
+        <li class="unit-Price" style="width:115px">单价</li>
+        <li class="number-ti" style="width:150px">数量</li>
+        <li class="money-ti" colspan="2" style="width:180px">金额</li>
+      </div>
 
-    <tbody>
-      <tr id="12799" class="cart-object-item  ">
-        <td class="goods-img">
-          <a href="/product-12799.html" target="_blank">
-            <img src="//oss.51cocoa.com/public/images/f9/6f/bd/2484de0a79055f6713bc5f71dbf6100c.jpg">
-            <!-- <div class = "exchange-text">兑</div> -->
-          </a>
-        </td>
-        <td class="goods-cake">
-          <div>
-            <p class="cart-tips">最早配送时间 2021-12-19 09:30~10:00</p>
-            <h4 class="cart-title">
-              <a href="/product-12799.html" target="_blank">四口味挂耳咖啡混合装（4包入）</a>
-            </h4>
-            <span class="goods-spec">规格：<span>40g(4包)</span></span>
-          </div>
-        </td>
-        <td class="select-birthday-td">
-        </td>
-        <td class="cart-unit-Price">
-          ¥40.00 </td>
-        <td class="number-li">
-          <div class="number quantity-update">
-            <button>-</button>
-            <input type="text" class="quantity _quantity" data-indent="12799" data-price="40.000" data-max="99" value="1">
-            <button>+</button>
-          </div>
-        </td>
-        <td class="money" id="total_amount_12799">
-          ¥40.00 </td>
-        <td class="delete">
-          X
-        </td>
-      </tr>
-      <!-- 普通商品结束 -->
-    </tbody>
+      <tbody>
+        <tr id="12799" class="cart-object-item">
+          <td class="goods-img">
+            <a href="/product-12799.html" target="_blank">
+              <img src="//oss.51cocoa.com/public/images/f9/6f/bd/2484de0a79055f6713bc5f71dbf6100c.jpg" />
+              <!-- <div class = "exchange-text">兑</div> -->
+            </a>
+          </td>
+          <td class="goods-cake">
+            <div>
+              <p class="cart-tips">最早配送时间 2021-12-19 09:30~10:00</p>
+              <h4 class="cart-title">
+                <a href="/product-12799.html" target="_blank">四口味挂耳咖啡混合装（4包入）</a>
+              </h4>
+              <span class="goods-spec">
+                规格：
+                <span>40g(4包)</span>
+              </span>
+            </div>
+          </td>
+          <td class="select-birthday-td"></td>
+          <td class="cart-unit-Price">¥40.00</td>
+          <td class="number-li">
+            <div class="number quantity-update">
+              <button>-</button>
+              <input type="text" class="quantity _quantity" data-indent="12799" data-price="40.000" data-max="99" value="1" />
+              <button>+</button>
+            </div>
+          </td>
+          <td class="money" id="total_amount_12799">¥40.00</td>
+          <td class="delete">X</td>
+        </tr>
+        <!-- 普通商品结束 -->
+      </tbody>
 
-    <!-- 结算 -->
-    <div class="cart-submit cart-area">
-      <!-- <a href="#" class="cart-submit-empty user-behavior-tj-analysis" data-action="empty_cart"><i></i>全部清空</a> -->
-      <ul class="cart-total-detail">
-        <li>商品金额：¥ 48.00</li>
-        <!--- <li>配送费：¥ 12.00</li> --->
-        <li>活动优惠：¥ 0.00</li>
-      </ul>
-      <div class="cart-total"><span>合计：¥<span>48.00</span></span></div>
-      <span class="cart-balance" id="cost-freight-tip"></span>
-      <div class="cart-notice-ac"><span></span></div>
-      <div class="cart-submit-button">
-        <router-link :to="{name:'pay'}">去结算</router-link>
+      <!-- 结算 -->
+      <div class="cart-submit cart-area">
+        <!-- <a href="#" class="cart-submit-empty user-behavior-tj-analysis" data-action="empty_cart"><i></i>全部清空</a> -->
+        <ul class="cart-total-detail">
+          <li>商品金额：¥ 48.00</li>
+          <!--- <li>配送费：¥ 12.00</li> --->
+          <li>活动优惠：¥ 0.00</li>
+        </ul>
+        <div class="cart-total">
+          <span>
+            合计：¥
+            <span>48.00</span>
+          </span>
+        </div>
+        <span class="cart-balance" id="cost-freight-tip"></span>
+        <div class="cart-notice-ac">
+          <span></span>
+        </div>
+        <div class="cart-submit-button">
+          <router-link :to="{name:'pay'}">去结算</router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from 'vue'
+import { reqProfileShopCart } from '../../api/index.js'
 export default defineComponent({
   setup() {
-    return {};
-  },
-});
+    const state = reactive({
+      shopCartList: []
+    })
+    reqProfileShopCart().then(res => {
+      console.log(res)
+    })
+
+    return state
+  }
+})
 </script>
 
 <style scoped lang="less">

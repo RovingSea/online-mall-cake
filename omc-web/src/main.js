@@ -9,6 +9,7 @@ import Alert from '@/components/Alert.vue'
 
 import '@/mock/mockServe.js'
 
+import { Lazyload } from 'vant'
 // 导入路由
 import router from './router/index'
 
@@ -24,4 +25,5 @@ app.use(ElementPlus)
 app.component(Pagination.name, Pagination)
 app.component(Alert.name, Alert)
 app.use(router)
+app.use(Lazyload)
 app.mount('#app')

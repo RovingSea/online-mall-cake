@@ -10,10 +10,10 @@ export const reqLogin = data =>
 	request({
 		url: 'common/login',
 		method: 'post',
-		data,
-		headers: {
-			'Content-Type': 'multipart/form-data'
-		}
+		data
+		// headers: {
+		// 	'Content-Type': 'multipart/form-data'
+		// }
 	})
 // 查询商品所有种类
 export const reqGoodsCategory = () => request({ url: '/common/type/all', method: 'get' })
@@ -34,3 +34,18 @@ export const reqNewGoods = () => request({ url: '/common/goods/get/new', method:
 
 // 根据商品类型查询数据
 export const reqGoodsByCategory = data => request({ url: 'common/goods/select/page/type', method: 'post', data })
+
+// 更新个人信息
+export const reqProfileInfo = () => request({ url: '/user/current', method: 'get' })
+
+// 商品添加到购物车
+
+export const reqAddToShopCart = data => request({ url: '/user/goods/add/shoppingCart', method: 'post', data })
+// 查看个人购物车
+
+export const reqProfileShopCart = () => request({ url: '/user/shoppingCart/mine', method: 'get' })
+
+/* 管理员接口 */
+
+// 添加商品
+export const addGoods = data => request({ url: '/admin/goods/add', method: 'post', data })

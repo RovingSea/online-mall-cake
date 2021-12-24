@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order">
     <div class="header">
       <ul>
         <li
@@ -8,9 +8,7 @@
           :class="{ active: index === currentIndex }"
           @click="changeIndex(index)"
           :data-a="currentIndex"
-        >
-          {{ item }}
-        </li>
+        >{{ item }}</li>
       </ul>
     </div>
     <table>
@@ -44,13 +42,7 @@
         </tr>
       </tbody>
     </table>
-    <Pagination
-      :total="50"
-      :pageSize="4"
-      :pageNo="1"
-      :continues="5"
-      class="pagination"
-    />
+    <Pagination :total="50" :pageSize="4" :pageNo="1" :continues="5" class="pagination" />
   </div>
 </template>
 
@@ -58,7 +50,7 @@
 import { defineComponent, ref } from 'vue'
 export default defineComponent({
   setup() {
-    let orders = ['全部订单', '未付款', '已付款', '配送中', '已完成']
+    let orders = ['全部订单', '未付款', '已付款']
     let currentIndex = ref(0)
     function changeIndex(index) {
       currentIndex.value = index
@@ -66,17 +58,23 @@ export default defineComponent({
     return {
       currentIndex,
       changeIndex,
-      orders,
+      orders
     }
-  },
+  }
 })
 </script>
 
 <style scoped lang="less">
+.order {
+  width: 1200px;
+  margin: 0 auto;
+}
 .header {
+  width: 700px;
+  margin: 0 auto;
   ul {
     display: flex;
-    margin-top: 40px;
+    margin-top: 30px;
     width: 700px;
     height: 50px;
     line-height: 50px;

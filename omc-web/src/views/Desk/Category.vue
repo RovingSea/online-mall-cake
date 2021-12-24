@@ -2,11 +2,16 @@
   <div class="category">
     <div class="header">
       <span class="title">分类:</span>
-      <span v-for="item in categoryList" :key="item.id" @click="categoryClick(item.id)">{{item.name}}</span>
+      <span
+        v-for="(item,index) in categoryList"
+        :key="item.id"
+        :class="{active:currentIndex==index+1}"
+        @click="categoryClick(item.id,index+1)"
+      >{{item.name}}</span>
     </div>
     <div class="main">
       <div class="cake" v-for="item in goodsList" :key="item.id">
-        <img :src="item.image1" alt class="back" @click="goDetail(item.id)" />
+        <img v-lazy="item.image1" alt class="back" @click="goDetail(item.id)" />
         <span class="title">{{item.name}}</span>
         <p class="desc">{{item.intro}}</p>
         <span class="price">￥ {{item.price}}/一份</span>
@@ -28,7 +33,7 @@
             />
           </svg>
           &nbsp;&nbsp;
-          <span>加入购物车</span>
+          <span @click="addToShopCart(item.id)">加入购物车</span>
         </div>
       </div>
     </div>
@@ -36,7 +41,7 @@
 </template>
 
 <script>
-import { reqGoodsCategory } from '@/api/index.js'
+import { reqGoodsCategory, reqAddToShopCart } from '@/api/index.js'
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { reqGoodsByCategory } from '@/api/index.js'
@@ -48,31 +53,48 @@ export default {
       goodsList: []
     })
     reqGoodsCategory().then(res => {
-      console.log(res)
       state.categoryList = res.data.response
     })
     // 点击切换查询商品种类
-    function categoryClick(id) {
+    function categoryClick(id, index) {
+      state.currentIndex = index
       const data = {
         whichPage: 1,
         eachPageSize: 8,
         typeId: id
       }
       reqGoodsByCategory(data).then(res => {
-        console.log(res)
         state.goodsList = res.data.response.data
       })
     }
     const router = useRouter()
-    function goDetail(id) {
+    function goDetail(id, index) {
+      state.currentIndex = index
       router.push({ name: 'detail', params: { id } })
     }
     // 默认执行第一
     categoryClick(1)
+
+    // 加入到购物车
+    const addToShopCart = goodsId => {
+      try {
+        reqAddToShopCart({ goodsId }).then(res => {
+          if (res.data.response) {
+            alert('加入成功')
+          } else {
+            alert('当前尚未登录无法加入到购物车')
+          }
+        })
+      } catch (error) {
+        alert('网络问题，请稍后重试')
+      }
+    }
+
     return {
       ...toRefs(state),
       categoryClick,
-      goDetail
+      goDetail,
+      addToShopCart
     }
   }
 }
@@ -144,5 +166,9 @@ export default {
       }
     }
   }
+}
+//
+.active {
+  color: @hoverColor !important;
 }
 </style>

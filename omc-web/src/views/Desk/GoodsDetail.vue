@@ -17,6 +17,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { reqGoodsDetail } from '../../api/index.js'
+import { reqAddToShopCart } from '../../api/index.js'
 export default defineComponent({
   setup() {
     const state = reactive({
@@ -29,7 +30,11 @@ export default defineComponent({
       console.log(res)
       state.detail = res.data.response
     })
+    // 加入购物车并且跳转到购物车
     const goShopCart = id => {
+      reqAddToShopCart({ id }).then(res => {
+        // 加入购物车
+      })
       router.push({
         name: 'shopcart',
         params: {

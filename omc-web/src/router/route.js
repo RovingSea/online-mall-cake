@@ -7,6 +7,7 @@ const routes = [
 		name: 'back',
 		meta: { isAuth: true },
 		component: Back,
+		redirect: { name: 'order' },
 		children: [
 			{
 				path: 'goods',
