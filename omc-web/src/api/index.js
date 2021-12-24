@@ -49,3 +49,14 @@ export const reqProfileShopCart = () => request({ url: '/user/shoppingCart/mine'
 
 // 添加商品
 export const addGoods = data => request({ url: '/admin/goods/add', method: 'post', data })
+
+// 查询所有商品数据
+export const reqAllGoods = data => request({ url: '/common/goods/select/page', method: 'post', data })
+// 条幅推荐
+export const reqAllRecommend = data => request({ url: '/common/goods/get/recommend', method: 'get', data })
+// 所有热销商品
+export const reqHotRecommend = data => request({ url: '/common/goods/get/page/hot', method: 'post', data })
+// 所有新品推荐
+export const reqNewRecommend = data => request({ url: '/common/goods/get/page/new', method: 'post', data })
+// 所有商品种类
+export const reqAllGoodsCategory = () => request({ url: '/common/type/all', method: 'get' })

@@ -2,10 +2,18 @@
   <div class="goods-show">
     <div class="header">
       <ul>
-        <li> <img src="../../assets/images/cake1.png" alt=""> 全部商品</li>
-        <li> <img src="../../assets/images/cake2.png" alt=""> 条幅推荐</li>
-        <li> <img src="../../assets/images/cake3.png" alt=""> 热销推荐</li>
-        <li> <img src="../../assets/images/cake4.png" alt=""> 新品推荐</li>
+        <li @click="tapClick(1)">
+          <img src="../../assets/images/cake1.png" alt /> 全部商品
+        </li>
+        <li @click="tapClick(2)">
+          <img src="../../assets/images/cake2.png" alt /> 条幅推荐
+        </li>
+        <li @click="tapClick(3)">
+          <img src="../../assets/images/cake3.png" alt /> 热销推荐
+        </li>
+        <li @click="tapClick(4)">
+          <img src="../../assets/images/cake4.png" alt /> 新品推荐
+        </li>
       </ul>
     </div>
     <table>
@@ -21,53 +29,96 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>10</td>
-          <td><img src="https://picsum.photos/id/544/200/200" alt=""></td>
-          <td>芝士条</td>
+        <tr v-for="item in goodsList" :key="item.id">
+          <td>{{item.id}}</td>
           <td>
-            。。。。。。。。。。。。。。。。
+            <img :src="item.image1" alt />
           </td>
-          <td>28.0</td>
-          <td>儿童系列</td>
+          <td>{{item.name}}</td>
+          <td>{{item.intro}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.typeName}}</td>
           <td>
-            <div>移除条幅</div>
             <div>移除热销</div>
             <div>移除新品</div>
             <div style="background-color: #e63326">删除</div>
             <div style="background-color: #e6a726">修改</div>
           </td>
         </tr>
-        <tr>
-          <td>10</td>
-          <td><img src="https://picsum.photos/id/544/200/200" alt=""></td>
-          <td>芝士条</td>
-          <td>
-            。。。。。。。。。。。。。。。。
-          </td>
-          <td>28.0</td>
-          <td>儿童系列</td>
-          <td>
-            <div>移除条幅</div>
-            <div>移除热销</div>
-            <div>移除新品</div>
-            <div>删除</div>
-            <div>修改</div>
-          </td>
-        </tr>
       </tbody>
     </table>
-    <router-view></router-view>
+    <Pagination :total="total" :pageSize="eachPageSize" :pageNo="currentPage" :continues="5" class="pagination" @getPageNo="getPageNo" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive, toRefs } from 'vue'
+import { reqAllGoods, reqAllRecommend, reqHotRecommend, reqNewRecommend } from '../../../src/api/index.js'
 export default defineComponent({
   setup() {
-    return {};
-  },
-});
+    const state = reactive({
+      goodsList: [],
+      currentIndex: 1,
+      whichPage: 1,
+      eachPageSize: 2,
+      total: 0,
+      currentPage: 1,
+      currentTapId: 1
+    })
+    // 根据不同导航选项的切换内容
+    function navClick(id) {
+      const data = {
+        whichPage: state.whichPage,
+        eachPageSize: state.eachPageSize
+      }
+      let result = null
+      // 请求所有商品数据
+      if (id === 1) {
+        reqAllGoods(data).then(res => {
+          result = res.data.response
+          state.goodsList = result.data
+          state.total = result.databaseDataSize
+          state.currentPage = result.currentPage
+        })
+      }
+      //  else if (id === 2) {
+      //   reqAllRecommend(data).then(res => {
+      //     result = res.data.response
+      //   })
+      // } else if (id === 3) {
+      //   reqHotRecommend(data).then(res => {
+      //     result = res.data.response
+      //   })
+      // } else {
+      //   reqNewRecommend(data).then(res => {
+      //     result = res.data.response
+      //   })
+      // }
+    }
+    navClick(1)
+
+    // 分页器控制
+    function getPageNo(num) {
+      state.whichPage = num
+      navClick(state.currentTapId)
+    }
+    // tap切换
+    function tapClick(id) {
+      if (state.currentTapId == id) {
+        //重新初始化
+        state.currentPage = 1
+      }
+      state.currentTapId = id
+      navClick(id)
+    }
+    return {
+      ...toRefs(state),
+      navClick,
+      getPageNo,
+      tapClick
+    }
+  }
+})
 </script>
 
 <style scoped lang="less">
@@ -143,6 +194,9 @@ export default defineComponent({
         }
       }
     }
+  }
+  .pagination {
+    margin-top: 20px;
   }
 }
 </style>

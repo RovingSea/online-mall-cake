@@ -4,28 +4,28 @@
     <div class="main">
       <ul>
         <li>
-          <label for="name">名称:</label
-          ><input v-model="name" type="text" id="name" />
+          <label for="name">名称:</label>
+          <input v-model="name" type="text" id="name" />
         </li>
         <li>
-          <label for="price">价格:</label
-          ><input v-model="price" type="text" id="price" />
+          <label for="price">价格:</label>
+          <input v-model="price" type="text" id="price" />
         </li>
         <li>
-          <label for="stock">库存:</label
-          ><input v-model="stock" type="text" id="stock" />
+          <label for="stock">库存:</label>
+          <input v-model="stock" type="text" id="stock" />
         </li>
         <li>
-          <label for="img1">封面图片:</label
-          ><input type="file" id="img1" :ref="images[0]" />
+          <label for="img1">封面图片:</label>
+          <input type="file" id="img1" :ref="images[0]" />
         </li>
         <li>
-          <label for="img1">详情图片1:</label
-          ><input type="file" id="img1" :ref="images[1]" />
+          <label for="img1">详情图片1:</label>
+          <input type="file" id="img1" :ref="images[1]" />
         </li>
         <li>
-          <label for="img2">详情图片2:</label
-          ><input type="file" id="img1" :ref="images[2]" />
+          <label for="img2">详情图片2:</label>
+          <input type="file" id="img1" :ref="images[2]" />
         </li>
         <li>
           <label for="category">种类:</label>
@@ -45,45 +45,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, ref, watchEffect } from 'vue'
+import { defineComponent, toRefs, reactive, ref } from 'vue'
 export default defineComponent({
   setup() {
     const addObj = reactive({
       name: '',
       price: 0,
       stock: 0,
-      category: 'volvo',
+      category: 'volvo'
     })
 
     let images = [ref(null), ref(null), ref(null)]
 
     return {
       ...toRefs(addObj),
-      images,
+      images
     }
   },
-  mounted() {
-    this.getBase64()
-  },
-  methods: {
-    getBase64() {
-      document.querySelector('#img1').addEventListener('change', (e) => {
-        let file = e.target.files[0]
-        let fileUrl = window.URL.createObjectURL(file)
-        this.imgBase1 = fileUrl
-      })
-      document.querySelector('#img2').addEventListener('change', (e) => {
-        let file = e.target.files[0]
-        let fileUrl = window.URL.createObjectURL(file)
-        this.imgBase1 = fileUrl
-      })
-      document.querySelector('#img3').addEventListener('change', (e) => {
-        let file = e.target.files[0]
-        let fileUrl = window.URL.createObjectURL(file)
-        this.imgBase1 = fileUrl
-      })
-    },
-  },
+  methods: {}
 })
 </script>
 

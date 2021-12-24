@@ -1,7 +1,8 @@
 <template>
   <div class="category">
     <div class="search">
-      <input type="text" placeholder="请输入需要添加的蛋糕种类" v-model="cakeClass"><button>添加种类</button>
+      <input type="text" placeholder="请输入需要添加的蛋糕种类" v-model="cakeClass" />
+      <button>添加种类</button>
     </div>
 
     <table>
@@ -13,17 +14,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>冰淇凌系列</td>
-          <td>
-            <div>修改</div>
-            <div>删除</div>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>冰淇凌系列</td>
+        <tr v-for="item in categoryList" :key="item.id">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
           <td>
             <div>修改</div>
             <div>删除</div>
@@ -35,15 +28,21 @@
 </template>
 
 <script >
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive } from 'vue'
+import { reqAllGoodsCategory } from '../../../src/api/index.js'
 export default defineComponent({
   setup() {
-    let cakeClass = ref()
-    return {
-      cakeClass
-    };
-  },
-});
+    const state = reactive({
+      categoryList: []
+    })
+    // 初始化所有种类数据
+    reqAllGoodsCategory().then(res => {
+      console.log(res)
+      state.categoryList = res.data.response
+    })
+    return state
+  }
+})
 </script>
 
 <style scoped lang="less">

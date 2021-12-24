@@ -4,18 +4,24 @@
     <button v-if="startNumAndEndNum.start>1" @click="$emit('getPageNo',1)" :class="{active:pageNo===1}">1</button>
     <button v-if="startNumAndEndNum.start>2 ">···</button>
 
-    <button v-for="(page,index) in startNumAndEndNum.end" :key="index" v-show="page>=startNumAndEndNum.start" @click="$emit('getPageNo',page)" :class="{active:pageNo===page}">{{page}}</button>
+    <button
+      v-for="(page,index) in startNumAndEndNum.end"
+      :key="index"
+      v-show="page>=startNumAndEndNum.start"
+      @click="$emit('getPageNo',page)"
+      :class="{active:pageNo===page}"
+    >{{page}}</button>
 
     <button v-if="startNumAndEndNum.end<totalPage-1">···</button>
     <button v-if="startNumAndEndNum.end<totalPage" @click="$emit('getPageNo',totalPage)" :class="{active:pageNo===totalPage}">{{totalPage}}</button>
-    <button @click="$emit('getPageNo',pageNo+1)" :disabled='pageNo>=totalPage'>下一页</button>
+    <button @click="$emit('getPageNo',pageNo+1)" :disabled="pageNo>=totalPage">下一页</button>
     <button style="margin-left: 30px">共 {{total}} 条</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Pagination",
+  name: 'Pagination',
   props: ['total', 'pageSize', 'pageNo', 'continues'],
   computed: {
     // 总页面
@@ -25,7 +31,8 @@ export default {
     //计算连续的页码的起始和结束数字
     startNumAndEndNum() {
       const { continues, pageNo, totalPage } = this
-      let start = 0, end = 0;
+      let start = 0,
+        end = 0
       // 不正常现象,连续的页数比总页数要多
       if (continues > totalPage) {
         start = 1

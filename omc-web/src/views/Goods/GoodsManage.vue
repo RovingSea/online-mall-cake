@@ -2,13 +2,6 @@
   <div class="goodsManager">
     <button class="add-good" @click="addGoods">添加商品</button>
     <router-view></router-view>
-    <Pagination
-      :total="50"
-      :pageSize="4"
-      :pageNo="1"
-      :continues="5"
-      v-show="route.path == '/back/goods/goodsshow'"
-    />
   </div>
 </template>
 
@@ -24,9 +17,9 @@ export default defineComponent({
     }
     return {
       addGoods,
-      route,
+      route
     }
-  },
+  }
 })
 </script>
 
