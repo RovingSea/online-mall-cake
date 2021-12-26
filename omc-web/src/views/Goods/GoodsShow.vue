@@ -34,17 +34,36 @@
           <td>
             <img :src="item.image1" alt />
           </td>
-          <td>{{item.name}}</td>
-          <td>{{item.intro}}</td>
-          <td>{{item.price}}</td>
-          <td>{{item.typeName}}</td>
+          <td>
+            {{item.name}}
+            <textarea v-show="item.id==currentId" cols="20" rows="4" v-model="name"></textarea>
+          </td>
+          <td>
+            {{item.intro}}
+            <textarea v-show="item.id==currentId" cols="20" rows="4" v-model="intro"></textarea>
+          </td>
+          <td>
+            {{item.price}}
+            <input v-show="item.id==currentId" type="text" v-model="price" />
+          </td>
+          <td>
+            {{item.typeName}}
+            <select v-model="typeId" v-show="item.id==currentId">
+              <option value="1">蛋糕</option>
+              <option value="2">面包</option>
+              <option value="3">冰淇凌</option>
+              <option value="4">下午茶</option>
+              <option value="5">设计师礼品</option>
+            </select>
+          </td>
           <td>
             <div v-if="item.isHot" @click="changeGoodsState(item.id,1)">移除热销</div>
             <div v-else style="background-color: green" @click="changeGoodsState(item.id,2)">加入热销</div>
             <div v-if="item.isNew" @click="changeGoodsState(item.id,3)">移除新品</div>
             <div v-else style="background-color: green" @click="changeGoodsState(item.id,4)">加入新品</div>
             <div style="background-color: #e63326" @click="deleteGoods(item.id)">删除</div>
-            <div style="background-color: #e6a726">修改</div>
+            <div v-if="!isChange" style="background-color: #e6a726" @click="changeGoods(item.id)">修改</div>
+            <div v-else style="background-color: #a6a123" @click="CompleteChange">完成</div>
           </td>
         </tr>
       </tbody>
@@ -54,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   reqAllGoods,
@@ -65,7 +84,8 @@ import {
   reqRemoveHot,
   reqRemoveNew,
   reqToHot,
-  reqToNew
+  reqToNew,
+  reqChangeGoods
 } from '../../../src/api/index.js'
 export default defineComponent({
   setup() {
@@ -76,8 +96,11 @@ export default defineComponent({
       eachPageSize: 2,
       total: 0,
       currentPage: 1,
-      currentTapId: 1
+      currentTapId: 1,
+      currentId: '',
+      isChange: false
     })
+
     const router = useRouter()
     // 根据不同导航选项的切换内容
     function navClick(id) {
@@ -146,7 +169,6 @@ export default defineComponent({
     }
     //切换商品的热销/新品状态  1-移除热销 2-加入热销  3-移除新品 4-加入新品
     function changeGoodsState(id, num) {
-      console.log(id)
       switch (num) {
         case 1:
           reqRemoveHot({ id }).then(res => {
@@ -171,13 +193,74 @@ export default defineComponent({
       }
       // router.go(0)
     }
+    // 修改商品数据的参数
+    const data = reactive({
+      name: '',
+      price: 0,
+      image1: 5,
+      image2: 1,
+      intro: '',
+      stock: 99,
+      typeId: 1,
+      isHot: false,
+      isNew: false,
+      id: 1
+    })
+    // 修改商品数据
+    function changeGoods(id) {
+      state.isChange = true
+      state.goodsList.forEach(item => {
+        if (item.id == id) {
+          data.id = item.id
+          data.name = item.name
+          data.image1 = item.image1
+          data.image2 = item.image2
+          data.intro = item.intro
+          data.name = item.name
+          data.price = item.price
+          data.isHot = item.isHot
+          data.isNew = item.isNew
+          switch (item.typeName) {
+            case '蛋糕':
+              data.typeId = 1
+              break
+            case '面包':
+              data.typeId = 2
+              break
+            case '冰淇凌':
+              data.typeId = 3
+              break
+            case '下午茶':
+              data.typeId = 4
+              break
+            case '设计师礼品':
+              data.typeId = 5
+              break
+          }
+        }
+      })
+      state.currentId = id
+    }
+    // 完成修改
+    function CompleteChange() {
+      reqChangeGoods(data).then(res => {
+        state.isChange = false
+        state.currentId = ''
+        nextTick(() => {
+          router.go(0)
+        })
+      })
+    }
     return {
       ...toRefs(state),
+      ...toRefs(data),
       navClick,
       getPageNo,
       tapClick,
       deleteGoods,
-      changeGoodsState
+      changeGoodsState,
+      changeGoods,
+      CompleteChange
     }
   }
 })

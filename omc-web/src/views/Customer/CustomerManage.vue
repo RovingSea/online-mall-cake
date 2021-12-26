@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class>
     <div class="add-cur" @click="addCustomer">添加客户</div>
     <div class="main">
       <router-view></router-view>
@@ -8,8 +8,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+
 export default defineComponent({
   setup() {
     const router = useRouter()
@@ -19,7 +20,7 @@ export default defineComponent({
     return {
       addCustomer
     }
-  },
+  }
 })
 </script>
 

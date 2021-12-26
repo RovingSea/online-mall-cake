@@ -3,38 +3,63 @@
     <ul>
       <li>
         <label for>用户名</label>
-        <input type="text" />
+        <input type="text" v-model="username" />
       </li>
       <li>
         <label for>邮箱</label>
-        <input type="text" />
+        <input type="text" v-model="email" />
       </li>
       <li>
         <label for>收件人</label>
-        <input type="text" />
+        <input type="text" v-model="name" />
       </li>
       <li>
-        <label for>用户名</label>
-        <input type="text" />
+        <label for>电话</label>
+        <input type="text" v-model="phone" />
       </li>
       <li>
-        <label for>用户名</label>
-        <input type="text" />
-      </li>
-      <li>
-        <label for>用户名</label>
-        <input type="text" />
+        <label for>地址</label>
+        <input type="text" v-model="address" />
       </li>
     </ul>
-    <div class="save">提交保存</div>
+    <div class="save" @click="submit">提交保存</div>
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, toRefs, reactive } from 'vue'
+import { reqRegister } from '@/api/index.js'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   setup() {
-    return {}
+    const router = useRouter()
+    const state = reactive({
+      username: '',
+      password: '123456',
+      email: '',
+      phone: '',
+      address: '',
+      name: ''
+    })
+    // 添加客户
+    function submit() {
+      Object.keys(state).forEach(item => {
+        if (state[item] == '') return false
+      })
+      const data = {
+        ...state,
+        isAdmin: false,
+        isValidate: true
+      }
+      reqRegister(data).then(res => {
+        alert(res.data.response)
+        router.back()
+      })
+    }
+    return {
+      ...toRefs(state),
+      submit
+    }
   }
 })
 </script>

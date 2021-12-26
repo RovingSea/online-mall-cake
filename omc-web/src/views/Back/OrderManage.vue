@@ -21,42 +21,81 @@
           <th>支付方式</th>
           <th>下单用户</th>
           <th>下单时间</th>
-          <th>操作</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>77</td>
-          <td>299</td>
-          <td>长沙学院</td>
-          <td>订单状态</td>
+        <tr v-for="item in orderInfo" :key="item.id">
+          <td>{{item.orderId}}</td>
+          <td>{{item.total}}</td>
+          <td>{{item.address}}</td>
+          <td>{{item.status==1? '已付款':'未付款'}}</td>
           <td>微信</td>
-          <td>admin</td>
-          <td>2019</td>
-          <td>
-            <button>完成</button>
-            <button>删除</button>
-          </td>
+          <td>{{item.name}}</td>
+          <td>{{item.datetime}}</td>
         </tr>
       </tbody>
     </table>
-    <Pagination :total="50" :pageSize="4" :pageNo="1" :continues="5" class="pagination" />
+    <Pagination :total="total" :pageSize="eachPageSize" :pageNo="whichPage" :continues="2" class="pagination" @getPageNo="getPageNo" />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
+import { reqAllOrders, reqAllUnpaidOrder, reqAllPaidOrder } from '@/api/index.js'
 export default defineComponent({
   setup() {
-    let orders = ['全部订单', '未付款', '已付款']
-    let currentIndex = ref(0)
+    const state = reactive({
+      orders: ['全部订单', '未付款', '已付款'],
+      currentIndex: 0,
+      whichPage: 1,
+      eachPageSize: 3,
+      orderInfo: [],
+      total: 0
+    })
     function changeIndex(index) {
-      currentIndex.value = index
+      state.currentIndex = index
+      getOrder()
+      state.whichPage = 1
+    }
+    // 初始化数据
+    function getOrder() {
+      const data = {
+        whichPage: state.whichPage,
+        eachPageSize: state.eachPageSize
+      }
+      switch (state.currentIndex) {
+        case 0:
+          reqAllOrders(data).then(res => {
+            state.orderInfo = res.data.data
+            state.total = res.data.databaseDataSize
+          })
+          break
+        case 1:
+          reqAllUnpaidOrder(data).then(res => {
+            state.orderInfo = res.data.data
+            state.total = res.data.databaseDataSize
+          })
+          break
+        case 2:
+          reqAllPaidOrder(data).then(res => {
+            console.log(res)
+            state.orderInfo = res.data.data
+            state.total = res.data.databaseDataSize
+          })
+          break
+      }
+    }
+    getOrder()
+    // 修改分页
+    function getPageNo(num) {
+      state.whichPage = num
+      getOrder()
     }
     return {
-      currentIndex,
+      ...toRefs(state),
+      getOrder,
       changeIndex,
-      orders
+      getPageNo
     }
   }
 })

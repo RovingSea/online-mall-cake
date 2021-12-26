@@ -11,9 +11,6 @@ export const reqLogin = data =>
 		url: 'common/login',
 		method: 'post',
 		data
-		// headers: {
-		// 	'Content-Type': 'multipart/form-data'
-		// }
 	})
 // 查询商品所有种类
 export const reqGoodsCategory = () => request({ url: '/common/type/all', method: 'get' })
@@ -73,7 +70,15 @@ export const reqRemoveHot = data => request({ url: '/admin/goods/be/not/hot', me
 export const reqRemoveNew = data => request({ url: '/admin/goods/be/not/new', method: 'post', data })
 // 查询所有用户
 export const reqAllUser = data => request({ url: '/admin/user/page/all', method: 'post', data })
-// 修改用户信息
-export const reqChangeUserInfo = data => request({ url: '' })
+// 查询所有用户的全部订单
+export const reqAllOrders = data => request({ url: '/admin/order/all', method: 'post', data })
+// 查询所有用户的未付款订单
+export const reqAllUnpaidOrder = data => request({ url: '/admin/order/unpaid', method: 'post', data })
+// 查询所有用户的付款订单
+export const reqAllPaidOrder = data => request({ url: '/admin/order/paid', method: 'post', data })
 // 删除某个用户
-export const reqDeleteUSesr = data => request({ url: '/admin/user/delete', method: 'post', data })
+export const reqDeleteUser = data => request({ url: '/admin/user/delete', method: 'post', data })
+// 跟新某个用户
+export const reqUpdateUser = data => request({ url: '/admin/goods/be/new', method: 'post', data })
+// 跟新商品数据
+export const reqChangeGoods = data => request({ url: '/admin/goods/update', method: 'post', data })

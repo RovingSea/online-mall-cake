@@ -4,7 +4,7 @@ import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 const request = axios.create({
-	baseURL: 'http://www.ccsu1204branch.com/omc/api/',
+	baseURL: 'http://180.76.136.123:13400/omc/api/',
 	timeout: 5000
 })
 import { getToken } from '../utils/token.js'
