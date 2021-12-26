@@ -17,25 +17,25 @@
           <td>{{item.id}}</td>
           <td>{{item.username}}</td>
           <td>
-            <textarea v-if="item.id==changeId" v-model="email" cols="10" rows="2"></textarea>
+            <textarea v-if="item.id==changeId" v-model="email" cols="30" rows="2"></textarea>
             <span v-else>{{item.email}}</span>
           </td>
           <td>
-            <textarea v-if="item.id==changeId" v-model="name" cols="10" rows="2"></textarea>
+            <textarea v-if="item.id==changeId" v-model="name" cols="15" rows="2"></textarea>
             <span v-else>{{item.name}}</span>
           </td>
           <td>
-            <textarea v-if="item.id==changeId" v-model="phone" cols="10" rows="2"></textarea>
+            <textarea v-if="item.id==changeId" v-model="phone" cols="15" rows="2"></textarea>
             <span v-else>{{item.phone}}</span>
           </td>
           <td>
-            {{item.address}}
-            <textarea v-if="item.id==changeId" v-model="address" cols="10" rows="2"></textarea>
+            <textarea v-if="item.id==changeId" v-model="address" cols="30" rows="2"></textarea>
             <span v-else>{{item.address}}</span>
           </td>
           <td>
             <button @click="deleteUser(item.id)">删除</button>
-            <button @click="changeUser(item.id)">修改</button>
+            <button @click="changeUser(item.id)" v-if="(changeId!=item.id)|| !isChange">修改</button>
+            <button @click="completeChange(item.id)" v-show="isChange&&changeId==item.id" style="backgroundColor:#0ca070">完成</button>
           </td>
         </tr>
       </tbody>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRef, toRefs } from 'vue'
+import { defineComponent, reactive, nextTick, toRefs } from 'vue'
 import { reqAllUser, reqDeleteUser, reqUpdateUser } from '@/api/index.js'
 export default defineComponent({
   setup() {
@@ -78,31 +78,47 @@ export default defineComponent({
       console.log(id)
       reqDeleteUser({ id }).then(res => {
         console.log(res)
-        // alert(res.data.msg)
         getUserInfo()
       })
     }
     const data = reactive({
-      address: '长沙大学知行一栋502',
-      email: 'b20190202408@stu.ccsu.edu.cn',
+      address: '',
+      email: '',
       id: 1,
       isAdmin: true,
       isValidate: true,
-      name: 'VuJson',
-      password: '123',
-      phone: '15387507459',
-      username: 'shao'
+      name: '',
+      password: '',
+      phone: '',
+      username: ''
     })
     // 跟新某个用户
     function changeUser(id) {
+      state.isChange = true
+      state.userList.forEach(item => {
+        if (item.id == id) {
+          for (let k in item) {
+            data[k] = item[k]
+          }
+        }
+      })
       state.changeId = id
+    }
+    // 完成修改
+    function completeChange(id) {
+      state.isChange = false
+      state.changeId = ''
+      reqUpdateUser(data).then(res => {
+        console.log(res)
+      })
     }
     return {
       ...toRefs(state),
-      ...toRef(data),
+      ...toRefs(data),
       getPageNo,
       deleteUser,
-      changeUser
+      changeUser,
+      completeChange
     }
   }
 })
@@ -115,6 +131,9 @@ table {
   border-collapse: collapse;
   color: @fontColor;
   margin-bottom: 20px;
+  textarea {
+    margin-top: 4px;
+  }
   thead {
     height: 50px;
     line-height: 50px;

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({

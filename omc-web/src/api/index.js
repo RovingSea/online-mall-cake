@@ -46,7 +46,7 @@ export const reqGenerateOrder = () => request({ url: '/user/shoppingCart/empty',
 /* 管理员接口 */
 
 // 添加商品
-export const addGoods = data => request({ url: '/admin/goods/add', method: 'post', data })
+export const reqAddGoods = data => request({ url: '/admin/goods/add', method: 'post', data })
 
 // 查询所有商品数据
 export const reqAllGoods = data => request({ url: '/common/goods/select/page', method: 'post', data })
@@ -82,3 +82,4 @@ export const reqDeleteUser = data => request({ url: '/admin/user/delete', method
 export const reqUpdateUser = data => request({ url: '/admin/goods/be/new', method: 'post', data })
 // 跟新商品数据
 export const reqChangeGoods = data => request({ url: '/admin/goods/update', method: 'post', data })
+//

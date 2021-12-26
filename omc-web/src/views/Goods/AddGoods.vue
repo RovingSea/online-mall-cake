@@ -16,28 +16,21 @@
           <input v-model="stock" type="text" id="stock" />
         </li>
         <li>
+          <label for="intro">介绍:</label>
+          <input v-model="intro" type="text" id="intro" />
+        </li>
+        <li>
           <label for="img1">封面图片:</label>
-          <input type="file" id="img1" :ref="images[0]" />
-        </li>
-        <li>
-          <label for="img1">详情图片1:</label>
-          <input type="file" id="img1" :ref="images[1]" />
-        </li>
-        <li>
-          <label for="img2">详情图片2:</label>
-          <input type="file" id="img1" :ref="images[2]" />
+          <input type="file" id="img1" :ref="img1" />
         </li>
         <li>
           <label for="category">种类:</label>
-          <select id="category" v-model="category">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="opel">Opel</option>
-            <option value="audi">Audi</option>
+          <select id="category" v-model="categoryId">
+            <option :value="item.id" v-for="item in categoryList" :key="item.id">{{item.name}}</option>
           </select>
         </li>
         <li>
-          <button class="submit">提交保存</button>
+          <button class="submit" @click="submit">提交保存</button>
         </li>
       </ul>
     </div>
@@ -45,21 +38,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, ref } from 'vue'
+import { defineComponent, toRefs, reactive } from 'vue'
+import { reqGoodsCategory, reqAddGoods } from '../../api/index'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   setup() {
-    const addObj = reactive({
+    const state = reactive({
       name: '',
       price: 0,
       stock: 0,
-      category: 'volvo'
+      img1: '',
+      intro: '',
+      categoryId: 1,
+      categoryList: []
     })
+    const router = useRouter()
+    reqGoodsCategory().then(res => {
+      console.log(res)
+      state.categoryList = res.data.response
+    })
+    // 添加图片数据
 
-    let images = [ref(null), ref(null), ref(null)]
-
+    function submit() {
+      const data = {
+        name: state.name,
+        image1: 'https://oss.51cocoa.com//goods/14593363138999.jpg',
+        image2: 'https://oss.51cocoa.com//goods/14593363138999.jpg',
+        price: state.price * 1,
+        intro: state.intro,
+        stock: 99,
+        typeId: 1
+      }
+      const { name, price, stock } = state
+      if (name == '' || price == null || stock == null) {
+        return alert('必填内容不能为空')
+      }
+      reqAddGoods(data).then(res => {
+        alert(res.data.msg)
+        router.back()
+      })
+    }
     return {
-      ...toRefs(addObj),
-      images
+      ...toRefs(state),
+      submit
     }
   },
   methods: {}
