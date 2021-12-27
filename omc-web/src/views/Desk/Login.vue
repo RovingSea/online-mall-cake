@@ -99,7 +99,9 @@ export default defineComponent({
         password: obj.password,
         email: obj.email,
         address: obj.email,
-        phone: obj.phone
+        phone: obj.phone,
+        isAdmin: false,
+        isValidate: true
       }
       if (obj.username == '' || obj.password == '' || obj.email == '') {
         alertInfoMsg('用户名,密码,邮箱都必须填', 'error')

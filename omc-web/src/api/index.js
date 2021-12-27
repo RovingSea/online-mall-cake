@@ -79,7 +79,7 @@ export const reqAllPaidOrder = data => request({ url: '/admin/order/paid', metho
 // 删除某个用户
 export const reqDeleteUser = data => request({ url: '/admin/user/delete', method: 'post', data })
 // 跟新某个用户
-export const reqUpdateUser = data => request({ url: '/admin/goods/be/new', method: 'post', data })
+export const reqUpdateUser = data => request({ url: '/admin/user/update', method: 'post', data })
 // 跟新商品数据
 export const reqChangeGoods = data => request({ url: '/admin/goods/update', method: 'post', data })
 //

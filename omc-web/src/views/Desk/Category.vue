@@ -11,7 +11,7 @@
     </div>
     <div class="main">
       <div class="cake" v-for="item in goodsList" :key="item.id">
-        <img v-lazy="item.image1" alt class="back" @click="goDetail(item.id)" />
+        <img :src="item.image1" alt class="back" @click="goDetail(item.id)" />
         <span class="title">{{item.name}}</span>
         <p class="desc">{{item.intro}}</p>
         <span class="price">￥ {{item.price}}/一份</span>
