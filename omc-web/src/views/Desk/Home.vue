@@ -2,9 +2,6 @@
   <div class="list-container">
     <Carousel />
     <div class="main">
-      <!-- <video autoplay muted loop preload poster="../../assets/images/vido.mp4">
-        <source src="../../assets/images/video.jpg" />
-      </video>-->
       <p>ONLINE CAKE</p>
     </div>
     <div class="footer">

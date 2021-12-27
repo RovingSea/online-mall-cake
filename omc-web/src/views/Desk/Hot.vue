@@ -61,6 +61,7 @@ export default defineComponent({
     align-items: left;
     img {
       width: 320px;
+      height: 180px;
     }
     .title {
       font-size: 18x;

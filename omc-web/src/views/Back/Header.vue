@@ -25,6 +25,7 @@ export default defineComponent({
 .Header {
   min-width: 1280px;
   position: fixed;
+  top: 0;
   z-index: 1000;
   background-color: #fff;
   width: 100%;

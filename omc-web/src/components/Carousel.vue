@@ -59,10 +59,27 @@ export default {
         mySwiper.pagination.bullets.eq(0).addClass('swiper-pagination-bullet-active')
       }
       // 获取轮播图数据
-      reqBanners().then(res => {
-        // state.bannerList = res.data.banners;
-        state.bannerList = res
-      })
+      // reqBanners().then(res => {
+      // state.bannerList = res.data.banners;
+      state.bannerList = [
+        {
+          id: '1',
+          imgUrl: '../../images/banner1.jpg'
+        },
+        {
+          id: '2',
+          imgUrl: '../../images/banner2.jpg'
+        },
+        {
+          id: '3',
+          imgUrl: '../../images/banner3.jpg'
+        },
+        {
+          id: '4',
+          imgUrl: '../../images/banner4.jpg'
+        }
+      ]
+      // })
     })
     return state
   }
